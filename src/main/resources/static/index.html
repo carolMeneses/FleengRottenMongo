@@ -10,7 +10,7 @@ and open the template in the editor.
 <html>
     <head>
 
-        <title>Blueprints</title>
+        <title>Fleeing-from-rotten-apples</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -18,95 +18,13 @@ and open the template in the editor.
         <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <!--         importación de los dos nuevos módulos-->
-        
-        <script src="js/apimock.js"></script>
-         <script src="js/apiclient.js"></script>
-        <script src="js/app.js"></script>
+       
 
-        <link rel="stylesheet"
-              href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
     </head>
 
-    <body style="background-color:#08298A;" onLoad="module.init()" >
+    <body >
      
-        <div align="center">
-            <FONT FACE="Elephant" SIZE=6 COLOR="white" >
-            Blueprints </FONT>
-            <!--            <h1 style=""> Blueprints </h1>-->
-
-        </div>
-        <br/>
-        <br/>
-        <br/>
-        <div >
-            <FONT FACE="centuri" SIZE=5 COLOR="white">
-            Author </FONT>
-            <input id="nombre" type="text" name="firstname" value="">
-            <button type="button" onclick="module.setActualizar(document.getElementById('nombre').value)">Get blueprints!</button>
-        </div>
-        <br/>
-        <br/>
-        <br/>
-       
-         
-            <div >
-
-                <style >
-                     canvas{
-                         touch-action: none;
-                         float: right;
-                         align-content: right;
-                         color: #8A0868;
-                         background-color:#dddddd;
-
-
-                     }
-                    table {
-                        font-family: arial, sans-serif;
-                        border-collapse: collapse;
-                        width: 40%;
-                        background-color:white;
-                    }
-
-                    td, th {
-                        border: 1px solid #dddddd;
-                        text-align: left;
-                        padding: 8px;
-                    }
-
-                    tr:nth-child(even) {
-                        background-color: #dddddd;
-                    }
-                  
-                </style>
-
-                <div>
-                    <button type="button" onclick="module.save()">Save/Update!</button>     <button type="button" onclick="module.nuevoBluprint()">Create new blueprint</button>   
-                    <canvas id="canvas" width="400" height="500" style="border:5px solid #0080FF;"></canvas>
-                </div>
-
-             
-
-                                        
-                
-                <div>
-                    <table id="table" >
-                        <tr>
-                            <th id="nombrePlano">Blueprint name</th>
-                            <th id="numeroPuntos">Number of points</th>
-                            <th id="botonAbrir">open</th>
-                            <th id="botonEliminar">Delete</th>
-                        </tr>
-
-                    </table>
-                    
-                </div>
-                
-               
-
-     
-       
- </div>
+       p
         
 </body>
 </html>
