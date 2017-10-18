@@ -23,9 +23,43 @@ and open the template in the editor.
     <body >
           <header id="cuerpoIndex">
               <h1 id="titulo" >FLEEING FROM ROTTEN APPLES</h1>
-            <img id="logo" alt="" src="/imagenes/fondo7.jpg"/>
+              <img id="logo"  alt="" src="/imagenes/fondo7.jpg"/>
             
 	</header>
+        
+               
+        <div id="seccionIndex">  
+                <div id="cuerpo">
+                    <h1 id="tituloIndex">Iniciar</h1>
+                    <legend id="texto1">
+                        <span id="seleccionAvatar">1</span>
+                        Selecciona una imagen:                   
+                    </legend>
+                        <table>
+                            <tr id="imagenes">
+                                <td><img alt="" src="/imagenes/imagen.jpg" name="imagen"/></td>
+                                <td><img alt="" src="/imagenes/imagen1.jpg" name="imagen1"/></td>
+                               
+                            </tr>
+                        </table> 
+                    <legend id="texto2">
+                        <span id="seleccionAvatar">2</span>
+                        Ingresa Nickname:                   
+                    </legend>
+                    <form name="validacion" >
+                        <input id="avatar" type="text"  placeholder="Nickname" name="nick" value="">
+                    </form>
+                        <legend id="texto2">
+                        <span id="seleccionAvatar">3</span>
+                            Selecciona una opción:                   
+                        </legend>
+                        <button id="campopublico" onclick="desCampopublico()">Campo publico</button>
+                        <button id="campoprivado" onclick="desCampoprivado()">Campo privado</button>
+                        <button id="crearcampo" onclick="descrearCampo()">Crear campo</button>
+                    </div>  
+                    
+                
+	</div>
         
 </body>
 </html>
