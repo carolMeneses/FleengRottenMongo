@@ -1,0 +1,9 @@
+Qué condiciones de carrera se podrían presentar?
+
+Existe condiciones de carrera en:
+Cuando dos usuarios ingresar para realizar modificación en el PUT o en el POST
+
+
+Cuales son las respectivas regiones críticas?
+
+Las regiones criticas se encuentran en InMemoryBlueprintPersistence
