@@ -21,7 +21,7 @@
     font-size: 50px;
     font-family: Impact;
     /* background: lightblue; */
-    border-radius: 15px;
+    border-radius: -8px;
 }
 #seccionIndex{
     /*background-color: #ededf0;*/
@@ -38,17 +38,23 @@
     border-radius: 15px;
     background:firebrick;
     position: relative;
+
     top: -15em;
     top: -20em;
+
 }
 #cuerpo1{
     text-align: center;
     margin: 2px auto;
     border-radius: 15px;
-    background:firebrick;
+    background:green;
     position: relative;
-    top: -17em;
-    left: -8em;
+
+  
+  
+    top: -9em;
+     left: -8em;
+
 
 }
 #tituloIndex{
@@ -83,6 +89,7 @@
     font-size: 30px;
     
 }
+
 
 
 
