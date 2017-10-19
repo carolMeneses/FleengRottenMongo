@@ -1,6 +1,5 @@
 #cuerpoIndex {
     display: block;
-    color: #e0dfd9;
     background-color: black;
     text-align: center;
     /* padding-top: 1px; */
@@ -9,11 +8,11 @@
     font-size: 50px;
     font-family: Impact;
     /* background: lightblue; */
-    border-radius: 15px;
+    border-radius: 18px;
 }
 #cuerpoIndex1 {
     display: block;
-    color: #e0dfd9;
+    color:white;
     background-color: black;
     text-align: center;
     /* padding-top: 1px; */
@@ -39,7 +38,7 @@
     border-radius: 15px;
     background:firebrick;
     position: relative;
-    top: -17em;
+    top: -15em;
     left: -8em;
 }
 
@@ -48,8 +47,8 @@
     z-index: 1;
     border-left: 10px solid #ff152a;
     margin: 0 0 35px;
-    color: #ff152a;
-    font-size: 25px;
+    color:black;
+    font-size: 20px;
     font-weight: 600;
     text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
     font-size: 40px;
@@ -57,15 +56,23 @@
 }
 
 #imagen{ 
-    width: 130px;
-    height: 130px;
+    width: 100px;
+    height: 100px;
+    position: initial;
+}
+#nickname{ 
+    width: 180px;
+    height: 20px;
+    position: initial;
 }
 #imagen1{ 
-    width: 130px;
-    height: 130px;
+    width: 100px;
+    height: 100px;
 }
-#tabla{ 
-   margin: 0px;
+#avatar{
+    font-size: 30px;
+    
 }
+
 
 
