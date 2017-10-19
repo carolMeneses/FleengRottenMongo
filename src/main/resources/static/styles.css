@@ -26,9 +26,18 @@
     border-radius: 15px;
     background:firebrick;
     position: relative;
-    top: -17em;
+    left:-8em;
+    top: -20em;
 }
-
+#cuerpo1{
+    text-align: center;
+    margin: 2px auto;
+    border-radius: 15px;
+    background:firebrick;
+    position: relative;
+    left:-8em;
+    top: -20em;
+}
 #tituloIndex{
     position: initial;
     z-index: 1;
@@ -74,4 +83,6 @@
     text-align: center;
     text-shadow: 0 1px 0 rgba(255,255,255,0.2);
     border-radius: 100%;
+    
+
 }
