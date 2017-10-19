@@ -38,10 +38,27 @@
     border-radius: 15px;
     background:firebrick;
     position: relative;
+<<<<<<< HEAD
     top: -15em;
-    left: -8em;
-}
+=======
 
+    
+    left:-8em;
+    top: -20em;
+}
+#cuerpo1{
+    text-align: center;
+    margin: 2px auto;
+    border-radius: 15px;
+    background:firebrick;
+    position: relative;
+  
+  
+    top: -17em;
+>>>>>>> c6c527617b915b4278483ca2f3c9cab0c809bb7f
+    left: -8em;
+
+}
 #tituloIndex{
     position: initial;
     z-index: 1;
@@ -69,10 +86,14 @@
     width: 100px;
     height: 100px;
 }
+<<<<<<< HEAD
 #avatar{
     font-size: 30px;
     
 }
+=======
+
+>>>>>>> c6c527617b915b4278483ca2f3c9cab0c809bb7f
 
 
 
