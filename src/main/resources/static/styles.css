@@ -11,6 +11,19 @@
     /* background: lightblue; */
     border-radius: 15px;
 }
+#cuerpoIndex1 {
+    display: block;
+    color: #e0dfd9;
+    background-color: black;
+    text-align: center;
+    /* padding-top: 1px; */
+    /* padding-bottom: 10px; */
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 black, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+    font-size: 50px;
+    font-family: Impact;
+    /* background: lightblue; */
+    border-radius: 15px;
+}
 #seccionIndex{
     /*background-color: #ededf0;*/
     margin-top: 10px;
@@ -42,36 +55,16 @@
     font-family: Impact;
 }
 
-#imagenes{ 
-    width: 50px;
-    height: 50px;
+#imagen{ 
+    width: 130px;
+    height: 130px;
+}
+#imagen1{ 
+    width: 130px;
+    height: 130px;
+}
+#tabla{ 
+   margin: 0px;
 }
 
-#avatar{
-    width: 174px;
-    height: 29px;
-    -webkit-border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
-    -moz-border-radius: 0px 4px 4px 0px/0px 0px 4px 4px;
-    border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
-    background-color: #fff;
-    -webkit-box-shadow: 1px 2px 5px rgba(0,0,0,.09);
-    -moz-box-shadow: 1px 2px 5px rgba(0,0,0,.09);
-    box-shadow: 1px 2px 5px rgba(0,0,0,.09);
-    border: solid 1px #cbc9c9;
-    margin-left: -5px;
-    padding-left: 10px;
-    
-}
-#seleccionAvatar{
-    background-color: #ff152a;
-    color: #ffffff;
-    height: 30px;
-    width: 30px;
-    display: inline-block;
-    font-size: 0.8em;
-    margin-right: 4px;
-    line-height: 30px;
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
-    border-radius: 100%;
-}
+
