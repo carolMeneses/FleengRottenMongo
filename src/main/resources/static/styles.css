@@ -38,12 +38,7 @@
     border-radius: 15px;
     background:firebrick;
     position: relative;
-<<<<<<< HEAD
     top: -15em;
-=======
-
-    
-    left:-8em;
     top: -20em;
 }
 #cuerpo1{
@@ -52,10 +47,7 @@
     border-radius: 15px;
     background:firebrick;
     position: relative;
-  
-  
     top: -17em;
->>>>>>> c6c527617b915b4278483ca2f3c9cab0c809bb7f
     left: -8em;
 
 }
