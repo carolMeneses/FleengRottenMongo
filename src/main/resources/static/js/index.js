@@ -10,7 +10,7 @@ function ingresar(){
 
     validacion=validarUsuario();
     if(!validacion){
-        console.log("entra a pagina");
+       
         window.location.replace("/Opcionjuego.html");
     }
 }
@@ -34,5 +34,24 @@ function validarUsuario(){
             alert("ingresa Usuario");
          }
         return validar;
+        
     
 }
+
+    function crearCampo(){
+        window.location.replace("/crearCampoJuego.html");
+        
+    }
+    
+    function crear(){
+        validacion=validarPartida();
+        if(!validacion){
+     
+        window.location.replace("/crearPartida.html");
+    }
+        
+    }
+    function regresar(){
+        window.location.replace("/Opcionjuego.html");
+        
+    }
