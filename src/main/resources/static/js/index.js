@@ -60,7 +60,10 @@ function validarNombreJuego(){
     }
 
     function crearCampo(){
+        valiJuego=validarNombreJuego();
+        if(!validacion){
         window.location.replace("/crearCampoJuego.html");
+    }
         
     }
     
