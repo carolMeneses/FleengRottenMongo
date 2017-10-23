@@ -39,13 +39,16 @@ function validarUsuario(){
 }
 function validarNombreJuego(){
     var api = apimock;
-    
+       
     var validar=false;
-    nombrej=document.getElementById("nombre").value;
-    
+    nombrej=document.getElementById("partida").value;
     var jugadores=api.getJuego();
+ 
+     console.log(jugadores);
+  
   
     for(i=0;i<jugadores.length -1;i++){
+        alert("4");
                if(jugadores[i]===nombrej){
                    validar=true;
                    i=jugadores.length;
@@ -60,10 +63,9 @@ function validarNombreJuego(){
     }
 
     function crearCampo(){
-        valiJuego=validarNombreJuego();
-        if(!validacion){
+       
         window.location.replace("/crearCampoJuego.html");
-    }
+    
         
     }
     
@@ -71,10 +73,18 @@ function validarNombreJuego(){
         validacion=validarPartida();
         if(!validacion){
      
-        window.location.replace("/crearPartida.html");
+        window.location.replace("/Opcionjuego.html");
     }
+   
         
     }
     function regresar(){
-        window.location.replace("/Opcionjuego.html"); 
+        window.location.replace("/Opcionjuego.html");
+    }
+    function crearJuego() {
+        validacionj = validarNombreJuego();
+        if (!validacionj) {
+
+            window.location.replace("/tableroJuego.html");
+        }
     }
