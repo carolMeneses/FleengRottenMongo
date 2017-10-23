@@ -37,6 +37,27 @@ function validarUsuario(){
         
     
 }
+function validarNombreJuego(){
+    var api = apimock;
+    
+    var validar=false;
+    nombrej=document.getElementById("nombre").value;
+    
+    var jugadores=api.getJuego();
+  
+    for(i=0;i<jugadores.length -1;i++){
+               if(jugadores[i]===nombrej){
+                   validar=true;
+                   i=jugadores.length;
+               }
+    }
+     
+ 
+        if(validar===true|| nombrej===" "){
+            alert("ingresa un nuevo nombre de juego");
+         }
+        return validar;
+    }
 
     function crearCampo(){
         window.location.replace("/crearCampoJuego.html");
@@ -52,6 +73,5 @@ function validarUsuario(){
         
     }
     function regresar(){
-        window.location.replace("/Opcionjuego.html");
-        
+        window.location.replace("/Opcionjuego.html"); 
     }
