@@ -11,23 +11,27 @@ package edu.eci.arsw.aplicacion;
  * @author Jessica Fresneda
  */
 public class Casilla {
-    private boolean bomba;
+    private boolean manzanaPodrida;
     private String Color;
     private int suma;
         private int x,y;
     private boolean estado;
     
-    public Casilla(boolean bomba) {
-        this.bomba = bomba;
+    
+    public Casilla(boolean manzanaPodrida) {
+        this.manzanaPodrida = manzanaPodrida;
         estado = false;
     }
-
-    public boolean isBomba() {
-        return bomba;
+    public void  setPosicion(int x, int y){
+        setX(x);
+        setY(y);
+    }      
+    public boolean isManzanaPodrida() {
+        return manzanaPodrida;
     }
 
-    public void setBomba(boolean bomba) {
-        this.bomba = bomba;
+    public void setManzanaPodrida(boolean manzanaPodrida) {
+        this.manzanaPodrida = manzanaPodrida;
     }
 
     public String getColor() {
