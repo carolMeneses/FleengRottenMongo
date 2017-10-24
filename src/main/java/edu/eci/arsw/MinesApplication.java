@@ -16,5 +16,5 @@ public class MinesApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MinesApplication.class, args);
 	}
-        //hola
+       
 }
