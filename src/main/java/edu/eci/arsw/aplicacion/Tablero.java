@@ -24,18 +24,26 @@ public class Tablero {
         this.columnas = columnas;
         casillajuego = new Casilla[filas][columnas];
         this.manzanasPodridas = manzanasPodridas;
-        
+
     }
 
     /*
       
      */
     public void tableroLleno() {
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; i < columnas; j++) {
+        for (int i = 0; i < columnas; i++) {
+            for (int j = 0; i < filas; j++) {
                 casillajuego[i][j] = new Casilla(false);
                 casillajuego[i][j].setPosicion(i, j);
 
+            }
+        }
+    }
+    
+    public void impresion(){
+        for(int i=0;i<columnas;i++){
+            for (int j=0;j<filas;j++){
+                System.out.println(casillajuego[i][j].isEstado()+" ");
             }
         }
     }
@@ -63,7 +71,74 @@ public class Tablero {
     public int getManzanasPodridas() {
         return manzanasPodridas;
     }
-    
-    
+
+    public void logicaJuego() {
+        int contador;
+        for (int i = 0; i < columnas; i++) {
+            for (int j = 0; j < filas; j++) {
+                contador = 0;
+                if (casillajuego[i][j].isEstado()) {
+
+                    if (comprueba(i - 1, j)) {
+                        if (casillajuego[i - 1][j].isEstado()) {
+                            contador++;
+                        }
+                    }
+
+                    if (comprueba(i + 1, j)) {
+                        if (casillajuego[i + 1][j].isEstado()) {
+                            contador++;
+                        }
+                    }
+
+                    if (comprueba(i, j - 1)) {
+                        if (casillajuego[i][j - 1].isEstado()) {
+                            contador++;
+                        }
+                    }
+
+                    if (comprueba(i, j + 1)) {
+                        if (casillajuego[i][j + 1].isEstado()) {
+                            contador++;
+                        }
+                    }
+
+                    if (comprueba(i - 1, j - 1)) {
+                        if (casillajuego[i - 1][j - 1].isEstado()) {
+                            contador++;
+                        }
+                    }
+
+                    if (comprueba(i + 1, j + 1)) {
+                        if (casillajuego[i + 1][j + 1].isEstado()) {
+                            contador++;
+                        }
+                    }
+
+                    if (comprueba(i - 1, j + 1)) {
+                        if (casillajuego[i - 1][j + 1].isEstado()) {
+                            contador++;
+                        }
+                    }
+                    if (comprueba(i + 1, j - 1)) {
+                        if (casillajuego[i + 1][j - 1].isEstado()) {
+                            contador++;
+                        }
+
+                    if (contador != 0) {
+                            casillajuego[i][j].isEstado();
+                        }
+
+                    }
+
+                }
+            }
+        }
+        impresion();
+    }
+
+    public boolean comprueba(Integer i, Integer j) {
+        return (i >= 0 && j >= 0 && j < filas && j < columnas);
+    }
 
 }
