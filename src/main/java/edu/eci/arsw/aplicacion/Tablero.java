@@ -16,16 +16,15 @@ public class Tablero {
     private final int filas;
     private final int columnas;
     private final Casilla[][] casillajuego;
-    private final String nivel;
     private final int manzanasPodridas;
     //private final String estadoTablero;
 
-    public Tablero(int filas, int columnas, int manzanasPodridas, String nivel) {
+    public Tablero(int filas, int columnas, int manzanasPodridas) {
         this.filas = filas;
         this.columnas = columnas;
         casillajuego = new Casilla[filas][columnas];
         this.manzanasPodridas = manzanasPodridas;
-        this.nivel = nivel;
+        
     }
 
     /*
@@ -41,7 +40,7 @@ public class Tablero {
         }
     }
 
-    public void manzanasPodridas() {
+    public void AgregarManzanasPodridas() {
         int i = 0;
         while (i < manzanasPodridas) {
             Random ran = new Random();
