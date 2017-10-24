@@ -1,2 +1,4 @@
 # Fleeing-from-rotten-apples
-#Integrantes: 
+Integrantes: 
+Jessica Catherine Fresneda Hernandez
+Carol Johana Meneses Pineda
