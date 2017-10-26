@@ -24,8 +24,7 @@ public class campoJuego {
     boolean crear=juegos.add(j);
     return crear;
     }
-    //DFG
-
+  
     
     
 }
