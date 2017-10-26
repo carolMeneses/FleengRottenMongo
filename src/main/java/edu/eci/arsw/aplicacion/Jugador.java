@@ -18,10 +18,14 @@ public class Jugador {
     private boolean  estadoVivo=true;
     
     public Jugador(int numVidas, String nombre, String color) {
-        this.numVidas = 3;
+        this.numVidas = numVidas;
         this.nombre = nombre;
         this.color = color;
         this.estadoVivo = estadoVivo;
+    }
+
+    Jugador() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getNumVidas() {

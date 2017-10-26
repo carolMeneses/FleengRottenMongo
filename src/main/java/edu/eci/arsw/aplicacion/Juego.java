@@ -25,6 +25,8 @@ public class Juego {
      private String modalidad;
      private int maximoJugadores=15;
      private String nombrePartida;
+     private static int manzRestantes;
+     private static int manzanasBuenas;
      
      public Juego(String nivel, int filas, int columnas, String modalidad,String nombrePartida) {
         this.nivel = nivel;
@@ -32,14 +34,18 @@ public class Juego {
         this.columnas = columnas;
         this.modalidad = modalidad;
         this.nombrePartida=nombrePartida;
-        setmanzanasPodridas();
+        setManzanasPodridas();
+        manzRestantes=getManzanasPodridas();
     }
        public Juego(String nivel, String modalidad,String nombrePartida) {
         this.nivel = nivel;
         this.modalidad = modalidad;
         setFilasColumnas();
-        setmanzanasPodridas();
+        setManzanasPodridas();
+        manzRestantes=getManzanasPodridas();
+        
         this.nombrePartida=nombrePartida;
+        
     }
 
     public void setFilasColumnas() {
@@ -74,8 +80,10 @@ public class Juego {
     color.add("ligth green");  
    
     }
-    public void setmanzanasPodridas() {
+    public void setManzanasPodridas() {
         this.manzanasPodridas = filas * columnas / 4;
+        manzanasBuenas=(filas * columnas)-manzanasPodridas ;
+       
     }
     public void numJugadores() {
         this.numJugadores= manzanasPodridas-1;
@@ -89,15 +97,37 @@ public class Juego {
         //tablero.asignarNumeros();
 
     }
-    public boolean agregarJugador(Jugador jug){
+    public boolean agregarJugador(String nombre){
         boolean adiciono=false;
         
         if(jugadores.size()<numJugadores){
-            
-            jugadores.add(jug);
+            Jugador jugador=new Jugador(3,nombre,color.get(jugadores.size()));
+            jugadores.add(jugador);
             adiciono=true;
         }
         return true;
+    }
+    public Casilla seleccionar(int x, int y, String nombre) {
+        Casilla c = null;
+        String color = "";
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (jugadores.get(i).equals(nombre)) {
+                c.setEstado(true);
+                color = jugadores.get(i).getColor();
+                c = tablero.getCasillajuego(color, x, y);
+                if (c.isManzanaPodrida()) {
+                    jugadores.get(i).setNumVidas(jugadores.get(i).getNumVidas() - 1);
+                    manzRestantes=manzRestantes-1;
+                   
+                }
+                else{
+                 manzanasBuenas=manzanasBuenas-1;
+                }
+
+            }
+        }
+        return c;
+
     }
 
     public ArrayList<Jugador> getJugadores() {

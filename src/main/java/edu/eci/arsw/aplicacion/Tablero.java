@@ -64,8 +64,15 @@ public class Tablero {
         }
     }
 
-    public Casilla[][] getCasillajuego() {
-        return casillajuego;
+    public Casilla getCasillajuego(String color,int x,int y) {
+        Casilla c=null;
+        
+        if(!casillajuego[x][y].isEstado()){
+        casillajuego[x][y].getColor();
+        casillajuego[x][y].setEstado(true);
+    }
+       c= casillajuego[x][y];
+         return c;
     }
 
     public int getManzanasPodridas() {
