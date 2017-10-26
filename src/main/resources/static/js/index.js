@@ -48,7 +48,7 @@ function validarNombreJuego(){
   
   
     for(i=0;i<jugadores.length -1;i++){
-        alert("4");
+   
                if(jugadores[i]===nombrej){
                    validar=true;
                    i=jugadores.length;

@@ -26,28 +26,34 @@ and open the template in the editor.
               <h1 id="titulo" >Fleeing-from-rotten-apples</h1>
 	</header>
        
-          <div id="tabla">
+          <div >
                 
-         <form action="#" name="elegir"  id="vista">
+         <form action="#" name="elegir">
                        
                             <br>
                             
-                            <strong><label class="texto" for="nombre">Nombre de partida</label></strong>
-                            <input class="textol" type="text" id="partida" value="" name="nombre" required><br><br>
+                          <label class="texto" for="nombre">
+                                Nombre de partida
+                          </label>
                             
-                            <strong><label class="texto" for="tipa">Tipo de partida</label></strong><br>
-                            <input class="textoP" type="radio" name="tipodepartida" value="Publica" checked> Partida publica
-                            <input class="textoP" type="radio" name="tipodepartida" value="Privada"> Partida privada<br><br>
+                            <input class="textol" type="text" id="partida" value="" name="nombre" required><br><br>
+                            <label class="texto" for="tipa">Tipo de partida</label><br>
+                            <input  class="textoP" type="radio" id="texto1" name="tipodepartida" value="Publica" checked> Partida publica
+                            <input class="textoP" type="radio" name="tipodepartida" value="Privada"> Partida privada<br>
                             
 <!--                            <strong><label class="texto" for="tamano_del_tablero">Tamaño del tablero (lado x lado):</label></strong>
                             <input class="filCol" type="number" id="filas" name="tamanotablero" min="7" max="15" value="7">-->
-                            <br><br>                           
+                            <br>                   
                   
                             
-                            <strong><label class="texto" for="tie">Nivel de juego</label></strong><br>
-                            <input class="textoP" type="radio" name="nivdegame" value="Facil" checked> Fácil
+                           <label class="texto" for="tie" >
+                                    
+                                        Nivel de juego                                  
+
+                                </label><br>
+                                <input class="textoP" type="radio" name="nivdegame" value="Facil" checked>Fácil
                             <input class="textoP" type="radio" name="nivdegame" value="Medio"> Medio
-                            <input class="textoP" type="radio" name="nivdegame" value="Dificil"> Difícil<br><br>
+                            <input class="textoP" type="radio" name="nivdegame" value="Dificil"> Difícil<br>
                             <div class="centrar">
                                 <input class="boton" name="iniciar" type="button" value="Crear" onclick="crearJuego()"> 
                                 <input class="boton" type="reset" value="Regresar" onclick="regresar()">
