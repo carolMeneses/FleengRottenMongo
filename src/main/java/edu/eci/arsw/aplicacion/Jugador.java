@@ -16,6 +16,9 @@ public class Jugador {
     private String nombre;
     private String color;
     private boolean  estadoVivo=true;
+
+
+    private int puntaje=0;
     
     public Jugador(int numVidas, String nombre, String color) {
         this.numVidas = numVidas;
@@ -59,7 +62,13 @@ public class Jugador {
     public void setEstadoVivo(boolean estadoVivo) {
         this.estadoVivo = estadoVivo;
     }
+    public int getPuntaje() {
+        return puntaje;
+    }
 
+    public void setPuntaje(int punt) {
+        this.puntaje = puntaje+punt;
+    }
     
     
     
