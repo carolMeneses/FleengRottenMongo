@@ -5,7 +5,7 @@
  */
 package edu.eci.arsw.controlador;
 
-import edu.eci.arsw.aplicacion.Partida;
+import edu.eci.arsw.aplicacion.Juego;
 
 /**
  *
@@ -23,7 +23,9 @@ public class JuegoNuevo {
     private int columnas;
     private String jugador;
     private String nivel;
-    //private int tiempo;
+   
+     // private int numJugadores;
+    //private double tiemp;;
     
 
     public JuegoNuevo(String nombre, String TipPartida, String idPartida, int filas, int columnas, String jugador, String nivel) {
@@ -97,16 +99,15 @@ public class JuegoNuevo {
         return nivel;
     }
 
-    // private int numJugadores;
-    //private double tiemp;
+ 
     public void setNivel(String nivel) {
         this.nivel = nivel;
     }
 
-    public Partida getiniciarJuegoNuevo(){
-        Partida part = new Partida(nombre, TipPartida, idPartida, filas, columnas, jugador, nivel);
+    public Juego getiniciarJuegoNuevo(){
+        Juego jueg = new Juego(nivel, filas,  columnas, nombre);
         
-        return part;
+        return jueg;
         
     }
     

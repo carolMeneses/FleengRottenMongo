@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 /**
  *
- * @author 2089340
+ * @author Jessica Fresneda
+ * @author Carol Meneses
  */
 public class Juego {
 
@@ -27,12 +28,12 @@ public class Juego {
      private String nombrePartida;
      private static int manzRestantes;
      private static int manzanasBuenas;
+     public final int puntaje=5;
      
-     public Juego(String nivel, int filas, int columnas, String modalidad,String nombrePartida) {
+     public Juego(String nivel, int filas, int columnas,String nombrePartida) {
         this.nivel = nivel;
         this.filas = filas;
         this.columnas = columnas;
-        this.modalidad = modalidad;
         this.nombrePartida=nombrePartida;
         setManzanasPodridas();
         manzRestantes=getManzanasPodridas();
@@ -122,6 +123,7 @@ public class Juego {
                 }
                 else{
                  manzanasBuenas=manzanasBuenas-1;
+                 jugadores.get(i).setPuntaje(puntaje);
                 }
 
             }
