@@ -7,7 +7,8 @@ package edu.eci.arsw.aplicacion;
 
 /**
  *
- * @author 2089340
+ * @author
+ * Jessica y Johana
  */
 public class Jugador {
     
