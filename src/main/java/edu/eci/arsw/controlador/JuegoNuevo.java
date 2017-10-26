@@ -19,6 +19,7 @@ public class JuegoNuevo {
     private String TipPartida;
     private boolean estado;
     private String idPartida;
+    private String modalidad;
     private int filas;
     private int columnas;
     private String jugador;
@@ -105,7 +106,7 @@ public class JuegoNuevo {
     }
 
     public Juego getiniciarJuegoNuevo(){
-        Juego jueg = new Juego(nivel, filas,  columnas, nombre);
+        Juego jueg = new Juego(nivel, filas,  columnas,modalidad, nombre);
         
         return jueg;
         

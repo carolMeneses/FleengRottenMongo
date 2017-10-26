@@ -10,13 +10,12 @@ import java.util.ArrayList;
 
 /**
  *
- * @author 
+ * @author 2089340
  */
 public class campoJuego {
     private ArrayList<Juego> juegos= new ArrayList<Juego>();
     
     // Se agregan los datos que el usuario a ingresado por medio del HTML-controllador, clase JUego Nuevo
-
     public boolean CrearPartida(JuegoNuevo jn){
     Juego j=jn.getiniciarJuegoNuevo();
     j.JuegoNuevo();
@@ -24,7 +23,7 @@ public class campoJuego {
     boolean crear=juegos.add(j);
     return crear;
     }
-  
+    
     
     
 }
