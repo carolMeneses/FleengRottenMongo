@@ -23,20 +23,23 @@ public class Juego {
      private int columnas;
      private int numJugadores;
      private String modalidad;
+     private int maximoJugadores=15;
+     private String nombrePartida;
      
-     
-     public Juego(String nivel, int filas, int columnas, String modalidad) {
+     public Juego(String nivel, int filas, int columnas, String modalidad,String nombrePartida) {
         this.nivel = nivel;
         this.filas = filas;
         this.columnas = columnas;
         this.modalidad = modalidad;
+        this.nombrePartida=nombrePartida;
         setmanzanasPodridas();
     }
-       public Juego(String nivel, String modalidad) {
+       public Juego(String nivel, String modalidad,String nombrePartida) {
         this.nivel = nivel;
         this.modalidad = modalidad;
         setFilasColumnas();
         setmanzanasPodridas();
+        this.nombrePartida=nombrePartida;
     }
 
     public void setFilasColumnas() {
@@ -53,7 +56,24 @@ public class Juego {
             columnas=32;
         }
     }
-
+    public void crearColores(){
+    color.add("blue");
+    color.add("gray");
+    color.add("green");
+    color.add("purple");
+    color.add("pink");
+    color.add("white");
+    color.add("black");
+    color.add("red");
+    color.add("yellow");
+    color.add("brown");
+    color.add("violet");
+    color.add("orange");
+    color.add("fuchsia");
+    color.add("navy blue");
+    color.add("ligth green");  
+   
+    }
     public void setmanzanasPodridas() {
         this.manzanasPodridas = filas * columnas / 4;
     }
@@ -61,16 +81,19 @@ public class Juego {
         this.numJugadores= manzanasPodridas-1;
     }
 
-    public void crearTablero() {
+    public void JuegoNuevo() {
         tablero = new Tablero(filas, columnas, manzanasPodridas);
         tablero.tableroLleno();
         tablero.AgregarManzanasPodridas();
+        crearColores();
         //tablero.asignarNumeros();
 
     }
     public boolean agregarJugador(Jugador jug){
         boolean adiciono=false;
+        
         if(jugadores.size()<numJugadores){
+            
             jugadores.add(jug);
             adiciono=true;
         }
@@ -81,5 +104,21 @@ public class Juego {
         return jugadores;
     }
     // falta mover
+
+    public Tablero getTablero() {
+        return tablero;
+    }
+
+    public int getManzanasPodridas() {
+        return manzanasPodridas;
+    }
+
+    public int getMaximoJugadores() {
+        return maximoJugadores;
+    }
+
+    public String getNombrePartida() {
+        return nombrePartida;
+    }
 
 }
