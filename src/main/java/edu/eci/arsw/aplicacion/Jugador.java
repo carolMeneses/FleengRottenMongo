@@ -18,7 +18,7 @@ public class Jugador {
     private boolean  estadoVivo=true;
     
     public Jugador(int numVidas, String nombre, String color) {
-        this.numVidas = numVidas;
+        this.numVidas = 3;
         this.nombre = nombre;
         this.color = color;
         this.estadoVivo = estadoVivo;
