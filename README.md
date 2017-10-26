@@ -11,7 +11,12 @@ De acuerdo con esto se diseñara un  juego que implementará el esquema de colab
 >Repositorio GitHub: https://github.com/JessicaFresnedaH/Fleeing-from-rotten-apples
 
 
->Heroku : https://applesbadapp.herokuapp.com/
+>Aplicación Heroku : https://applesbadapp.herokuapp.com/
+
+
+>Proyecto circleCI : https://circleci.com/gh/JessicaFresnedaH/Fleeing-from-rotten-apples
+
+>URL Codacy : 
 
 
 
