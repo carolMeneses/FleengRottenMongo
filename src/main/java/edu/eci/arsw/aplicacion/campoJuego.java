@@ -15,13 +15,13 @@ public class campoJuego {
     private ArrayList<Juego> juegos= new ArrayList<Juego>();
     
     // Se agregan los datos que el usuario a ingresado por medio del HTML-controllador, clase JUego Nuevo
-    public boolean CrearPartida(JuegoNuevo jn){
-    Juego j=jn.getNuevoJuego();
-    j.JuegoNuevo();
-    j.agregarJugador(jn.getJugador());
-    boolean crear=juegos.add(j);
-    return crear;
-    }
+//    public boolean CrearPartida(JuegoNuevo jn){
+//    Juego j=jn.getNuevoJuego();
+//    j.JuegoNuevo();
+//    j.agregarJugador(jn.getJugador());
+//    boolean crear=juegos.add(j);
+//    return crear;
+//    }
     
     
 }

@@ -60,6 +60,7 @@ public class Tablero {
                 casillajuego[fil][col].setManzanaPodrida(true);
                 i++;
             }
+            
 
         }
     }
