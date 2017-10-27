@@ -5,7 +5,7 @@
  */
 package edu.eci.arsw;
 
-
+// Menu principal
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
