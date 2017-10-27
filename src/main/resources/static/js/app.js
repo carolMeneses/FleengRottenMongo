@@ -118,24 +118,34 @@ function nuevasCasillas(posicionX,posicionY,color,estado){
             break;
         case '2':
             llenar(posicionX,posicionY,color);
-            colocarText(estado,'blue', posicionX, posicionY);
+            colocarText(estado,'yellow', posicionX, posicionY);
             break;
        
         case '3':
             llenar(posicionX,posicionY,color);
-            colocarText(estado,'blue', posicionX, posicionY);
+            colocarText(estado,'green', posicionX, posicionY);
             break;
        case '4':
             llenar(posicionX,posicionY,color);
-            colocarText(estado,'blue', posicionX, posicionY);
+            colocarText(estado,'red', posicionX, posicionY);
             break;
             
         case '5':
             llenar(posicionX,posicionY,color);
+            colocarText(estado,'gray', posicionX, posicionY);
+            break;
+        case '6':
+            llenar(posicionX,posicionY,color);
             colocarText(estado,'blue', posicionX, posicionY);
             break;
-            
-            
+        case '7':
+            llenar(posicionX,posicionY,color);
+            colocarText(estado,'fuchia', posicionX, posicionY);
+            break;
+         case '8':
+            llenar(posicionX,posicionY,color);
+            colocarText(estado,'pink', posicionX, posicionY);
+            break;   
     }
     
 }
@@ -149,4 +159,19 @@ function colocarText(numero, color, gx, gy){
     ctx.fillStyle = color;
     ctx.font = 0.5*size+"px Georgia";
     ctx.colocarText(numero, gx*size + size/3, gy*size + 2*size/3);
+}
+
+function prconectar(){
+    var datos=window.location.search.substr(1);
+    var datos1=datos.split ("&");
+    id=dato1[0];
+    nombre=dato1[1];
+}
+
+function desconectar(){
+     if (stompClient != null) {
+         stompClient.desconectar();
+        
+     }
+     console.log("Desconectar");
 }
