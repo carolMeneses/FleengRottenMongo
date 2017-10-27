@@ -16,6 +16,8 @@ x=null;
 y=null;
 X= null;
 Y=null;
+mx=null;
+my=null;
 
 /*variables de STOMP*/
 stompClient=null;
@@ -97,7 +99,7 @@ function connectarJuego(){
             
          });
          
-         iniciarPartida();
+         establecerPartida();
          
               
  });
@@ -161,12 +163,6 @@ function colocarText(numero, color, gx, gy){
     ctx.colocarText(numero, gx*size + size/3, gy*size + 2*size/3);
 }
 
-function prconectar(){
-    var datos=window.location.search.substr(1);
-    var datos1=datos.split ("&");
-    id=dato1[0];
-    nombre=dato1[1];
-}
 
 function desconectar(){
      if (stompClient != null) {
@@ -175,3 +171,44 @@ function desconectar(){
      }
      console.log("Desconectar");
 }
+
+function establecerPartida(){
+    stompClient.send("/app/establecePartida",{}, JSON.stringify({idpart:id,jugador:nombre}));
+}
+
+function mirarCasilla(){
+    stompClient.send("/app/cubrirCasilla",{},JSON.stringify({idpart:id,jugador:nombre,posicionX:0,posicionY:0}));
+
+}
+function mirartodasCasilla(){
+    stompClient.send("/app/cubrirCasilla",{},JSON.stringify({idpart:id,jugador:nombre,posicionX:posicionX,posicionY:posicionY}));
+
+}
+
+function EventosMouse(){
+    $('#canvas').mousedown(function(evento) {
+        mx= event.offsetX;
+        my= event.offsetY;
+        
+        X= ~~(mx/tamano);
+        Y= ~~ (my/tamano);
+        
+        switch (evento.which){
+            case 1:
+                mirarCasilla(X,Y)
+                break;
+            case 2:
+                break;
+            case 3:
+                
+                llenar('#00ff00',X,Y)
+                break;
+            default :
+                alert('no correspond');
+        }
+    });
+}
+    
+
+    
+
