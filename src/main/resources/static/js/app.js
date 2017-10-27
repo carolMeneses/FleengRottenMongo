@@ -42,23 +42,23 @@ function connectarJuego(){
          */
         
         var datos=window.location.search.substr(1);
-        var datos1=datos.split("&");
-        id=dato1[0];
-        nombre=dato1[1];
+       // var datos1=datos.split("&");
+      //  id=dato1[0];
+      //  nombre=dato1[1];
         
         //
         
-        stompClient.subscribe('/topic/crearCampoJuego'+id+nombre, function (datos){
+        stompClient.subscribe('/topic/crearCampoJuego'+nombre, function (datos){
             alert("Usted a ingresado al campo de Juego APPLE BAD, Bienvenido"+nombre);
             var nuevoJuego=JSON.parse(datos.body);
             tipPartida=nuevoJuego.tipPartida;
             document.getElementById("jugador").innerHTML=tipPartida.jugador;
-            if (tipPartida=="Publica"){
+            if (tipPartida==="Publica"){
                 document.getElementById("Partido").innerHTML= "Pública";
                 
             }
             else{
-                document.getElementById("Partido").innerHTML=id;
+                //document.getElementById("Partido").innerHTML=id;
             }
             
             canvas=document.getElementById("tabla");
@@ -72,27 +72,27 @@ function connectarJuego(){
             
         });
         
-         stompClient.subscribe('/topic/vidasJUgador'+id+nombre,function (datos){
+         stompClient.subscribe('/topic/vidasJUgador'+nombre,function (datos){
              var nuevoJuego=JSON.parse(datos.body);
              document.getElementById("vidajugador").innerHTML=nuevoJuego.vidasJugador;
          });
          
-         stompClient.subscribe('/topic/manzanasPodridas'+id+nombre,function (datos){
+         stompClient.subscribe('/topic/manzanasPodridas'+nombre,function (datos){
              var nuevoJuego=JSON.parse(datos.body);
              document.getElementById("manzanasPodridas").innerHTML=nuevoJuego.vidasJugador;
          });
          
-          stompClient.subscribe('/topic/casillaVisitada'+id+nombre,function (datos){
+          stompClient.subscribe('/topic/casillaVisitada'+nombre,function (datos){
              var casilla=JSON.parse(datos.body);
              var posicionX=casilla.posicionX;
              var posicionY=casilla.posicionY;
              var color=casilla.color;
              var estado = casilla.estado;
              
-             nuevasCasillas(posicionX,posicionY,color,estado)
+             nuevasCasillas(posicionX,posicionY,color,estado);
          });
          
-          stompClient.subscribe('/topic/finJuegoRetirar'+id+nombre,function (datos){
+          stompClient.subscribe('/topic/finJuegoRetirar'+nombre,function (datos){
              var fin=JSON.parse(datos.body);
              if(!fin.estadoJugador){
                  alert("Has perdido");
@@ -156,24 +156,17 @@ function nuevasCasillas(posicionX,posicionY,color,estado){
 
 function llenar(s,x,y) {
     ctx.fillStyle = s;
-    ctx.fillRect(gx * tamano, gy * tamano, tamano, tamano);
+    ctx.fillRect(x * tamano, y * tamano, tamano, tamano);
 }
 
 function colocarText(numero, color, gx, gy){
     ctx.fillStyle = color;
     ctx.font = 0.5*tamano+"px Georgia";
-    ctx.colocarText(numero, gx*tamano + tamano/3, gy*tamano+ 2*tamanosize/3);
-}
-
-function prconectar(){
-    var datos=window.location.search.substr(1);
-    var datos1=datos.split ("&");
-    id=dato1[0];
-    nombre=dato1[1];
+    ctx.colocarText(numero, gx*tamano + tamano/3, gy*tamano+ 2*tamano/3);
 }
 
 function desconectar(){
-     if (stompClient != null) {
+     if (stompClient!==null) {
          stompClient.desconectar();
         
      }
@@ -185,7 +178,7 @@ function dibujarPantalla(){
         ctx.moveTo(0,5+x+cont,cont);
         ctx.lineTo(0,5+x+cont,canvasHeight+cont);
    }
-    for (var x=0;x<=canvasHeigth;x+=tamano){
+    for (var x=0;x<=canvasHeight;x+=tamano){
         ctx.moveTo(cont,0,5+x+cont);
         ctx.lineTo(canvasWidth+cont,0,5+x+cont);
    }
