@@ -41,7 +41,7 @@ function validarNombreJuego(){
     var api = apimock;
        
     var validar=false;
-    nombrej=document.getElementById("partida").value;
+    nombrej=document.getElementById("nombre").value;
     var jugadores=api.getJuego();
  
      console.log(jugadores);
@@ -82,9 +82,31 @@ function validarNombreJuego(){
         window.location.replace("/Opcionjuego.html");
     }
     function crearJuego() {
-        validacionj = validarNombreJuego();
-        if (!validacionj) {
-
-            window.location.replace("/tableroJuego.html");
+        alert("entro");
+      // partida=document.getElementsByName.elegir.nombre.value;
+      partida=document.getElementsByClassName("nombre");
+       alert("entro a nombre");
+       estado=true;
+       validacion=validarNombreJuego();
+       if(!validacion){
+           alert("ingresar nombre de partida");
+           estado=false;
+           alert("entrovalidacion");
+       }
+       var tipPartida=document.getElementsByClassName("tipodepartida");
+       for(i=0;i<tipPartida.length;i++){
+           if(tipPartida[i].checked) tipodePartida=tipPartida[i].value;
         }
-    }
+        // En caso de ser campo privado toca declarar las filas
+     var nivelJuego=document.getElementsByClassName("nivel");
+       for(i=0;i<tipPartida.length;i++){
+           if(tipPartida[i].checked) nivelDificultad=tipPartida[i].value;
+        }
+        //pendiente por crear un nuevo usuarui
+        if(!estado){
+         //  stompClient.send("/app/NuevaPartida",{},JSON.stringfy({partida:partida,tipodePartida:tipodePartida,nivelDificultad:nivelDificultad}));
+         window.location.replace("/tableroJuego.html");
+        }
+   }
+    
+    
