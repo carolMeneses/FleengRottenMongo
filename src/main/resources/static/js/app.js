@@ -17,7 +17,12 @@ x=null;
 y=null;
 X= null;
 Y=null;
+
+mx=null;
+my=null;
+
 tamano=null;
+
 
 /*variables de STOMP*/
 stompClient=null;
@@ -26,7 +31,7 @@ ctx=null;
 canvasHeight=600;
 canvasWidth=600;
 
-tamano=null;
+
 var app= function(){
 
 function connectarJuego(){
@@ -101,7 +106,7 @@ function connectarJuego(){
             
          });
          
-         iniciarPartida();
+         establecerPartida();
          
               
  });
@@ -162,8 +167,10 @@ function llenar(s,x,y) {
 function colocarText(numero, color, gx, gy){
     ctx.fillStyle = color;
     ctx.font = 0.5*tamano+"px Georgia";
+
     ctx.colocarText(numero, gx*tamano + tamano/3, gy*tamano+ 2*tamano/3);
 }
+
 
 function desconectar(){
      if (stompClient!==null) {
@@ -172,6 +179,48 @@ function desconectar(){
      }
      console.log("Desconectar");
 }
+
+
+function establecerPartida(){
+    stompClient.send("/app/establecePartida",{}, JSON.stringify({idpart:id,jugador:nombre}));
+}
+
+function mirarCasilla(){
+    stompClient.send("/app/cubrirCasilla",{},JSON.stringify({idpart:id,jugador:nombre,posicionX:0,posicionY:0}));
+
+}
+function mirartodasCasilla(){
+    stompClient.send("/app/cubrirCasilla",{},JSON.stringify({idpart:id,jugador:nombre,posicionX:posicionX,posicionY:posicionY}));
+
+}
+
+function EventosMouse(){
+    $('#canvas').mousedown(function(evento) {
+        mx= event.offsetX;
+        my= event.offsetY;
+        
+        X= ~~(mx/tamano);
+        Y= ~~ (my/tamano);
+        
+        switch (evento.which){
+            case 1:
+                mirarCasilla(X,Y)
+                break;
+            case 2:
+                break;
+            case 3:
+                
+                llenar('#00ff00',X,Y)
+                break;
+            default :
+                alert('no correspond');
+        }
+    });
+}
+    
+
+    
+
 function dibujarPantalla(){
   console.log("ENTRO JOHANITA");
     for (var x=0;x<=canvasWidth;x+=tamano){
@@ -198,5 +247,3 @@ function dibujarPantalla(){
     
 
 
-
-    
