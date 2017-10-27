@@ -9,13 +9,13 @@ package edu.eci.arsw.controlador;
  *
  * @author 2089340
  */
-public class DatosJuegosTablero {
+public class DatosPartida{
 
     private int manzanasPodridas;
     private int vidasJugador;
     private boolean estadoJugador;
     
-    public DatosJuegosTablero(int manzanasPodridas, int vidasJugador, boolean estadoJugador) {
+    public DatosPartida(int manzanasPodridas, int vidasJugador, boolean estadoJugador) {
         this.manzanasPodridas = manzanasPodridas;
         this.vidasJugador = vidasJugador;
         this.estadoJugador = estadoJugador;

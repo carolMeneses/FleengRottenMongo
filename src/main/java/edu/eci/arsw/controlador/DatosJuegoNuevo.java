@@ -13,7 +13,7 @@ import edu.eci.arsw.aplicacion.Juego;
  *         Creación de juego 
  */
 
-public class JuegoNuevo {
+public class DatosJuegoNuevo {
 
     private String nombre;
     private String TipPartida;
@@ -29,7 +29,7 @@ public class JuegoNuevo {
     //private double tiemp;;
     
 
-    public JuegoNuevo(String nombre, String TipPartida, String idPartida, int filas, int columnas, String jugador, String nivel) {
+    public DatosJuegoNuevo(String nombre, String TipPartida, String idPartida, int filas, int columnas, String jugador, String nivel) {
         this.nombre = nombre;
         this.TipPartida = TipPartida;
         this.idPartida = idPartida;

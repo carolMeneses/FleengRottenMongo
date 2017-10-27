@@ -30,7 +30,7 @@ function validarUsuario(){
     }
      
  
-        if(validar===true|| nombre===" "){
+        if(validar===true|| nombre===""){
             alert("ingresa Usuario");
          }
         return validar;
@@ -41,22 +41,19 @@ function validarNombreJuego(){
     var api = apimock;
        
     var validar=false;
-    nombrej=document.getElementById("nombre").value;
+    var nombrej=document.getElementById("nombre").value;
+           
+
     var jugadores=api.getJuego();
- 
-     console.log(jugadores);
-  
-  
-    for(i=0;i<jugadores.length -1;i++){
+     for(i=0;i<jugadores.length -1;i++){
    
                if(jugadores[i]===nombrej){
                    validar=true;
                    i=jugadores.length;
                }
     }
-     
- 
-        if(validar===true|| nombrej===" "){
+         console.log("ojo debe estar vacio");
+        if(validar===true || nombrej==null){
             alert("ingresa un nuevo nombre de juego");
          }
         return validar;
