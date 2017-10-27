@@ -7,6 +7,7 @@
 /*
  * Jessica, Johana
  */
+/* global Stomp */
 
 cwidth=null;
 cheight=null;
@@ -16,6 +17,7 @@ x=null;
 y=null;
 X= null;
 Y=null;
+tamano=null;
 
 /*variables de STOMP*/
 stompClient=null;
@@ -25,12 +27,14 @@ canvasHeight=600;
 canvasWidth=600;
 
 tamano=null;
-
+var app= function(){
 
 function connectarJuego(){
-    var socket=new SockJs('/stomApple');
-    stompClient=Stomp.over(socket);
-    stompClient.connect({},function (frame){
+      
+        console.info('Connecting to WS...');
+        var socket = new SockJS('/stompApple');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({},function (frame){
         console.log('Connected'+frame);
         
         /*
@@ -63,7 +67,7 @@ function connectarJuego(){
             width=~~ (canvas.width/tamano);
             height = ~~ (canvas.height/tamano);
             eventosJuegos();
-            dibujarTablero();
+            dibujarPantalla();
             mirarTodasCAsillas();   
             
         });
@@ -152,13 +156,13 @@ function nuevasCasillas(posicionX,posicionY,color,estado){
 
 function llenar(s,x,y) {
     ctx.fillStyle = s;
-    ctx.fillRect(gx * size, gy * size, size, size);
+    ctx.fillRect(gx * tamano, gy * tamano, tamano, tamano);
 }
 
 function colocarText(numero, color, gx, gy){
     ctx.fillStyle = color;
-    ctx.font = 0.5*size+"px Georgia";
-    ctx.colocarText(numero, gx*size + size/3, gy*size + 2*size/3);
+    ctx.font = 0.5*tamano+"px Georgia";
+    ctx.colocarText(numero, gx*tamano + tamano/3, gy*tamano+ 2*tamanosize/3);
 }
 
 function prconectar(){
@@ -175,3 +179,31 @@ function desconectar(){
      }
      console.log("Desconectar");
 }
+function dibujarPantalla(){
+  console.log("ENTRO JOHANITA");
+    for (var x=0;x<=canvasWidth;x+=tamano){
+        ctx.moveTo(0,5+x+cont,cont);
+        ctx.lineTo(0,5+x+cont,canvasHeight+cont);
+   }
+    for (var x=0;x<=canvasHeigth;x+=tamano){
+        ctx.moveTo(cont,0,5+x+cont);
+        ctx.lineTo(canvasWidth+cont,0,5+x+cont);
+   }
+    ctx.strokeStyle="black";
+    ctx.strocke();
+}
+  return {
+
+        init: function () {
+            var can = document.getElementById("canvas");
+            
+            //websocket connection
+            connectarJuego();
+        }
+    };
+}();
+    
+
+
+
+    
