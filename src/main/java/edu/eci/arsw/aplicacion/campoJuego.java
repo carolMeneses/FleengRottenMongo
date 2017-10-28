@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author 2089340
+ * Campo de Juego, contiene varias partidas públicas
  */
 @Service
 public class campoJuego {
