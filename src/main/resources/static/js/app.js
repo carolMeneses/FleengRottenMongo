@@ -1,25 +1,16 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/*
- * Jessica, Johana
- */
 /* global Stomp */
 
-/*variables de STOMP*/
 stompClient=null;
 canvasWidth=600;
 canvasHeight=600;
-Canvas=null;
+canvas=null;
 ctx=null;
 tamano=null;
 cwidth=null;
 cheight=null;
 cont=0;
-nombre="Evangeline";
+usuario=null;
 x=null;
 y=null;
 X= null;
@@ -31,7 +22,6 @@ Y=null;
 mx=null;
 my=null;
 
-var app= function(){
 
 function connectarJuego(){
       
@@ -40,34 +30,24 @@ function connectarJuego(){
         stompClient = Stomp.over(socket);
         stompClient.connect({},function (frame){
         console.log('Connected'+frame);
-    
-        
-        /*
-         * Crear Jueago
-         */
-        
-        var datos=window.location.search.substr(1);
-       // var datos1=datos.split("&");
-      //  id=dato1[0];
-      //  nombre=dato1[1];
-        
-        //
-         
-        
-        stompClient.subscribe('/topic/crearCampoJuego/'+nombre, function (datos){
-            console.log("3");
-            alert("Usted a ingresado al campo de Juego APPLE BAD, Bienvenido"+nombre);
+        usuario=window.location.search.substr(1);
+            var parametros=window.location.search.substr(1);
+            var parametros1=parametros.split("$");
+            nombreP=parametros1[0];
+            usuario=parametros1[1];
+            stompClient.subscribe('/topic/crearCampoJuego/'+nombreP+usuario, function (datos){
+            alert("Usted a ingresado al campo de Juego APPLE BAD, Bienvenido"+usuario);
             var nuevoJuego=JSON.parse(datos.body);
-            tipPartida=nuevoJuego.tipPartida;
+            tipPartida=nuevoJuego.tipoPartida;
             document.getElementById("jugador").innerHTML=tipPartida.jugador;
             
             if (tipPartida==="Publica"){
-                document.getElementById("Partido").innerHTML= "Pública";
+                document.getElementById("Partida").innerHTML= "Publica";
                 
             }
-            else{
-                //document.getElementById("Partido").innerHTML=id;
-            }
+//            else{
+//                document.getElementById("Partido").innerHTML=id;
+//            }
             
             canvas=document.getElementById("canvas");
             ctx=canvas.getContext('2d');
@@ -80,17 +60,17 @@ function connectarJuego(){
                     
         });
         
-         stompClient.subscribe('/topic/vidasJugador'+nombre,function (datos){
+         stompClient.subscribe('/topic/vidasJugador'+nombreP+usuario,function (datos){
              var nuevoJuego=JSON.parse(datos.body);
              document.getElementById("vidajugador").innerHTML=nuevoJuego.vidasJugador;
          });
          
-         stompClient.subscribe('/topic/manzanasPodridas'+nombre,function (datos){
+         stompClient.subscribe('/topic/manzanasPodridas'+nombreP+usuario,function (datos){
              var nuevoJuego=JSON.parse(datos.body);
              document.getElementById("manzanasPodridas").innerHTML=nuevoJuego.manzanasPodridas;
          });
          
-          stompClient.subscribe('/topic/casillaVisitada'+nombre,function (datos){
+          stompClient.subscribe('/topic/casillaVisitada'+nombreP+usuario,function (datos){
              var casilla=JSON.parse(datos.body);
              var posicionX=casilla.posicionX;
              var posicionY=casilla.posicionY;
@@ -100,7 +80,7 @@ function connectarJuego(){
              nuevasCasillas(posicionX,posicionY,color,estado);
          });
          
-          stompClient.subscribe('/topic/finJuegoRetirar'+nombre,function (datos){
+          stompClient.subscribe('/topic/finJuegoRetirar'+nombreP+usuario,function (datos){
              var fin=JSON.parse(datos.body);
              if(!fin.estadoJugador){
                  alert("Has perdido");
@@ -189,16 +169,16 @@ function desconectar(){
 
 
 function establecerPartida(){
-    stompClient.send("/app/establecePartida",{}, JSON.stringify({jugador:nombre}));
+    stompClient.send("/app/establecePartida",{}, JSON.stringify({partida:nombreP,jugador:usuario}));
 }
 
 function mirarCasilla(){
-    stompClient.send("/app/cubrirCasilla",{},JSON.stringify({jugador:nombre,posicionX:0,posicionY:0}));
+    stompClient.send("/app/cubrirCasilla",{},JSON.stringify({partida:nombreP,posicionX:0,posicionY:0}));
 
 }
 function mirarTodasCasillas(){
     console.log("ENTRO A LAS CASILLAS")
-    stompClient.send("/app/cubrirCasilla",{},JSON.stringify({jugador:nombre,posicionX:posicionX,posicionY:posicionY}));
+    stompClient.send("/app/cubrirCasilla",{},JSON.stringify({partida:nombreP,posicionX:posicionX,posicionY:posicionY}));
 
 }
 /*
@@ -246,17 +226,15 @@ function dibujarPantalla(){
    }
     ctx.strokeStyle="black";
     ctx.stroke();
-};
-  return {
+}
+$(document).ready(
+    function(){
+        connectarJuego();
+    }
+    );
+    
+  
 
-        init: function () {
-            var can = document.getElementById("canvas");
-            
-            //websocket connection
-            connectarJuego();
-        }
-    };
-}();
     
 
 

@@ -6,6 +6,7 @@
 /* global apimock, stompClient */
 /* global Stomp, canvasWidth */
 stompClient=null;
+var nombreP=document.getElementById("nombreP").value;
 function ingresar(){
 
     validacion=validarUsuario();
@@ -13,6 +14,26 @@ function ingresar(){
        
         window.location.replace("/Opcionjuego.html");
     }
+}
+function connectarJuego(nombreP) {
+
+    console.info('Connecting to WS...');
+    socket = new SockJS('/stompApple');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        console.log('Connected' + frame);
+        usuario = window.location.search.substr(1);
+        stompClient.subscribe('/topic/crearCampoJuego/' + nombreP + usuario, function (datos) {
+            window.location.replace("/tableroJuego.html" + "?" + nombreP + "&" + usuario);
+        });
+    });
+}
+function desconnectar(){
+    if(stompClient!==null){
+        stompClient.desconnectar();
+    }
+    console.log("Disconnected");
+    
 }
 function validarUsuario(){
     var api = apimock;
@@ -108,5 +129,13 @@ function validarNombreJuego(){
         //disconnect();
         }
    }
+
+   $(document).ready(
+        connectarJuego(nombreP)
+    );
+               
+           
+            
+
     
     
