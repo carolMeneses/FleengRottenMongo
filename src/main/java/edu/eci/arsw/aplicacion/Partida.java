@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Jessica Fresneda
  * @author Carol Meneses
  */
-public class Juego {
+public class Partida {
 
    
     private Tablero tablero;
@@ -23,25 +23,28 @@ public class Juego {
      private int filas;
      private int columnas;
      private int numJugadores;
-     private String modalidad;
+     private String tipoPartda;
+
+
+    // private String modalidad;
      private int maximoJugadores=15;
      private String nombrePartida;
      private static int manzRestantes;
      private static int manzanasBuenas;
      public final int puntaje=5;
      
-     public Juego(String nivel, int filas, int columnas, String modalidad,String nombrePartida) {
+     public Partida(String nivel, int filas, int columnas,String nombrePartida) {
         this.nivel = nivel;
         this.filas = filas;
         this.columnas = columnas;
-        this.modalidad = modalidad;
+     //   this.modalidad = modalidad;
         this.nombrePartida=nombrePartida;
         setManzanasPodridas();
         manzRestantes=getManzanasPodridas();
     }
-       public Juego(String nivel, String modalidad,String nombrePartida) {
+       public Partida(String nivel,String nombrePartida) {
         this.nivel = nivel;
-        this.modalidad = modalidad;
+      //  this.modalidad = modalidad;
         setFilasColumnas();
         setManzanasPodridas();
         manzRestantes=getManzanasPodridas();
@@ -137,7 +140,14 @@ public class Juego {
         return jugadores;
     }
     // falta mover
-
+    public Jugador getJugador(String jugador){
+        Jugador j=null;
+        for(int i=0;i<jugadores.size();i++){
+        if(jugadores.get(i).getNombre().equals(jugador))
+            j=jugadores.get(i);
+        }
+    return j;
+    }
     public Tablero getTablero() {
         return tablero;
     }
@@ -153,6 +163,46 @@ public class Juego {
     public String getNombrePartida() {
         return nombrePartida;
     }
+        public ArrayList<String> getColor() {
+        return color;
+    }
+
+    public String getNivel() {
+        return nivel;
+    }
+
+    public int getFilas() {
+        return filas;
+    }
+
+    public int getColumnas() {
+        return columnas;
+    }
+
+    public int getNumJugadores() {
+        return numJugadores;
+    }
+
+    public static int getManzRestantes() {
+        return manzRestantes;
+    }
+
+    public static int getManzanasBuenas() {
+        return manzanasBuenas;
+    }
+
+    public int getPuntaje() {
+        return puntaje;
+    }
+
+    public String getTipoPartda() {
+        return tipoPartda;
+    }
+
+    public void setTipoPartda(String tipoPartda) {
+        this.tipoPartda = tipoPartda;
+    }
+    
 
 }
 //

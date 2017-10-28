@@ -5,7 +5,7 @@
  */
 package edu.eci.arsw.controlador;
 
-import edu.eci.arsw.aplicacion.Juego;
+import edu.eci.arsw.aplicacion.Partida;
 
 /**
  *
@@ -15,11 +15,11 @@ import edu.eci.arsw.aplicacion.Juego;
 
 public class DatosJuegoNuevo {
 
-    private String nombre;
+    private String nombreP;
     private String TipPartida;
     private boolean estado;
     private String idPartida;
-    private String modalidad;
+    //private String modalidad;
     private int filas;
     private int columnas;
     private String jugador;
@@ -29,8 +29,8 @@ public class DatosJuegoNuevo {
     //private double tiemp;;
     
 
-    public DatosJuegoNuevo(String nombre, String TipPartida, String idPartida, int filas, int columnas, String jugador, String nivel) {
-        this.nombre = nombre;
+    public DatosJuegoNuevo(String nombreP, String TipPartida, String idPartida, int filas, int columnas, String jugador, String nivel) {
+        this.nombreP = nombreP;
         this.TipPartida = TipPartida;
         this.idPartida = idPartida;
         this.filas = filas;
@@ -38,14 +38,18 @@ public class DatosJuegoNuevo {
         this.jugador = jugador;
         this.nivel = nivel;
     }
+
+    public DatosJuegoNuevo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
-    public String getNombre() {
-        return nombre;
+    public String getNombreP() {
+        return nombreP;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreP(String nombreP) {
+        this.nombreP = nombreP;
     }
 
     public String getTipPartida() {
@@ -105,8 +109,8 @@ public class DatosJuegoNuevo {
         this.nivel = nivel;
     }
 
-    public Juego getiniciarJuegoNuevo(){
-        Juego jueg = new Juego(nivel, filas,  columnas,modalidad, nombre);
+    public Partida getiniciarJuegoNuevo(){
+        Partida jueg = new Partida(nivel, filas,  columnas, nombreP);
         
         return jueg;
         

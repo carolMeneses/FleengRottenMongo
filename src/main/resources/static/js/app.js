@@ -77,7 +77,7 @@ function connectarJuego(){
             EventosMouse();
             dibujarPantalla();
             mirarTodasCasillas();   
-            
+                    
         });
         
          stompClient.subscribe('/topic/vidasJugador'+nombre,function (datos){

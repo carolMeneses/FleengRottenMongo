@@ -20,10 +20,10 @@ public class appleController {
 
     @Autowired
     campoJuego jueg;
-     @RequestMapping(path = "/agregarJugador/{partida}/{nombre}", method = RequestMethod.POST)
-        public ResponseEntity<?> getCurrentWord(@PathVariable String partida,@PathVariable String nombre){
+     @RequestMapping(path = "/agregarJugador/{nombreP}/{nombre}", method = RequestMethod.POST)
+        public ResponseEntity<?> getCurrentWord(@PathVariable String nombreP,@PathVariable String nombre){
          boolean estado;
-         estado=jueg.AgregarJugador(partida, nombre);
+         estado=jueg.AgregarJugador(nombreP, nombre);
         return new ResponseEntity<>(estado,HttpStatus.ACCEPTED);
     }
     

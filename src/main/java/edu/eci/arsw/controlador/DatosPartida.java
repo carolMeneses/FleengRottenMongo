@@ -13,12 +13,12 @@ public class DatosPartida{
 
     private int manzanasPodridas;
     private int vidasJugador;
-    private boolean estadoJugador;
+    private boolean jugadorVive;
     
     public DatosPartida(int manzanasPodridas, int vidasJugador, boolean estadoJugador) {
         this.manzanasPodridas = manzanasPodridas;
         this.vidasJugador = vidasJugador;
-        this.estadoJugador = estadoJugador;
+        this.jugadorVive = estadoJugador;
     }
     
     public int getManzanasPodridas() {
@@ -38,11 +38,11 @@ public class DatosPartida{
     }
 
     public boolean isEstadoJugador() {
-        return estadoJugador;
+        return jugadorVive;
     }
 
     public void setEstadoJugador(boolean estadoJugador) {
-        this.estadoJugador = estadoJugador;
+        this.jugadorVive = estadoJugador;
     }
     
 }

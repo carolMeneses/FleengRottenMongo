@@ -149,4 +149,17 @@ public class Tablero {
         return (i >= 0 && j >= 0 && j < filas && j < columnas);
     }
 
+    public Casilla[][] getCasillajuego() {
+        return casillajuego;
+    }
+
+    public int getFilas() {
+        return filas;
+    }
+
+    public int getColumnas() {
+        return columnas;
+    }
+    
+
 }

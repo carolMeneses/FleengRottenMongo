@@ -10,17 +10,24 @@ package edu.eci.arsw.controlador;
  * @author 3070465
  */
 public class DatosSeleccionCasilla {
-    private String partida;
+    private String nombreP;
     private String jugador;
     private int pX;
+
+    public DatosSeleccionCasilla(String partida, String jugador, int pX, int pY) {
+        this.nombreP = partida;
+        this.jugador = jugador;
+        this.pX = pX;
+        this.pY = pY;
+    }
     private int pY;
 
     public String getPartida() {
-        return partida;
+        return nombreP;
     }
 
     public void setPartida(String partida) {
-        this.partida = partida;
+        this.nombreP = partida;
     }
 
     public String getJugador() {
