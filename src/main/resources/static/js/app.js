@@ -9,28 +9,27 @@
  */
 /* global Stomp */
 
+/*variables de STOMP*/
+stompClient=null;
+canvasWidth=600;
+canvasHeight=600;
+Canvas=null;
+ctx=null;
+tamano=null;
 cwidth=null;
 cheight=null;
 cont=0;
-nombre=null;
+nombre="Evangeline";
 x=null;
 y=null;
 X= null;
 Y=null;
-
+/*
+ * 
+ *Variables para los eventos del mouse
+ */
 mx=null;
 my=null;
-
-tamano=null;
-
-
-/*variables de STOMP*/
-stompClient=null;
-Canvas=null;
-ctx=null;
-canvasHeight=600;
-canvasWidth=600;
-
 
 var app= function(){
 
@@ -41,6 +40,7 @@ function connectarJuego(){
         stompClient = Stomp.over(socket);
         stompClient.connect({},function (frame){
         console.log('Connected'+frame);
+    
         
         /*
          * Crear Jueago
@@ -52,12 +52,15 @@ function connectarJuego(){
       //  nombre=dato1[1];
         
         //
+         
         
-        stompClient.subscribe('/topic/crearCampoJuego'+nombre, function (datos){
+        stompClient.subscribe('/topic/crearCampoJuego/'+nombre, function (datos){
+            console.log("3");
             alert("Usted a ingresado al campo de Juego APPLE BAD, Bienvenido"+nombre);
             var nuevoJuego=JSON.parse(datos.body);
             tipPartida=nuevoJuego.tipPartida;
             document.getElementById("jugador").innerHTML=tipPartida.jugador;
+            
             if (tipPartida==="Publica"){
                 document.getElementById("Partido").innerHTML= "Pública";
                 
@@ -66,25 +69,25 @@ function connectarJuego(){
                 //document.getElementById("Partido").innerHTML=id;
             }
             
-            canvas=document.getElementById("tabla");
+            canvas=document.getElementById("canvas");
             ctx=canvas.getContext('2d');
             tamano=cwidth/nuevoJuego.filas;
             width=~~ (canvas.width/tamano);
             height = ~~ (canvas.height/tamano);
-            eventosJuegos();
+            EventosMouse();
             dibujarPantalla();
-            mirarTodasCAsillas();   
+            mirarTodasCasillas();   
             
         });
         
-         stompClient.subscribe('/topic/vidasJUgador'+nombre,function (datos){
+         stompClient.subscribe('/topic/vidasJugador'+nombre,function (datos){
              var nuevoJuego=JSON.parse(datos.body);
              document.getElementById("vidajugador").innerHTML=nuevoJuego.vidasJugador;
          });
          
          stompClient.subscribe('/topic/manzanasPodridas'+nombre,function (datos){
              var nuevoJuego=JSON.parse(datos.body);
-             document.getElementById("manzanasPodridas").innerHTML=nuevoJuego.vidasJugador;
+             document.getElementById("manzanasPodridas").innerHTML=nuevoJuego.manzanasPodridas;
          });
          
           stompClient.subscribe('/topic/casillaVisitada'+nombre,function (datos){
@@ -116,7 +119,7 @@ function connectarJuego(){
 function nuevasCasillas(posicionX,posicionY,color,estado){
     switch (estado){
         case 'true':
-            llenar(posicionX,posicionY,color);
+            llenar(posicionX,posicionY,'red');
             break;
         case 'false':
             llenar(posicionX,posicionY,color);
@@ -158,6 +161,10 @@ function nuevasCasillas(posicionX,posicionY,color,estado){
     }
     
 }
+function salirDelJuego(){
+        desconectar();
+        window.location.replace("/index.html");
+}
 
 function llenar(s,x,y) {
     ctx.fillStyle = s;
@@ -176,25 +183,29 @@ function desconectar(){
      if (stompClient!==null) {
          stompClient.desconectar();
         
-     }
+ }
      console.log("Desconectar");
 }
 
 
 function establecerPartida(){
-    stompClient.send("/app/establecePartida",{}, JSON.stringify({idpart:id,jugador:nombre}));
+    stompClient.send("/app/establecePartida",{}, JSON.stringify({jugador:nombre}));
 }
 
 function mirarCasilla(){
-    stompClient.send("/app/cubrirCasilla",{},JSON.stringify({idpart:id,jugador:nombre,posicionX:0,posicionY:0}));
+    stompClient.send("/app/cubrirCasilla",{},JSON.stringify({jugador:nombre,posicionX:0,posicionY:0}));
 
 }
-function mirartodasCasilla(){
-    stompClient.send("/app/cubrirCasilla",{},JSON.stringify({idpart:id,jugador:nombre,posicionX:posicionX,posicionY:posicionY}));
+function mirarTodasCasillas(){
+    console.log("ENTRO A LAS CASILLAS")
+    stompClient.send("/app/cubrirCasilla",{},JSON.stringify({jugador:nombre,posicionX:posicionX,posicionY:posicionY}));
 
 }
-
+/*
+ * Manejo de eventos en el Mouse;
+ */
 function EventosMouse(){
+    console.log("entro a mouse");
     $('#canvas').mousedown(function(evento) {
         mx= event.offsetX;
         my= event.offsetY;
@@ -204,13 +215,13 @@ function EventosMouse(){
         
         switch (evento.which){
             case 1:
-                mirarCasilla(X,Y)
+                mirarCasilla(X,Y);
                 break;
             case 2:
                 break;
             case 3:
                 
-                llenar('#00ff00',X,Y)
+                llenar('#00ff00',X,Y);
                 break;
             default :
                 alert('no correspond');
@@ -219,7 +230,9 @@ function EventosMouse(){
 }
     
 
-    
+/*
+ * Dibujar filas y columnas en el CANVAS
+ */    
 
 function dibujarPantalla(){
   console.log("ENTRO JOHANITA");
@@ -232,8 +245,8 @@ function dibujarPantalla(){
         ctx.lineTo(canvasWidth+cont,0,5+x+cont);
    }
     ctx.strokeStyle="black";
-    ctx.strocke();
-}
+    ctx.stroke();
+};
   return {
 
         init: function () {
