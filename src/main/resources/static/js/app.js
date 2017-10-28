@@ -52,8 +52,8 @@ function connectarJuego(){
             canvas=document.getElementById("canvas");
             ctx=canvas.getContext('2d');
             tamano=cwidth/nuevoJuego.filas;
-            width=~~ (canvas.width/tamano);
-            height = ~~ (canvas.height/tamano);
+            cwidth=~~ (canvas.width/tamano);
+            cheight = ~~ (canvas.height/tamano);
             EventosMouse();
             dibujarPantalla();
             mirarTodasCasillas();   

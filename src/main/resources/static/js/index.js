@@ -7,6 +7,7 @@
 /* global Stomp, canvasWidth */
 stompClient=null;
 var nombreP=document.getElementById("nombreP").value;
+
 function ingresar(){
 
     validacion=validarUsuario();
@@ -85,14 +86,14 @@ function validarNombreJuego(){
               
     }
     
-    function crear(){
-        validacion=validarPartida();
-        if(!validacion){
-     
-        window.location.replace("/Opcionjuego.html");
-    }
-   
-        
+    function crear() {
+        validacion = validarPartida();
+        if (!validacion) {
+
+            window.location.replace("/Opcionjuego.html");
+        }
+
+
     }
     function regresar(){
         window.location.replace("/Opcionjuego.html");
@@ -108,24 +109,28 @@ function validarNombreJuego(){
            
        }
        var tipPartida=document.getElementsByName("tipodepartida");
-       for(i=0;i<tipPartida.length;i++){
+       for(var i=0;i<tipPartida.length;i++){
            if(tipPartida[i].checked) tipodePartida=tipPartida[i].value;
         }
+        filas=document.elegir.filas.value;
+        columnas=document.elegir.columnas.value;
         
         // En caso de ser campo privado toca declarar las filas
      var nivelJuego=document.getElementsByName("nivel");
      
-       for(i=0;i<nivelJuego.length;i++){
+       for(var i=0;i<nivelJuego.length;i++){
            if(nivelJuego[i].checked) nivelDificultad=nivelJuego[i].value;
         }
         
         //pendiente por crear un nuevo usuarui
+        jugadorNuevo=window.location.search.substr(1)
+        
         if(!estado){
             console.log(nombreP);
             console.log(nivelDificultad);
             console.log(tipodePartida);
          //  stompClient.send("/app/NuevaPartida",{},JSON.stringfy({partida:partida,tipodePartida:tipodePartida,nivelDificultad:nivelDificultad}));
-         stompClient.send("/app/crearJuego", {}, JSON.stringify({nombreP:nombreP,tipoPartida:tipodePartida,nivel:nivelDificultad}));
+         stompClient.send("/app/crearJuego", {}, JSON.stringify({nombreP:nombreP,tipoPartida:tipodePartida,nivel:nivelDificultad,filas:filas,columnas:columnas}));
         //disconnect();
         }
    }
