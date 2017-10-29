@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/* global apimock, stompClient */
-/* global Stomp, canvasWidth */
+
+/* global Location, Stomp, apimock */
 stompClient=null;
 var nombreP=document.getElementById("nombreP").value;
 
 function ingresar(){
-
+ nombre=document.getElementById("Usuario").value;
     validacion=validarUsuario();
     if(!validacion){
-       
-        window.location.replace("/Opcionjuego.html");
+       alert();
+        window.location.replace("/crearCampoJuego.html"+"?"+nombre);
     }
 }
 function connectarJuego(nombreP) {
@@ -25,7 +25,7 @@ function connectarJuego(nombreP) {
         console.log('Connected' + frame);
         usuario = window.location.search.substr(1);
         stompClient.subscribe('/topic/crearCampoJuego/' + nombreP + usuario, function (datos) {
-            window.location.replace("/tableroJuego.html" + "?" + nombreP + "&" + usuario);
+          //  window.location.href("/tableroJuego.html" + "?" + nombreP + "&" + usuario);
         });
     });
 }
@@ -74,7 +74,7 @@ function validarNombreJuego(){
                    i=jugadores.length;
                }
     }
-        if(validar===true || nombreP==null){
+        if(validar===true || nombreP===null){
             alert("ingresa un nuevo nombre de juego");
          }
         return validar;
@@ -123,7 +123,7 @@ function validarNombreJuego(){
         }
         
         //pendiente por crear un nuevo usuarui
-        jugadorNuevo=window.location.search.substr(1)
+        jugadorNuevo=window.location.search.substr(1);
         
         if(!estado){
             console.log(nombreP);

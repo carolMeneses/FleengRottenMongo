@@ -28,7 +28,8 @@ SimpMessagingTemplate msgt;
     @MessageMapping("/crearJuego")
     public void NuevoJuego(DatosJuegoNuevo datos)throws Exception {
         datos.setEstado(juego.CrearPartida(datos));
-        msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),datos);
+//       msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),datos);
+        msgt.convertAndSend("/topic/partidaNueva"+datos.getJugador(),datos);
     }
      @MessageMapping("/entrarPartida")
     public void entrarPartida(Datos datos)throws Exception {
@@ -54,6 +55,7 @@ SimpMessagingTemplate msgt;
             }
         }
     }
+
             
 }
 

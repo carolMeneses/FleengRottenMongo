@@ -35,7 +35,7 @@ function connectarJuego(){
             var parametros1=parametros.split("$");
             nombreP=parametros1[0];
             usuario=parametros1[1];
-            stompClient.subscribe('/topic/crearCampoJuego/'+nombreP+usuario, function (datos){
+          //  stompClient.subscribe('/topic/crearCampoJuego/'+nombreP+usuario, function (datos){
             alert("Usted a ingresado al campo de Juego APPLE BAD, Bienvenido"+usuario);
             var nuevoJuego=JSON.parse(datos.body);
             tipPartida=nuevoJuego.tipoPartida;
@@ -84,7 +84,7 @@ function connectarJuego(){
              var fin=JSON.parse(datos.body);
              if(!fin.estadoJugador){
                  alert("Has perdido");
-                 window.location.replace("/index.html");
+                // window.location.replace("/index.html");
              }
             
          });
@@ -92,8 +92,8 @@ function connectarJuego(){
          establecerPartida();
          
               
- });
-}
+ }
+
 
 
 function nuevasCasillas(posicionX,posicionY,color,estado){
@@ -143,7 +143,7 @@ function nuevasCasillas(posicionX,posicionY,color,estado){
 }
 function salirDelJuego(){
         desconectar();
-        window.location.replace("/index.html");
+      //  window.location.replace("/index.html");
 }
 
 function llenar(s,x,y) {
