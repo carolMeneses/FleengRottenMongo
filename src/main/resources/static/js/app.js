@@ -29,19 +29,33 @@ function connectarJuego() {
     var socket = new SockJS('/stompApple');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        
+
         console.log('Connected' + frame);
-      
+
         nombreP = window.location.search.substr(1);
         var parametros = window.location.search.substr(1);
         var parametros1 = parametros.split("&");
-        
-        
+
+
         nombreP = parametros1[0];
         usuario = parametros1[1];
         console.log("hola paso");
-        console.log('/topic/crearCampoJuego/'+ nombreP+'/'+usuario);
-        stompClient.subscribe('/topic/crearCampoJuego/'+ nombreP+'/'+usuario, function (datos) {
+        console.log('/topic/crearCampoJuego/' + nombreP + '/' + usuario);
+        canvas = document.getElementById("canvas");
+        ctx = canvas.getContext('2d');
+        var img = new Image();
+        img.src = "/images/logo1.jpg";
+        img.onload = function () {
+            ctx.drawImage(img, 0, 0);
+        };
+        tamano = canvas.width / 7;
+        cwidth = ~~(canvas.width / tamano);
+        cheight = ~~(canvas.height / tamano);
+        EventosMouse();
+        dibujarPantalla();
+        mirarTodasCasillas();
+
+        stompClient.subscribe('/topic/crearCampoJuego/' + nombreP + '/' + usuario, function (datos) {
             console.log("hola paso ");
             alert("Usted a ingresado al campo de Juego APPLE BAD, Bienvenido" + usuario);
             var nuevoJuego = JSON.parse(datos.body);
@@ -56,19 +70,7 @@ function connectarJuego() {
 //                document.getElementById("Partido").innerHTML=id;
 //            }
 
-            canvas = document.getElementById("canvas");
-            ctx = canvas.getContext('2d');
-            var img = new Image();
-            img.src = "/images/logo1.jpg";
-            img.onload = function () {
-                ctx.drawImage(img, 0, 0);
-            };
-            tamano = cwidth / nuevoJuego.filas;
-            cwidth = ~~(canvas.width / tamano);
-            cheight = ~~(canvas.height / tamano);
-            EventosMouse();
-            dibujarPantalla();
-            mirarTodasCasillas();
+
 
         });
 
@@ -191,7 +193,7 @@ function mirarCasilla() {
 }
 function mirarTodasCasillas() {
     console.log("ENTRO A LAS CASILLAS")
-    stompClient.send("/app/cubrirCasilla", {}, JSON.stringify({partida: nombreP, posicionX: posicionX, posicionY: posicionY}));
+    stompClient.send("/app/cubrirCasilla", {}, JSON.stringify({partida: nombreP, posicionX: 10, posicionY: 10}));
 
 }
 /*
@@ -228,16 +230,19 @@ function EventosMouse() {
  */
 
 function dibujarPantalla() {
-    console.log("ENTRO Andres");
+   
+    console.log("ENTRO");
     for (var x = 0; x <= canvasWidth; x += tamano) {
+        console.log("ENTRO"+x);
         ctx.moveTo(0, 5 + x + cont, cont);
         ctx.lineTo(0, 5 + x + cont, canvasHeight + cont);
     }
     for (var x = 0; x <= canvasHeight; x += tamano) {
+        console.log("ENTRO"+x);
         ctx.moveTo(cont, 0, 5 + x + cont);
         ctx.lineTo(canvasWidth + cont, 0, 5 + x + cont);
     }
-    ctx.strokeStyle = "black";
+     ctx.strokeStyle = "red";
     ctx.stroke();
 }
 
