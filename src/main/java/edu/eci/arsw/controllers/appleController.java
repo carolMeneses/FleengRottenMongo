@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.arsw.controlador;
+package edu.eci.arsw.controllers;
 
-import edu.eci.arsw.aplicacion.campoJuego;
+import edu.eci.arsw.model.campoJuego;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

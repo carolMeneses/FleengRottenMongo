@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.arsw.aplicacion;
+package edu.eci.arsw.model;
 
-import edu.eci.arsw.controlador.Datos;
-import edu.eci.arsw.controlador.DatosJuegoNuevo;
-import edu.eci.arsw.controlador.DatosSeleccionCasilla;
+import edu.eci.arsw.persistencia.Datos;
+import edu.eci.arsw.persistencia.DatosJuegoNuevo;
+import edu.eci.arsw.persistencia.DatosSeleccionCasilla;
 import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 

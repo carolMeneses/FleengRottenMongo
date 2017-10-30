@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.arsw.controlador;
+package edu.eci.arsw.persistencia;
 
 /**
  *
- * @author Kazu
+ *
  */
 public class Datos {
     private String nombreP;

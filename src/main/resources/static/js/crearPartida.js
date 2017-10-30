@@ -8,7 +8,7 @@
 stompClient = null;
 function connectarJuego(nombreP) {
 
-    console.info('Connecting to WS...');
+    console.info('Connecting to WS... aaaaaaaaaa');
     socket = new SockJS('/stompApple');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
@@ -62,6 +62,7 @@ function crearJuego() {
         console.log(tipodePartida);
         //  stompClient.send("/app/NuevaPartida",{},JSON.stringfy({partida:partida,tipodePartida:tipodePartida,nivelDificultad:nivelDificultad}));
         stompClient.send("/app/crearJuego", {}, JSON.stringify({nombreP: nombreP, tipoPartida: tipodePartida, nivel: nivelDificultad}));
+        window.location.replace("/tableroJuego.html"+"?"+nombreP);
         //disconnect();
     }
 }
