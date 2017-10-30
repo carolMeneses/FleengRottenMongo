@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 
 /**
  *
- * @author 3070465
+ * @author
  */
 @Controller
 public class appleSTOMP {

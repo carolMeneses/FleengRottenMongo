@@ -30,7 +30,7 @@ function desconnectar() {
 function crearJuego() {
 
     // partida=document.getElementsByName.elegir.nombre.value;
-    nombreP = document.elegir.nombreP.value;
+    nombreP = document.getElementsByName("nombreP");
     estado = true;
     validacion = validarNombreJuego();
     if (!validacion) {
@@ -65,28 +65,28 @@ function crearJuego() {
         //disconnect();
     }
 }
-function validarUsuario() {
+function validarNombreJuego(){
     var api = apimock;
+       
+    var validar=false;
+    nombreP=document.getElementById("nombreP").value;
+           
 
-    var validar = false;
-    nombre = document.getElementById("Usuario").value;
-    var jugadores = api.getUsuarios();
-
-    for (i = 0; i < jugadores.length - 1; i++) {
-        if (jugadores[i] === nombre) {
-            validar = true;
-            i = jugadores.length;
-        }
+    var jugadores=api.getJuego();
+     for(i=0;i<jugadores.length -1;i++){
+   
+               if(jugadores[i]===nombreP){
+                   validar=true;
+                   i=jugadores.length;
+               }
+    }
+        if(validar===true || nombreP===null){
+            alert("ingresa un nuevo nombre de juego");
+         }
+        return validar;
     }
 
 
-    if (validar === true || nombre === "") {
-        alert("ingresa Usuario");
-    }
-    return validar;
-
-
-}
 $(document).ready(
         function () {
             connectarJuego(nombreP);
