@@ -29,13 +29,20 @@ function connectarJuego() {
     var socket = new SockJS('/stompApple');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
+        
         console.log('Connected' + frame);
-        usuario = window.location.search.substr(1);
+      
+        nombreP = window.location.search.substr(1);
         var parametros = window.location.search.substr(1);
-        var parametros1 = parametros.split("$");
+        var parametros1 = parametros.split("&");
+        
+        
         nombreP = parametros1[0];
         usuario = parametros1[1];
-        stompClient.subscribe('/topic/crearCampoJuego/' + nombreP + usuario, function (datos) {
+        console.log("hola paso");
+        console.log('/topic/crearCampoJuego/'+ nombreP+'/'+usuario);
+        stompClient.subscribe('/topic/crearCampoJuego/'+ nombreP+'/'+usuario, function (datos) {
+            console.log("hola paso ");
             alert("Usted a ingresado al campo de Juego APPLE BAD, Bienvenido" + usuario);
             var nuevoJuego = JSON.parse(datos.body);
             tipPartida = nuevoJuego.tipoPartida;

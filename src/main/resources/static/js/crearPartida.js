@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 /* global Stomp, apimock */
-
+this.usuario=null;
 stompClient = null;
 function connectarJuego(nombreP) {
 
@@ -14,6 +14,7 @@ function connectarJuego(nombreP) {
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
         usuario = window.location.search.substr(1);
+        console.log(usuario);
         stompClient.subscribe('/topic/crearCampoJuego/' + nombreP + usuario, function (datos) {
             window.location.replace("/tableroJuego.html" + "?" + nombreP + "&" + usuario);
         });
@@ -62,7 +63,7 @@ function crearJuego() {
         console.log(tipodePartida);
         //  stompClient.send("/app/NuevaPartida",{},JSON.stringfy({partida:partida,tipodePartida:tipodePartida,nivelDificultad:nivelDificultad}));
         stompClient.send("/app/crearJuego", {}, JSON.stringify({nombreP: nombreP, tipoPartida: tipodePartida, nivel: nivelDificultad}));
-        window.location.replace("/tableroJuego.html"+"?"+nombreP);
+        window.location.replace("/tableroJuego.html"+"?"+nombreP+"&" + usuario);
         //disconnect();
     }
 }
