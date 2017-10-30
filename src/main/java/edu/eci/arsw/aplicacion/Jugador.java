@@ -24,7 +24,7 @@ public class Jugador {
         this.numVidas = numVidas;
         this.nombre = nombre;
         this.color = color;
-        this.estadoVivo = estadoVivo;
+      
     }
 
     Jugador() {
