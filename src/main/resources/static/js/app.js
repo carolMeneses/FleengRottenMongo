@@ -44,11 +44,12 @@ function connectarJuego() {
         canvas = document.getElementById("canvas");
         ctx = canvas.getContext('2d');
         var img = new Image();
-        img.src = "/images/logo1.jpg";
-        img.onload = function () {
-            ctx.drawImage(img, 0, 0);
-        };
+//        img.src = "/images/logo1.jpg";
+//        img.onload = function () {
+//            ctx.drawImage(img, 0, 0);
+//        };
         tamano = canvas.width / 7;
+        console.log(tamano);
         cwidth = ~~(canvas.width / tamano);
         cheight = ~~(canvas.height / tamano);
         EventosMouse();
@@ -232,17 +233,17 @@ function EventosMouse() {
 function dibujarPantalla() {
    
     console.log("ENTRO");
+    
     for (var x = 0; x <= canvasWidth; x += tamano) {
-        console.log("ENTRO"+x);
-        ctx.moveTo(0, 5 + x + cont, cont);
-        ctx.lineTo(0, 5 + x + cont, canvasHeight + cont);
+        ctx.moveTo(x, 0);
+	ctx.lineTo(x, canvasWidth);
     }
+
     for (var x = 0; x <= canvasHeight; x += tamano) {
-        console.log("ENTRO"+x);
-        ctx.moveTo(cont, 0, 5 + x + cont);
-        ctx.lineTo(canvasWidth + cont, 0, 5 + x + cont);
+        ctx.moveTo(0, x);
+	ctx.lineTo(canvasHeight, x);
     }
-     ctx.strokeStyle = "red";
+    ctx.strokeStyle = "white";
     ctx.stroke();
 }
 
