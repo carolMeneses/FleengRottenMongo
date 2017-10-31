@@ -8,6 +8,7 @@ package edu.eci.arsw.persistence.impl;
 import edu.eci.arsw.model.Jugador;
 import edu.eci.arsw.model.Partida;
 import edu.eci.arsw.persistencia.applePersistence;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -62,10 +63,21 @@ public class InMemoryApple implements applePersistence {
      return j;
     }
     
-    
     @Override
-    public Partida getPartidaJugador(Jugador j) {
-        return j.getPartida();
+    public Partida getPartidaJugador(String j) {
+        Partida retornar=null;
+        Collection<Partida> part = partidas.values();
+        Set<Partida> p = new HashSet<>();
+        for (Partida pn : part) {
+            ArrayList<Jugador>  jugadores= pn.getJugadores();
+            for (int i=0;i<jugadores.size();i++){
+               if( jugadores.get(i).getNombre().equals(j)){
+                   retornar=jugadores.get(i).getPartida();
+               }
+            }
+            
+        }
+        return retornar;
     }
     
  @Override

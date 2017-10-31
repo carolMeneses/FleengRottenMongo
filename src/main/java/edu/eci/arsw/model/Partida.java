@@ -39,35 +39,35 @@ public class Partida {
         this.columnas = columnas;
           this.tipoPartida = tipoPartida;
         this.nombrePartida=nombrePartida;
-        setManzanasPodridas();
-        manzRestantes=getManzanasPodridas();
-         agregarJugador(usuario);
+
+  
     }
        public Partida(String nivel,String nombrePartida,String tipoPartida, String usuario) {
         this.nivel = nivel;
         this.tipoPartida = tipoPartida;
-        setFilasColumnas();
-        setManzanasPodridas();
-        manzRestantes=getManzanasPodridas();
-          agregarJugador(usuario);
-        this.nombrePartida=nombrePartida;
-        
-    }
-
-    public void setFilasColumnas() {
-        if(nivel.equals("facil")) {
+         if(nivel.equals("Facil")) {
             filas=8;
             columnas=8;
         }
-        if(nivel.equals("medio")) {
+        if(nivel.equals("Medio")) {
             filas=16;
             columnas=16;
         }
-        if(nivel.equals("dificil")) {
+        if(nivel.equals("Dificil")) {
             filas=32;
             columnas=32;
         }
+      
+     this.manzanasPodridas = filas * columnas / 4;
+        manzanasBuenas=(filas * columnas)-manzanasPodridas ;
+       this.nombrePartida=nombrePartida;
+       this.numJugadores= manzanasPodridas-1;
+           Jugador jugador=new Jugador(3,usuario,"blue");
+       jugadores.add(jugador);
+        
     }
+
+   
     public void crearColores(){
     color.add("blue");
     color.add("gray");
@@ -86,15 +86,8 @@ public class Partida {
     color.add("ligth green");  
    
     }
-    public void setManzanasPodridas() {
-        this.manzanasPodridas = filas * columnas / 4;
-        manzanasBuenas=(filas * columnas)-manzanasPodridas ;
-       
-    }
-    public void numJugadores() {
-        this.numJugadores= manzanasPodridas-1;
-    }
-
+   
+   
     public void JuegoNuevo() {
         tablero = new Tablero(filas, columnas, manzanasPodridas);
         tablero.tableroLleno();

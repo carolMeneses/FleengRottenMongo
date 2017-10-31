@@ -32,7 +32,7 @@ public class appleServices {
            return apple.getJugadores(pn);
     }
   
-    public Partida getPartidaJugador(Jugador j) {
+    public Partida getPartidaJugador(String j) {
         return apple.getPartidaJugador(j);
     }
     public Set<Partida> getPartidasByTipo(String tipoPartida) {

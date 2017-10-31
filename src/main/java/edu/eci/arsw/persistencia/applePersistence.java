@@ -38,7 +38,7 @@ public interface applePersistence {
      * @param j
      * @return la partida a la que pertenece un jugador
      */
-    public Partida getPartidaJugador(Jugador j);
+    public Partida getPartidaJugador(String j);
 
     /**
      * @param tipoPartida
