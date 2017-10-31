@@ -16,6 +16,7 @@ public class Jugador {
     private String nombre;
     private String color;
     private boolean  estadoVivo=true;
+    private Partida nuevaPartida=null;
 
 
     private int puntaje=0;
@@ -69,7 +70,12 @@ public class Jugador {
     public void setPuntaje(int punt) {
         this.puntaje = puntaje+punt;
     }
-    
+    public void asignaPartida(Partida p){
+        nuevaPartida=p;
+    }
+    public Partida getPartida() {
+        return nuevaPartida;
+    }
     
     
 }

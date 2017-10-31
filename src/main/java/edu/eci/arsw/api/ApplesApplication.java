@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.arsw;
+package edu.eci.arsw.api;
 
 // Menu principal
 
