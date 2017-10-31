@@ -23,7 +23,7 @@ public class Partida {
      private int filas;
      private int columnas;
      private int numJugadores;
-     private String tipoPartda;
+     private String tipoPartida;
 
 
     // private String modalidad;
@@ -33,22 +33,23 @@ public class Partida {
      private static int manzanasBuenas;
      public final int puntaje=5;
      
-     public Partida(String nivel, int filas, int columnas,String nombrePartida) {
+     public Partida(String nivel, int filas, int columnas,String nombrePartida,String tipoPartida,String usuario) {
         this.nivel = nivel;
         this.filas = filas;
         this.columnas = columnas;
-     //   this.modalidad = modalidad;
+          this.tipoPartida = tipoPartida;
         this.nombrePartida=nombrePartida;
         setManzanasPodridas();
         manzRestantes=getManzanasPodridas();
+         agregarJugador(usuario);
     }
-       public Partida(String nivel,String nombrePartida) {
+       public Partida(String nivel,String nombrePartida,String tipoPartida, String usuario) {
         this.nivel = nivel;
-      //  this.modalidad = modalidad;
+        this.tipoPartida = tipoPartida;
         setFilasColumnas();
         setManzanasPodridas();
         manzRestantes=getManzanasPodridas();
-        
+          agregarJugador(usuario);
         this.nombrePartida=nombrePartida;
         
     }
@@ -196,11 +197,11 @@ public class Partida {
     }
 
     public String getTipoPartda() {
-        return tipoPartda;
+        return tipoPartida;
     }
 
     public void setTipoPartda(String tipoPartda) {
-        this.tipoPartda = tipoPartda;
+        this.tipoPartida = tipoPartda;
     }
     
 

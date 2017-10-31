@@ -110,7 +110,7 @@ public class DatosJuegoNuevo {
     }
 
     public Partida getiniciarJuegoNuevo(){
-        Partida jueg = new Partida(nivel, filas,  columnas, nombreP);
+        Partida jueg = new Partida(nivel, filas,  columnas, nombreP, TipPartida,"usuario");
         
         return jueg;
         
