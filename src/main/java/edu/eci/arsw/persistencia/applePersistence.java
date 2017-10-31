@@ -49,5 +49,7 @@ public interface applePersistence {
     public void eliminar(Partida p);
 
     public void crearNuevoPartida(Partida p);
+    
+    public Set<Partida> getTodaslasPartidas();
 
 }

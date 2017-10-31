@@ -30,27 +30,19 @@ public class InMemoryApple implements applePersistence {
         Partida pn=new Partida("Facil","Juego2");
         partidas.put("juego2", pn);
     }
- @Override
-    public boolean agregarJugador(Partida pn,String nombre) {
-      boolean agrego=false;
-      agrego=pn.agregarJugador(nombre);
-       pn.getJugador(nombre).asignaPartida(pn);
-       return agrego;
-    }
-
+    
     @Override
-    public List<Jugador> getJugadores(Partida pn) {
-        //Estamos convirtiendo array list en lista
-     List<Jugador> j= pn.getJugadores();
-     return j;
-    }
+    public Set<Partida> getTodaslasPartidas() {
+        Collection<Partida> part = partidas.values();
+        Set<Partida> p = new HashSet<>();
+        for (Partida pn : part) {
 
-    @Override
-    public Partida getPartidaJugador(Jugador j) {
-        return j.getPartida();
+            p.add(pn);
+        }
+        return p;
     }
-        
-
+    
+    
     @Override
     public Set<Partida> getPartidasByTipo(String tipoPartida) {
         Collection<Partida> part = partidas.values();
@@ -62,6 +54,31 @@ public class InMemoryApple implements applePersistence {
         }
         return p;
     }
+    
+    @Override
+    public List<Jugador> getJugadores(Partida pn) {
+        //Estamos convirtiendo array list en lista
+     List<Jugador> j= pn.getJugadores();
+     return j;
+    }
+    
+    
+    @Override
+    public Partida getPartidaJugador(Jugador j) {
+        return j.getPartida();
+    }
+    
+ @Override
+    public boolean agregarJugador(Partida pn,String nombre) {
+      boolean agrego=false;
+      agrego=pn.agregarJugador(nombre);
+       pn.getJugador(nombre).asignaPartida(pn);
+       return agrego;
+    }
+
+
+        
+
 
 
     @Override
@@ -75,6 +92,8 @@ public class InMemoryApple implements applePersistence {
     public void crearNuevoPartida(Partida p) {
       partidas.put(p.getNombrePartida(),p);
     }
+
+ 
 
     
 }

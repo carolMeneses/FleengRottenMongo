@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
  * @author 
  */
 @Service
-public class apiServices {
+public class appleServices {
    @Autowired
    applePersistence apple;
     
@@ -38,7 +38,9 @@ public class apiServices {
     public Set<Partida> getPartidasByTipo(String tipoPartida) {
         return apple.getPartidasByTipo(tipoPartida);
     }
-
+      public Set<Partida> getTodasLasPartidas() {
+        return apple.getTodaslasPartidas();
+    }
     public void eliminar(Partida p) {
          apple.eliminar(p);
     }
