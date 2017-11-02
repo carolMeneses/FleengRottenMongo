@@ -110,6 +110,27 @@ apiclient = (function () {
     var finalAction = function () {
         alert("Collected data:\nAPI#1:" + JSON.stringify(request1Response) + "\n=======\nAPI #2:" + JSON.stringify(request2Response));
     };
+        //PUT
+    putForumPost = function (partida,nombreP) {
+        console.log(JSON.stringify(partida));
+
+        var putPromise = $.ajax({
+            url: "/blueprints/" + partida + "/" +nombreP,
+            type: 'PUT',
+            data: JSON.stringify(partida),
+            contentType: "application/json"
+        });
+        putPromise.then(
+                function () {
+                    console.info("OK");
+                },
+                function () {
+                    console.info("ERROR");
+                }
+
+        );
+        return putPromise;
+    };
    //public functions
 
     return {
@@ -121,14 +142,17 @@ apiclient = (function () {
 
             $.get("/apple/" + tipoPartida, callback);
         },
-        putActualiza: function (partida, jugadores,nombrep) {
-            putForumPost(blueprint, autor1, nombre1)
-                    .then(usersGet(autor1, nombre1))
+        getPartidaNombre: function (nombre, callback) {
+
+            $.get("/apple/" +"/nombre/" + nombre, callback);
+        },
+        getRetornarFilas:function(nombreP,callback){
+              $.get("/apple/" +"/colfil/"+nombreP, callback);
+        },
+        putActualiza: function (partida, nombrep) {
+            putForumPost(partida, nombrep)
+                    .then(usersGet( nombrep))
                     .then(finalAction);
-
-
-
-
         },
         //Delite partida
         deleite:function(partida,usuario){
@@ -137,12 +161,8 @@ apiclient = (function () {
                     .then(finalAction);
             
         },
-//        nuevoblueprint:function(autor1, nombre1,nuevosPuntos){
-//            postForumPost(blueprint, autor1, nombre1)
-//                    .then(usersGet(autor1, nombre1))
-//                    .then(finalAction);
-//            
-//        },
+       
+
         crear: function (objeto, autor1) {
             postForumPost(objeto, autor1)
                     .then(usersGet(autor1))

@@ -51,8 +51,8 @@ public class appleServices {
     public int getFilas_columnas(String nombreP){
     return apple.getFilas_columnas(nombreP);
     }
-    public Partida getPartida(String tipoPartida,String nombreP){
-    return apple.getPartida(tipoPartida, nombreP);
+    public Partida getPartida(String nombreP){
+    return apple.getPartida(nombreP);
     }
       public void actualizar(Partida p) {
        apple.actualizar(p);

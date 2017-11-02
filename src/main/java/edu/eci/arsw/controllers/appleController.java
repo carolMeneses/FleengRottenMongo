@@ -51,12 +51,12 @@ public class appleController {
         }
     }
 
- @RequestMapping(value="/partida/{tipoPartida}/{nombreP}",method = RequestMethod.GET)
+ @RequestMapping(value="/partida/nombre/{nombreP}",method = RequestMethod.GET)
   
-    public ResponseEntity<?> getPartida(@PathVariable("tipoPartida") String tipoPartida,@PathVariable("nombreP") String nombreP) {
+    public ResponseEntity<?> getPartida(@PathVariable("nombreP") String nombreP) {
 
             //obtener datos que se enviarán a través del API
-            return new ResponseEntity<>(ap.getPartida(tipoPartida, nombreP), HttpStatus.ACCEPTED);      
+            return new ResponseEntity<>(ap.getPartida(nombreP), HttpStatus.ACCEPTED);      
     }
    @RequestMapping(method = RequestMethod.GET,value="/colfil/{nombreP}")
   
@@ -76,7 +76,7 @@ public class appleController {
        
 
     }
-      @RequestMapping(path = "/partida/", method = RequestMethod.PUT)
+      @RequestMapping(path = "/partida/{nombreP}", method = RequestMethod.PUT)
     public ResponseEntity<?> PuttRecursoSet(@RequestBody Partida p) {
     
             ap.actualizar(p);

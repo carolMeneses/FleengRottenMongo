@@ -121,10 +121,10 @@ public class InMemoryApple implements applePersistence {
     }
 
     @Override
-    public Partida getPartida(String tipoPartida, String nombreP) {
+    public Partida getPartida(String nombreP) {
         Partida retorno=null;
-        Set<Partida> partida= getPartidasByTipo(tipoPartida);
-       for(Partida p:partida){
+        Collection<Partida> part = partidas.values();
+       for(Partida p:part){
            if(p.getNombrePartida().equals(nombreP))
                retorno=p;
        }
