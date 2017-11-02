@@ -50,7 +50,18 @@ public class appleController {
             return new ResponseEntity<>("Partida no encontrada", HttpStatus.NOT_FOUND);
         }
     }
-
+    
+ @RequestMapping(value="/usuarios",method = RequestMethod.GET)
+  
+    public ResponseEntity<?> getUsuarios() {
+               try {
+            //obtener datos que se enviarán a través del API
+            return new ResponseEntity<>(ap.getUsuarios(), HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+           
+            return new ResponseEntity<>("Usuarios no encontrados", HttpStatus.NOT_FOUND);
+        }
+    }
  @RequestMapping(value="/partida/nombre/{nombreP}",method = RequestMethod.GET)
   
     public ResponseEntity<?> getPartida(@PathVariable("nombreP") String nombreP) {

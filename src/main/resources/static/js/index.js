@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-/* global Location, apimock*/
+/* global Location, apimock, apiClient*/
 
 //var nombreP=document.getElementById("nombreP").value;
-
+ 
 function ingresar(){
  nombre=document.getElementById("Usuario").value;
     validacion=validarUsuario();
@@ -18,11 +18,11 @@ function ingresar(){
 
 
 function validarUsuario() {
-    var api = apimock;
+   var api = apiClient;
 
     var validar = false;
     nombre = document.getElementById("Usuario").value;
-    var jugadores = api.getUsuarios();
+    var jugadores = api.get
 
     for (i = 0; i < jugadores.length - 1; i++) {
         if (jugadores[i] === nombre) {

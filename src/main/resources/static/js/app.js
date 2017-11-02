@@ -1,5 +1,8 @@
 
 /* global Stomp, apiClient */
+var api= apiClient;
+var module=(function(){
+    
 
 stompClient = null;
 canvasWidth = 600;
@@ -256,7 +259,7 @@ $(document).ready(
         }
 );
 
-
+})();
 
 
 

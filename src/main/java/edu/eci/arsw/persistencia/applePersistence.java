@@ -54,4 +54,6 @@ public interface applePersistence {
     public int getFilas_columnas(String nombreP);
     public Partida getPartida(String nombreP);
     public void actualizar(Partida b) ;
+     public List<String> getUsuarios();
+     public List<Jugador> getJugador(String nombreP);
 }

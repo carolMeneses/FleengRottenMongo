@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 
-//mÃƒÂ³dulo provisto (apimock.js)
-apiclient = (function () {
+//mÃƒÂ³dulo provisto (apiClient.js)
+apiClient = (function () {
 
     //console.log(nuevosPuntos);
 
@@ -141,6 +141,10 @@ apiclient = (function () {
         getPartidaTipo: function (tipoPartida, callback) {
 
             $.get("/apple/" + tipoPartida, callback);
+        },
+        getUsuarios:function(callback){
+             $.get("/apple/" + "/usuarios", callback);
+            
         },
         getPartidaNombre: function (nombre, callback) {
 

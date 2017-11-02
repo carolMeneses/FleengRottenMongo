@@ -31,6 +31,9 @@ public class appleServices {
     public List<Jugador> getJugadores(Partida pn) {
            return apple.getJugadores(pn);
     }
+    public List<String> getUsuarios(){
+            return apple.getUsuarios();
+    }
   
     public Partida getPartidaJugador(String j) {
         return apple.getPartidaJugador(j);
