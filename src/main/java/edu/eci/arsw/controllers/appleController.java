@@ -6,6 +6,8 @@
 package edu.eci.arsw.controllers;
 
 import edu.eci.arsw.services.appleServices;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,18 +37,30 @@ public class appleController {
     }
     
     
-    @RequestMapping(value="/{Partidas}",method = RequestMethod.GET)
+ @RequestMapping(value="/{Partidas}",method = RequestMethod.GET)
   
-    public ResponseEntity<?> getPartidasPorTipo(@PathVariable("Partidas") String tipoPartidas) {
-
+    public ResponseEntity<?> getPartidasPorTipo(@PathVariable("Partidas") String tipoPartida) {
+               try {
             //obtener datos que se enviarán a través del API
-            return new ResponseEntity<>(ap.getPartidasByTipo(tipoPartidas), HttpStatus.ACCEPTED);      
+            return new ResponseEntity<>(ap.getPartidasByTipo(tipoPartida), HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+           
+            return new ResponseEntity<>("Partida no encontrada", HttpStatus.NOT_FOUND);
+        }
     }
- @RequestMapping(value="/{jugadores}",method = RequestMethod.GET)
+ @RequestMapping(value="/partida/{jugadores}",method = RequestMethod.GET)
   
-    public ResponseEntity<?> getjugadores(@PathVariable("jugadores") String jugador) {
+    public ResponseEntity<?> getPartida(@PathVariable("jugadores") String jugador) {
 
             //obtener datos que se enviarán a través del API
             return new ResponseEntity<>(ap.getPartidaJugador(jugador), HttpStatus.ACCEPTED);      
+    }
+   @RequestMapping(method = RequestMethod.GET,value="/colfil/{nombreP}")
+  
+    public ResponseEntity<?> getFilas_columnas(@PathVariable("nombreP") String nombreP) {
+        
+            //obtener datos que se enviarán a través del API
+            return new ResponseEntity<>(ap.getFilas_columnas(nombreP), HttpStatus.ACCEPTED);
+       
     }
 }

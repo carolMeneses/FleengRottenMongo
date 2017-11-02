@@ -62,7 +62,8 @@ public class Partida {
         manzanasBuenas=(filas * columnas)-manzanasPodridas ;
        this.nombrePartida=nombrePartida;
        this.numJugadores= manzanasPodridas-1;
-           Jugador jugador=new Jugador(3,usuario,"blue");
+           Jugador jugador=new Jugador(3,usuario,"blue",nombrePartida);
+           System.out.println(jugador);
        jugadores.add(jugador);
         
     }
@@ -96,11 +97,11 @@ public class Partida {
         //tablero.asignarNumeros();
 
     }
-    public boolean agregarJugador(String nombre){
+    public boolean agregarJugador(String nombre,String partida){
         boolean adiciono=false;
         
         if(jugadores.size()<numJugadores){
-            Jugador jugador=new Jugador(3,nombre,color.get(jugadores.size()));
+            Jugador jugador=new Jugador(3,nombre,color.get(jugadores.size()),partida);
             jugadores.add(jugador);
             adiciono=true;
         }

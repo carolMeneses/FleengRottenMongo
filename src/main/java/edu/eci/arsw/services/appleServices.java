@@ -48,4 +48,7 @@ public class appleServices {
     public void crearNuevoPartida(Partida p) {
      apple.crearNuevoPartida(p);
     }
+    public int getFilas_columnas(String nombreP){
+    return apple.getFilas_columnas(nombreP);
+    }
 }

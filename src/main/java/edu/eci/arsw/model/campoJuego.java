@@ -23,7 +23,7 @@ public class campoJuego {
     public boolean CrearPartida(DatosJuegoNuevo jn){
     Partida j=jn.getiniciarJuegoNuevo();
     j.JuegoNuevo();
-    j.agregarJugador(jn.getJugador());
+    j.agregarJugador(jn.getJugador(),j.getNombrePartida());
     boolean crear=juegos.add(j);
     return crear;
     }
@@ -31,7 +31,7 @@ public class campoJuego {
         boolean estado = false;
         for (int i = 0; i < juegos.size(); i++) {
             if (juegos.get(i).getNombrePartida().equals(nombreP)) {
-                juegos.get(i).agregarJugador(j);
+                juegos.get(i).agregarJugador(nombreP, juegos.get(i).getNombrePartida());
 
                 estado = true;
             }

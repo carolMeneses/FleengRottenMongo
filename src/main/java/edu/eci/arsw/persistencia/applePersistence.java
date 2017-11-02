@@ -51,5 +51,6 @@ public interface applePersistence {
     public void crearNuevoPartida(Partida p);
     
     public Set<Partida> getTodaslasPartidas();
+    public int getFilas_columnas(String nombreP);
 
 }
