@@ -50,12 +50,13 @@ public class appleController {
             return new ResponseEntity<>("Partida no encontrada", HttpStatus.NOT_FOUND);
         }
     }
- @RequestMapping(value="/partida/{jugadores}",method = RequestMethod.GET)
+
+ @RequestMapping(value="/partida/{tipoPartida}/{nombreP}",method = RequestMethod.GET)
   
-    public ResponseEntity<?> getPartida(@PathVariable("jugadores") String jugador) {
+    public ResponseEntity<?> getPartida(@PathVariable("tipoPartida") String tipoPartida,@PathVariable("nombreP") String nombreP) {
 
             //obtener datos que se enviarán a través del API
-            return new ResponseEntity<>(ap.getPartidaJugador(jugador), HttpStatus.ACCEPTED);      
+            return new ResponseEntity<>(ap.getPartida(tipoPartida, nombreP), HttpStatus.ACCEPTED);      
     }
    @RequestMapping(method = RequestMethod.GET,value="/colfil/{nombreP}")
   
@@ -65,7 +66,7 @@ public class appleController {
             return new ResponseEntity<>(ap.getFilas_columnas(nombreP), HttpStatus.ACCEPTED);
        
     }
-        @RequestMapping(method = RequestMethod.POST,value="/{Partida}")
+        @RequestMapping(method = RequestMethod.POST,value="/{jugador}")
     public ResponseEntity<?> manejadorPostAgregarPartida(@RequestBody Partida pn) {
       // System.out.print("ENTRO A POST");
     
@@ -73,6 +74,16 @@ public class appleController {
          //   System.out.print("creo");
             return new ResponseEntity<>(HttpStatus.CREATED);
        
+
+    }
+      @RequestMapping(path = "/partida/", method = RequestMethod.PUT)
+    public ResponseEntity<?> PuttRecursoSet(@RequestBody Partida p) {
+    
+            ap.actualizar(p);
+        
+           
+            return new ResponseEntity<>(HttpStatus.CREATED);
+      
 
     }
      @RequestMapping(path = "/{Partida}/{nombreP}", method = RequestMethod.DELETE)

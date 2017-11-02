@@ -52,5 +52,6 @@ public interface applePersistence {
     
     public Set<Partida> getTodaslasPartidas();
     public int getFilas_columnas(String nombreP);
-
+    public Partida getPartida(String tipoPartida,String nombreP);
+    public void actualizar(Partida b) ;
 }

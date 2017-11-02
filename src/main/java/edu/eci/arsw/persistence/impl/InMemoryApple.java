@@ -65,10 +65,9 @@ public class InMemoryApple implements applePersistence {
     
     @Override
     public Partida getPartidaJugador(String j) {
-        String nombreP;
+     
         Partida retornar=null;
         Collection<Partida> part = partidas.values();
-        Set<Partida> p = new HashSet<>();
         for (Partida pn : part) {
             ArrayList<Jugador>  jugadores= pn.getJugadores();
             for (int i=0;i<jugadores.size();i++){
@@ -119,6 +118,26 @@ public class InMemoryApple implements applePersistence {
         }
 
         return filas_columnas;
+    }
+
+    @Override
+    public Partida getPartida(String tipoPartida, String nombreP) {
+        Partida retorno=null;
+        Set<Partida> partida= getPartidasByTipo(tipoPartida);
+       for(Partida p:partida){
+           if(p.getNombrePartida().equals(nombreP))
+               retorno=p;
+       }
+       return retorno;
+    }
+
+    @Override
+    public void actualizar(Partida b) {
+      String nombre=b.getNombrePartida();
+        if (partidas.containsKey(nombre)) {
+            partidas.replace(nombre,b);
+        }
+      
     }
 
     

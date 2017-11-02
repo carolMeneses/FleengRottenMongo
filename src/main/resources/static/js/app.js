@@ -1,5 +1,5 @@
 
-/* global Stomp */
+/* global Stomp, apiClient */
 
 stompClient = null;
 canvasWidth = 600;
@@ -22,7 +22,7 @@ Y = null;
 mx = null;
 my = null;
 
-var api = apiclient;
+//var api = apiClient;
 function connectarJuego() {
 
     console.info('Connecting to WS...bbbbbbbb');
@@ -196,7 +196,7 @@ function mirarCasilla() {
 
 }
 function mirarTodasCasillas() {
-    console.log("ENTRO A LAS CASILLAS")
+    console.log("ENTRO A LAS CASILLAS");
     stompClient.send("/app/cubrirCasilla", {}, JSON.stringify({partida: nombreP, posicionX: 10, posicionY: 10}));
 
 }
