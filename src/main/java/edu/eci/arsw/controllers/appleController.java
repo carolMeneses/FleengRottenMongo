@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.controllers;
 
+import edu.eci.arsw.model.Partida;
 import edu.eci.arsw.services.appleServices;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,5 +64,25 @@ public class appleController {
             //obtener datos que se enviarán a través del API
             return new ResponseEntity<>(ap.getFilas_columnas(nombreP), HttpStatus.ACCEPTED);
        
+    }
+        @RequestMapping(method = RequestMethod.POST,value="/{Partida}")
+    public ResponseEntity<?> manejadorPostAgregarPartida(@RequestBody Partida pn) {
+      // System.out.print("ENTRO A POST");
+    
+          ap.crearNuevoPartida(pn);
+         //   System.out.print("creo");
+            return new ResponseEntity<>(HttpStatus.CREATED);
+       
+
+    }
+     @RequestMapping(path = "/{Partida}/{nombreP}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deliteRecursoSet(@RequestBody Partida p) {
+      
+            ap.eliminar(p);
+        
+           
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        
+
     }
 }

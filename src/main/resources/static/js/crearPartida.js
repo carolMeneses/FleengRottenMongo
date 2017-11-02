@@ -12,11 +12,14 @@ function connectarJuego(nombreP) {
     socket = new SockJS('/stompApple');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
+       
         console.log('Connected: ' + frame);
         usuario = window.location.search.substr(1);
         console.log(usuario);
         stompClient.subscribe('/topic/crearCampoJuego/' + nombreP + usuario, function (datos) {
+            
             window.location.replace("/tableroJuego.html" + "?" + nombreP + "&" + usuario);
+            
         });
 
     });

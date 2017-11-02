@@ -22,7 +22,7 @@ Y = null;
 mx = null;
 my = null;
 
-
+var api = apiclient;
 function connectarJuego() {
 
     console.info('Connecting to WS...bbbbbbbb');
@@ -31,7 +31,7 @@ function connectarJuego() {
     stompClient.connect({}, function (frame) {
 
         console.log('Connected' + frame);
-
+       
         nombreP = window.location.search.substr(1);
         var parametros = window.location.search.substr(1);
         var parametros1 = parametros.split("&");
@@ -39,7 +39,8 @@ function connectarJuego() {
 
         nombreP = parametros1[0];
         usuario = parametros1[1];
-        console.log("hola paso");
+         alert("Usted a ingresado al campo de Juego APPLE BAD, Bienvenido" +" "+usuario);
+       // console.log("hola paso");
         console.log('/topic/crearCampoJuego/' + nombreP + '/' + usuario);
         canvas = document.getElementById("canvas");
         ctx = canvas.getContext('2d');
@@ -53,12 +54,13 @@ function connectarJuego() {
         cwidth = ~~(canvas.width / tamano);
         cheight = ~~(canvas.height / tamano);
         EventosMouse();
-        dibujarPantalla();
-        mirarTodasCasillas();
+       dibujarPantalla();
+      mirarTodasCasillas();
 
         stompClient.subscribe('/topic/crearCampoJuego/' + nombreP + '/' + usuario, function (datos) {
-            console.log("hola paso ");
-            alert("Usted a ingresado al campo de Juego APPLE BAD, Bienvenido" + usuario);
+           
+           // alert("Usted a ingresado al campo de Juego APPLE BAD, Bienvenido" + usuario);
+             console.log("hola paso dadADd ");
             var nuevoJuego = JSON.parse(datos.body);
             tipPartida = nuevoJuego.tipoPartida;
             document.getElementById("jugador").innerHTML = tipPartida.jugador;
@@ -71,19 +73,20 @@ function connectarJuego() {
 //                document.getElementById("Partido").innerHTML=id;
 //            }
 
+       
 
+        } ),
 
-        });
-
-        stompClient.subscribe('/topic/vidasJugador' + nombreP + usuario, function (datos) {
+        stompClient.subscribe('/topic/vidasJugador' + nombreP + usuario, (function (datos) {
+            alert("era con punto y coma")
             var nuevoJuego = JSON.parse(datos.body);
             document.getElementById("vidajugador").innerHTML = nuevoJuego.vidasJugador;
-        });
+        })            );
 
         stompClient.subscribe('/topic/manzanasPodridas' + nombreP + usuario, function (datos) {
             var nuevoJuego = JSON.parse(datos.body);
             document.getElementById("manzanasPodridas").innerHTML = nuevoJuego.manzanasPodridas;
-        });
+        }),
 
         stompClient.subscribe('/topic/casillaVisitada' + nombreP + usuario, function (datos) {
             var casilla = JSON.parse(datos.body);
