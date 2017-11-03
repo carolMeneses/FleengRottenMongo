@@ -143,12 +143,13 @@ public class InMemoryApple implements applePersistence {
     @Override
     public List<String> getUsuarios() {
         
-       List<String> users = null;
+       List<String> users = new ArrayList<String>();
         Collection<Partida> part = partidas.values();
         Set<Partida> p = new HashSet<>();
         for (Partida pn : part) {
             
             List<Jugador> jugadores = pn.getJugadores();
+            System.out.println(jugadores.size()+"hooola");
             for (int j = 0; j < jugadores.size(); j++) {
                 users.add(jugadores.get(j).getNombre());
                 System.out.println("entro");
