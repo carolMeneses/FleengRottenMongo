@@ -143,7 +143,8 @@ apiClient = (function () {
             $.get("/apple/" + tipoPartida, callback);
         },
         getUsuarios:function(callback){
-             $.get("/apple/" + "/usuarios", callback);
+            
+             $.get("/apple/usuarios", callback);
             
         },
         getPartidaNombre: function (nombre, callback) {

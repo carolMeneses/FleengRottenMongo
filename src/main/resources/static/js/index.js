@@ -10,40 +10,32 @@
  
 function ingresar(){
  nombre=document.getElementById("Usuario").value;
-    validacion=validarUsuario();
-    if(!validacion){
-        window.location.replace("/crearCampoJuego.html"+"?"+nombre);
-    }
+   var api = apiClient;
+    api.getUsuarios(callback_ingresar);
 }
 
-
-function validarUsuario() {
-   var api = apiClient;
-
+function callback_ingresar(jugadores){
     var validar = false;
     nombre = document.getElementById("Usuario").value;
-    var jugadores = api.get
-
-    for (i = 0; i < jugadores.length - 1; i++) {
+    console.log(jugadores +"entro "); 
+console.log(jugadores.length +"entro ");
+    for (i = 0; i < jugadores.length; i++) {
         if (jugadores[i] === nombre) {
             validar = true;
             i = jugadores.length;
         }
     }
-
-
-    if (validar === true || nombre === "") {
+    if(!validar){
+        window.location.replace("/crearCampoJuego.html"+"?"+nombre);
+    }else
         alert("ingresa Usuario");
-    }
-    return validar;
-
-
+    
 }
-  
-    function regresar(){
-        window.location.replace("/index.html");
-    }
-   
+
+function regresar(){
+    window.location.replace("/index.html");
+}
+
 
 //$(document).ready(
 //        function () {

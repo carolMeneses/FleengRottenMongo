@@ -149,10 +149,10 @@ public class InMemoryApple implements applePersistence {
         for (Partida pn : part) {
             
             List<Jugador> jugadores = pn.getJugadores();
-            System.out.println(jugadores.size()+"hooola");
+           
             for (int j = 0; j < jugadores.size(); j++) {
                 users.add(jugadores.get(j).getNombre());
-                System.out.println("entro");
+              
                 //    System.out.println("jugadores.get(j).getNombre()");
 
             }
