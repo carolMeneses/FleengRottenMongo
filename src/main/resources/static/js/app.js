@@ -44,7 +44,7 @@ function connectarJuego() {
         usuario = parametros1[1];
          alert("Usted a ingresado al campo de Juego APPLE BAD, Bienvenido" +" "+usuario);
        // console.log("hola paso");
-        console.log('/topic/crearCampoJuego/' + nombreP + '/' + usuario);
+        console.log('/topic/crearCampoJuego/' );
         canvas = document.getElementById("canvas");
         ctx = canvas.getContext('2d');
         var img = new Image();
@@ -60,13 +60,13 @@ function connectarJuego() {
        dibujarPantalla();
       mirarTodasCasillas();
 
-        stompClient.subscribe('/topic/crearCampoJuego/' + nombreP + '/' + usuario, function (datos) {
+        stompClient.subscribe('/topic/partidaNueva' , function (datos) {
            
            // alert("Usted a ingresado al campo de Juego APPLE BAD, Bienvenido" + usuario);
-             console.log("hola paso dadADd ");
+             
             var nuevoJuego = JSON.parse(datos.body);
             tipPartida = nuevoJuego.tipoPartida;
-            document.getElementById("jugador").innerHTML = tipPartida.jugador;
+            document.getElementById("Usuario").innerHTML = tipPartida.jugador;
 
             if (tipPartida === "Publica") {
                 document.getElementById("Partida").innerHTML = "Publica";
@@ -80,28 +80,30 @@ function connectarJuego() {
 
         } ),
 
-        stompClient.subscribe('/topic/vidasJugador' + nombreP + usuario, (function (datos) {
+        stompClient.subscribe('/topic/vidasJugador' , (function (datos) {
             alert("era con punto y coma")
             var nuevoJuego = JSON.parse(datos.body);
             document.getElementById("vidajugador").innerHTML = nuevoJuego.vidasJugador;
         })            );
 
-        stompClient.subscribe('/topic/manzanasPodridas' + nombreP + usuario, function (datos) {
+        stompClient.subscribe('/topic/manzanasPodridas' , function (datos) {
             var nuevoJuego = JSON.parse(datos.body);
             document.getElementById("manzanasPodridas").innerHTML = nuevoJuego.manzanasPodridas;
         }),
 
-        stompClient.subscribe('/topic/casillaVisitada' + nombreP + usuario, function (datos) {
+        stompClient.subscribe('/topic/casillaVisitada' , function (datos) {
             var casilla = JSON.parse(datos.body);
-            var posicionX = casilla.posicionX;
-            var posicionY = casilla.posicionY;
-            var color = casilla.color;
-            var estado = casilla.estado;
+            var posicionX = casilla.x;
+            var posicionY = casilla.y;
+            var color= casilla.color;
+            llenar(color, posicionX, posicionY);
+            //var color = casilla.color;
+            //var estado = casilla.estado;
 
-            nuevasCasillas(posicionX, posicionY, color, estado);
+          //  nuevasCasillas(posicionX, posicionY, color, estado);
         });
 
-        stompClient.subscribe('/topic/finJuegoRetirar' + nombreP + usuario, function (datos) {
+        stompClient.subscribe('/topic/finJuegoRetirar' , function (datos) {
             var fin = JSON.parse(datos.body);
             if (!fin.estadoJugador) {
                 alert("Has perdido");
@@ -194,8 +196,8 @@ function establecerPartida() {
     stompClient.send("/app/establecePartida", {}, JSON.stringify({partida: nombreP, jugador: usuario}));
 }
 
-function mirarCasilla() {
-    stompClient.send("/app/cubrirCasilla", {}, JSON.stringify({partida: nombreP, posicionX: 0, posicionY: 0}));
+function mirarCasilla(X, Y) {
+    stompClient.send("/app/poblarCasilla", {}, JSON.stringify({nombreP: nombreP, jugador: usuario ,posicionX: X, posicionY: Y}));
 
 }
 function mirarTodasCasillas() {
@@ -218,12 +220,11 @@ function EventosMouse() {
         switch (evento.which) {
             case 1:
                 mirarCasilla(X, Y);
+                 llenar("green", X, Y);
                 break;
             case 2:
                 break;
             case 3:
-
-                llenar('#00ff00', X, Y);
                 break;
             default :
                 alert('no correspond');

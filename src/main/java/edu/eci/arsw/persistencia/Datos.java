@@ -17,6 +17,7 @@ public class Datos {
         this.nombreP = nombreP;
         this.jugador = jugador;
     }
+    public Datos(){}
 
     public String getJugador() {
         return jugador;

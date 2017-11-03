@@ -6,6 +6,7 @@
 package edu.eci.arsw.persistencia;
 
 import edu.eci.arsw.model.Casilla;
+import edu.eci.arsw.model.Jugador;
 import edu.eci.arsw.model.Partida;
 import edu.eci.arsw.model.campoJuego;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,36 +26,42 @@ campoJuego juego;
 @Autowired
 SimpMessagingTemplate msgt;
 
+
     @MessageMapping("/crearJuego")
     public void NuevoJuego(DatosJuegoNuevo datos)throws Exception {
-        datos.setEstado(juego.CrearPartida(datos));
-//       msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),datos);
-        msgt.convertAndSend("/topic/partidaNueva"+datos.getJugador(),datos);
+//        datos.setEstado(juego.CrearPartida(datos));
+////       msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),datos);
+//        msgt.convertAndSend("/topic/partidaNueva",datos);
     }
-     @MessageMapping("/entrarPartida")
+     @MessageMapping("/establecePartida")
     public void entrarPartida(Datos datos)throws Exception {
-        DatosJuegoNuevo djn=juego.entrarPartida(datos);
-        djn.setJugador(datos.getJugador());
-        msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),djn);
-        Partida p= juego.getPartida(datos.getNombreP());
-        DatosPartida dp=new DatosPartida(p.getManzanasPodridas(),p.getJugador(datos.getJugador()).getNumVidas(), true);
-         msgt.convertAndSend("/topic/estadoPartida"+datos.getNombreP()+datos.getJugador(),djn);
+//        DatosJuegoNuevo djn=juego.entrarPartida(datos);
+//        djn.setJugador(datos.getJugador());
+//        msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),djn);
+//        Partida p= juego.getPartida(datos.getNombreP());
+//        DatosPartida dp=new DatosPartida(p.getManzanasPodridas(),p.getJugador(datos.getJugador()).getNumVidas(), true);
+//         msgt.convertAndSend("/topic/estadoPartida"+datos.getNombreP()+datos.getJugador(),djn);
     }
     @MessageMapping("/poblarCasilla")
     public void poblarCasillas(DatosSeleccionCasilla datos){
-    Casilla[][] casillasJuego =juego.consultarCasilla(datos);
-    Casilla c=null;
-    int filas=juego.getPartida(datos.getPartida()).getFilas();
-    int columnas=juego.getPartida(datos.getPartida()).getColumnas();
-        for(int i=0;i<filas;i++){
-            for(int j=0;j<columnas;j++){
-            c=casillasJuego[i][j];
-            if(c.isEstado()) 
-                msgt.convertAndSend("topic/casillaSelect"+datos.getPartida()+datos.getJugador(),c);
-                    
-            }
-        }
+        Partida p= juego.getPartida(datos.getPartida());
+        Jugador j=p.getJugador(datos.getJugador());
+        Casilla c= new Casilla(j.getColor(),datos.getpX(),datos.getpY());
+        msgt.convertAndSend("topic/casillaVisitada",c);
     }
+//    Casilla[][] casillasJuego =juego.consultarCasilla(datos);
+//    Casilla c=null;
+//    int filas=juego.getPartida(datos.getPartida()).getFilas();
+//    int columnas=juego.getPartida(datos.getPartida()).getColumnas();
+//        for(int i=0;i<filas;i++){
+//            for(int j=0;j<columnas;j++){
+//            c=casillasJuego[i][j];
+//            if(c.isEstado()) 
+//                msgt.convertAndSend("topic/casillaVisitada"+datos.getPartida()+datos.getJugador(),c);
+//                    
+//            }
+//        }
+//    }
 
             
 }

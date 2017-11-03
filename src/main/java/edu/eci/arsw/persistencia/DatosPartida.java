@@ -20,7 +20,8 @@ public class DatosPartida{
         this.vidasJugador = vidasJugador;
         this.jugadorVive = estadoJugador;
     }
-    
+    public DatosPartida(){
+    } 
     public int getManzanasPodridas() {
         return manzanasPodridas;
     }

@@ -33,6 +33,9 @@ public class Partida {
      private static int manzanasBuenas;
      public final int puntaje=5;
      
+     public Partida(){
+     
+     }
      public Partida(String nivel, int filas, int columnas,String nombrePartida,String tipoPartida,String usuario) {
         this.nivel = nivel;
         this.filas = filas;

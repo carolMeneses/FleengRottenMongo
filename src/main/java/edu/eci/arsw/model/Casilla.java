@@ -17,6 +17,14 @@ public class Casilla {
         private int x,y;
     private boolean estado;
     
+    public Casilla(){
+    }
+    
+    public Casilla(String Color,int x, int y){
+        this.Color=Color;
+        this.x=x;
+        this.y=y;
+    }
     
     public Casilla(boolean manzanaPodrida) {
         this.manzanaPodrida = manzanaPodrida;

@@ -87,7 +87,8 @@ public class appleController {
        
 
     }
-      @RequestMapping(path = "/partida/{nombreP}", method = RequestMethod.PUT)
+    
+    @RequestMapping(path = "/{partida}/{nombreP}", method = RequestMethod.PUT)
     public ResponseEntity<?> PuttRecursoSet(@RequestBody Partida p) {
     
             ap.actualizar(p);

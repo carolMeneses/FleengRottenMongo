@@ -13,7 +13,9 @@ public class DatosSeleccionCasilla {
     private String nombreP;
     private String jugador;
     private int pX;
-
+    public DatosSeleccionCasilla(){
+    
+    }
     public DatosSeleccionCasilla(String partida, String jugador, int pX, int pY) {
         this.nombreP = partida;
         this.jugador = jugador;

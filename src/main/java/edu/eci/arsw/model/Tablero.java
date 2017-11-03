@@ -18,7 +18,9 @@ public class Tablero {
     private final Casilla[][] casillajuego;
     private final int manzanasPodridas;
     //private final String estadoTablero;
-
+    
+        
+    
     public Tablero(int filas, int columnas, int manzanasPodridas) {
         this.filas = filas;
         this.columnas = columnas;
@@ -26,7 +28,9 @@ public class Tablero {
         this.manzanasPodridas = manzanasPodridas;
 
     }
-
+    
+  
+     
     /*
       
      */

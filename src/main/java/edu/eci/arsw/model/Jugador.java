@@ -20,7 +20,9 @@ public class Jugador {
 
 
     private int puntaje=0;
+    public Jugador(){
     
+    }
     public Jugador(int numVidas, String nombre, String color,String p) {
         this.numVidas = numVidas;
         this.nombre = nombre;
@@ -29,9 +31,8 @@ public class Jugador {
       
     }
 
-    Jugador() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+     
+    
 
     public int getNumVidas() {
         return numVidas;
