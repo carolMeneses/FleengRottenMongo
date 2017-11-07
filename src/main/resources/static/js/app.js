@@ -52,7 +52,7 @@ function connectarJuego() {
 //        img.onload = function () {
 //            ctx.drawImage(img, 0, 0);
 //        };
-        tamano = canvas.width / 7;
+        tamano = canvas.width / 2;
         console.log(tamano);
         cwidth = ~~(canvas.width / tamano);
         cheight = ~~(canvas.height / tamano);

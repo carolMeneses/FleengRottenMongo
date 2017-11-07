@@ -4,10 +4,9 @@
  * and open the template in the editor.
  */
 package edu.eci.arsw.model;
-
-import edu.eci.arsw.persistencia.Datos;
-import edu.eci.arsw.persistencia.DatosJuegoNuevo;
-import edu.eci.arsw.persistencia.DatosSeleccionCasilla;
+////import edu.eci.arsw.persistencia.Datos;
+//import edu.eci.arsw.persistencia.DatosJuegoNuevo;
+//import edu.eci.arsw.persistencia.DatosSeleccionCasilla;
 import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +19,10 @@ public class campoJuego {
     private ArrayList<Partida> juegos= new ArrayList<Partida>();
     
     // Se agregan los datos que el usuario a ingresado por medio del HTML-controllador, clase JUego Nuevo
-    public boolean CrearPartida(DatosJuegoNuevo jn){
-    Partida j=jn.getiniciarJuegoNuevo();
+    public boolean CrearPartida(String nombreP, String TipPartida,String jugador, String nivel){
+    Partida j=new Partida(nombreP, nivel,TipPartida, jugador);
     j.JuegoNuevo();
-    j.agregarJugador(jn.getJugador(),j.getNombrePartida());
+    j.agregarJugador(jugador, nombreP);
     boolean crear=juegos.add(j);
     return crear;
     }
@@ -41,19 +40,24 @@ public class campoJuego {
         return estado;
 
     }
-    public DatosJuegoNuevo entrarPartida(Datos datos) {
-        DatosJuegoNuevo dt = new DatosJuegoNuevo();
+    public void entrarPartida(Partida partid) {
+        boolean existe= false;
+       // Partida  dt = new Partida();
         for (int i = 0; i < juegos.size(); i++) {
             Partida part = juegos.get(i);
-            if (part.getNombrePartida().equals(datos.getNombreP())) {
-                dt.setColumnas(part.getColumnas());
-                dt.setFilas(part.getFilas());
-                dt.setJugador(datos.getJugador());
-                dt.setNombreP(datos.getNombreP());
-                dt.setTipPartida(part.getTipoPartda());
+            if (part.getNombrePartida().equals(partid.getNombrePartida())) {
+              existe=true;
+               // dt.setFilas(part.getFilas());
+               // dt.setJugador(partid.getJugador());
+    //                dt.setNombreP(datos.getNombreP());
+    //                dt.setTipPartida(part.getTipoPartda());
+               
             }
         }
-        return dt;
+        
+       if (!existe){
+       juegos.add(partid);
+       }
     }
     public Partida getPartida(String nombreP){
        
@@ -66,13 +70,14 @@ public class campoJuego {
          }
          return p;
     }
-    public Casilla[][] consultarCasilla(DatosSeleccionCasilla datos){
+    public Casilla[][] consultarCasilla(int x , int y,Partida partida){
     Casilla [][] c=null;
     for(int i= 0;i<juegos.size();i++){
-        if(juegos.get(i).getNombrePartida().equals(datos.getPartida()))
+        if(juegos.get(i).getNombrePartida().equals(partida.getNombrePartida())){
             c=juegos.get(i).getTablero().getCasillajuego();
     }
-    return c;
+    
     }
+    return c;}
    
 }

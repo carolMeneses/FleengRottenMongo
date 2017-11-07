@@ -45,7 +45,7 @@ public class Partida {
 
   
     }
-       public Partida(String nivel,String nombrePartida,String tipoPartida, String usuario) {
+       public Partida(String nombrePartida,String nivel,String tipoPartida, String usuario) {
         this.nivel = nivel;
         this.tipoPartida = tipoPartida;
          if(nivel.equals("Facil")) {

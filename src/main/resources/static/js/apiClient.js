@@ -149,10 +149,10 @@ apiClient = (function () {
         },
         getPartidaNombre: function (nombre, callback) {
 
-            $.get("/apple/" +"/nombre/" + nombre, callback);
+            $.get("/apple/nombre/" + nombre, callback);
         },
         getRetornarFilas:function(nombreP,callback){
-              $.get("/apple/" +"/colfil/"+nombreP, callback);
+              $.get("/apple/colfil/"+nombreP, callback);
         },
         putActualiza: function (partida, nombrep) {
             putForumPost(partida, nombrep)

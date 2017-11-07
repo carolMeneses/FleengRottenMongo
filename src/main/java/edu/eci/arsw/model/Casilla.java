@@ -16,6 +16,8 @@ public class Casilla {
     private int suma;
         private int x,y;
     private boolean estado;
+
+    String jugador ;
     
     public Casilla(){
     }
@@ -83,6 +85,13 @@ public class Casilla {
     }
 
     
+    public String getJugador() {
+        return jugador;
+    }
+
+    public void setJugador(String jugador) {
+        this.jugador = jugador;
+    }
   
      
     

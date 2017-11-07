@@ -11,6 +11,7 @@
 function ingresar(){
  nombre=document.getElementById("Usuario").value;
    var api = apiClient;
+   //es necesario implemenmtar esto en filas y colomnas
     api.getUsuarios(callback_ingresar);
 }
 
