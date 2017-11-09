@@ -26,9 +26,9 @@ public class InMemoryApple implements applePersistence {
  private final Map<String,Partida> partidas= new ConcurrentHashMap();
 
     public InMemoryApple() {
-        Partida p=new Partida("Dificil","Juego1","Publica","Johana");
+        Partida p=new Partida("Juego1","Dificil","Publica","Johana");
         partidas.put("juego1", p);
-        Partida pn=new Partida("Facil","Juego2","Privada","Jessica");
+        Partida pn=new Partida("Juego2","Facil","Privada","Jessica");
         partidas.put("juego2", pn);
     }
     
@@ -111,7 +111,8 @@ public class InMemoryApple implements applePersistence {
         int filas_columnas = 0;
         Collection<Partida> part = partidas.values();
         for (Partida pn : part) {
-            if (pn.getNombrePartida().equals(nombreP)) {
+               if (pn.getNombrePartida().equals(nombreP)) {
+               
                 filas_columnas = pn.getColumnas();
             }
 

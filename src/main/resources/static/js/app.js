@@ -239,7 +239,15 @@ function EventosMouse() {
 
 function dibujarPantalla() {
    
-    console.log("ENTRO");
+     //nombreP = document.getElementById("Partida").value;
+        api.getRetornarFilas("Juego1", function (p) {
+
+        filas = p;
+                alert(filas);
+                // return filas;
+
+                tamano = canvas.width / filas;
+                console.log("ENTRO");
     
     for (var x = 0; x <= canvasWidth; x += tamano) {
         ctx.moveTo(x, 0);
@@ -252,7 +260,7 @@ function dibujarPantalla() {
     }
     ctx.strokeStyle = "white";
     ctx.stroke();
-}
+});}
 
 $(document).ready(
         function () {

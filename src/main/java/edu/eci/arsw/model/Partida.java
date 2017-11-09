@@ -36,29 +36,29 @@ public class Partida {
      public Partida(){
      
      }
-     public Partida(String nivel, int filas, int columnas,String nombrePartida,String tipoPartida,String usuario) {
-        this.nivel = nivel;
-        this.filas = filas;
-        this.columnas = columnas;
-          this.tipoPartida = tipoPartida;
-        this.nombrePartida=nombrePartida;
-
-  
-    }
+//     public Partida(String nivel, int filas, int columnas,String nombrePartida,String tipoPartida,String usuario) {
+//        this.nivel = nivel;
+//        this.filas = filas;
+//        this.columnas = columnas;
+//          this.tipoPartida = tipoPartida;
+//        this.nombrePartida=nombrePartida;
+//
+//  
+//    }
        public Partida(String nombrePartida,String nivel,String tipoPartida, String usuario) {
         this.nivel = nivel;
         this.tipoPartida = tipoPartida;
          if(nivel.equals("Facil")) {
-            filas=8;
-            columnas=8;
+           this.filas=8;
+            this.columnas=8;
         }
         if(nivel.equals("Medio")) {
-            filas=16;
-            columnas=16;
+            this.filas=16;
+           this. columnas=16;
         }
         if(nivel.equals("Dificil")) {
-            filas=32;
-            columnas=32;
+            this.filas=32;
+           this. columnas=32;
         }
       
      this.manzanasPodridas = filas * columnas / 4;
