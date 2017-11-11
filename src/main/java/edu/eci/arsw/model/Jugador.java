@@ -16,18 +16,22 @@ public class Jugador {
     private String nombre;
     private String color;
     private boolean  estadoVivo=true;
-    private String nuevaPartida;
+   // cambiar x tipo partida
+    private Partida nuevaPartida;
+
+    public void setNuevaPartida(Partida nuevaPartida) {
+        this.nuevaPartida = nuevaPartida;
+    }
 
 
     private int puntaje=0;
     public Jugador(){
     
     }
-    public Jugador(int numVidas, String nombre, String color,String p) {
+    public Jugador(int numVidas, String nombre, String color) {
         this.numVidas = numVidas;
         this.nombre = nombre;
         this.color = color;
-        this.nuevaPartida=p;
       
     }
 
@@ -73,7 +77,7 @@ public class Jugador {
         this.puntaje = puntaje+punt;
     }
     
-    public String getPartida() {
+    public Partida getPartida() {
         return nuevaPartida;
     }
     

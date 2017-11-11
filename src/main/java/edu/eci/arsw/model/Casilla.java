@@ -12,18 +12,18 @@ package edu.eci.arsw.model;
  */
 public class Casilla {
     private boolean manzanaPodrida;
-    private String Color;
+  //  private String Color;
     private int suma;
-        private int x,y;
-    private boolean estado;
+    private int x,y;
+    private boolean estado; //T pisao y F no pisao
 
-    String jugador ;
+    Jugador jugador ;
     
     public Casilla(){
     }
     
-    public Casilla(String Color,int x, int y){
-        this.Color=Color;
+    public Casilla(int x, int y){
+     //   this.Color=Color;
         this.x=x;
         this.y=y;
     }
@@ -44,13 +44,13 @@ public class Casilla {
         this.manzanaPodrida = manzanaPodrida;
     }
 
-    public String getColor() {
-        return Color;
-    }
-
-    public void setColor(String Color) {
-        this.Color = Color;
-    }
+//    public String getColor() {
+//        return Color;
+//    }
+//
+//    public void setColor(String Color) {
+//        this.Color = Color;
+//    }
 
     public int getSuma() {
         return suma;
@@ -85,11 +85,11 @@ public class Casilla {
     }
 
     
-    public String getJugador() {
+    public Jugador getJugador() {
         return jugador;
     }
 
-    public void setJugador(String jugador) {
+    public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
   

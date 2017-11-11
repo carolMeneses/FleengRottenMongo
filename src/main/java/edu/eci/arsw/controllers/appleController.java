@@ -20,92 +20,42 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value="/apple")
+@RequestMapping(value = "/apple")
 public class appleController {
 
     @Autowired
     appleServices ap;
-        
+
     @Autowired
     SimpMessagingTemplate msmt;
-    
-   
-    @RequestMapping(value="/Partidas", method = RequestMethod.GET)
-    public ResponseEntity<?> manejadorGetAlltodasPartidas() {
-        
-            //obtener datos que se enviarán a través del API
-            return new ResponseEntity<>(ap.getTodasLasPartidas(), HttpStatus.ACCEPTED);
-        
-    }
-    
-    
- @RequestMapping(value="/{Partidas}",method = RequestMethod.GET)
-  
-    public ResponseEntity<?> getPartidasPorTipo(@PathVariable("Partidas") String tipoPartida) {
-               try {
-            //obtener datos que se enviarán a través del API
-            return new ResponseEntity<>(ap.getPartidasByTipo(tipoPartida), HttpStatus.ACCEPTED);
-        } catch (Exception ex) {
-           
-            return new ResponseEntity<>("Partida no encontrada", HttpStatus.NOT_FOUND);
-        }
-    }
-    
- @RequestMapping(value="/usuarios",method = RequestMethod.GET)
-  
+
+    //Metodos GET
+    @RequestMapping(value = "/jugadores", method = RequestMethod.GET)
+
     public ResponseEntity<?> getUsuarios() {
-               try {
+        try {
             //obtener datos que se enviarán a través del API
-            return new ResponseEntity<>(ap.getUsuarios(), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(ap.getJugadores(), HttpStatus.ACCEPTED);
         } catch (Exception ex) {
-           
+
             return new ResponseEntity<>("Usuarios no encontrados", HttpStatus.NOT_FOUND);
         }
     }
- @RequestMapping(value="/partida/nombre/{nombreP}",method = RequestMethod.GET)
-  
-    public ResponseEntity<?> getPartida(@PathVariable("nombreP") String nombreP) {
 
-            //obtener datos que se enviarán a través del API
-            return new ResponseEntity<>(ap.getPartida(nombreP), HttpStatus.ACCEPTED);      
-    }
-   @RequestMapping(method = RequestMethod.GET,value="/colfil/{nombreP}")
-  
-    public ResponseEntity<?> getFilas_columnas(@PathVariable("nombreP") String nombreP) {
-        
-            //obtener datos que se enviarán a través del API
-            return new ResponseEntity<>(ap.getFilas_columnas(nombreP), HttpStatus.ACCEPTED);
-       
-    }
-        @RequestMapping(method = RequestMethod.POST,value="/{jugador}")
-    public ResponseEntity<?> manejadorPostAgregarPartida(@RequestBody Partida pn) {
-      // System.out.print("ENTRO A POST");
-    
-          ap.crearNuevoPartida(pn);
-         //   System.out.print("creo");
-            return new ResponseEntity<>(HttpStatus.CREATED);
-       
+    @RequestMapping(value = "/campoJuego/{campoJuego}/partidas", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetAlltodasPartidas(@PathVariable("campoJuego") String campoJuego) {
+
+        //obtener datos que se enviarán a través del API
+        return new ResponseEntity<>(ap.getPartidasByTipo(campoJuego), HttpStatus.ACCEPTED);
 
     }
-    
-    @RequestMapping(path = "/{partida}/{nombreP}", method = RequestMethod.PUT)
-    public ResponseEntity<?> PuttRecursoSet(@RequestBody Partida p) {
-    
-            ap.actualizar(p);
-        
-           
-            return new ResponseEntity<>(HttpStatus.CREATED);
-      
 
+    //Metodos POST
+    @RequestMapping(method = RequestMethod.POST, value = "/campoJuego/{campoJuego}/partida/{nombre}/nivel/{nivel}")
+    public ResponseEntity<?> manejadorPostAgregarPartida(@PathVariable("campoJuego") String campoJuego, @PathVariable("nombre") String nombre,
+            @PathVariable("nivel") String nivel) {
+        ap.crearNuevoPartida(campoJuego, new Partida(nombre, nivel));
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
-     @RequestMapping(path = "/{Partida}/{nombreP}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deliteRecursoSet(@RequestBody Partida p) {
-      
-            ap.eliminar(p);
-        
-           
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        
 
-    }
 }

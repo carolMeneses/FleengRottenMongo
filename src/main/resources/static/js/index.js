@@ -27,7 +27,7 @@ console.log(jugadores.length +"entro ");
         }
     }
     if(!validar){
-        window.location.replace("/crearCampoJuego.html"+"?"+nombre);
+        window.location.replace("/crearPartida.html"+"?"+nombre);
     }else
         alert("ingresa Usuario");
     

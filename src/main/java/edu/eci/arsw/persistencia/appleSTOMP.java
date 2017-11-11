@@ -8,7 +8,8 @@ package edu.eci.arsw.persistencia;
 import edu.eci.arsw.model.Casilla;
 import edu.eci.arsw.model.Jugador;
 import edu.eci.arsw.model.Partida;
-import edu.eci.arsw.model.campoJuego;
+import edu.eci.arsw.model.CampoJuego;
+import edu.eci.arsw.services.appleServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -22,14 +23,18 @@ import org.springframework.stereotype.Controller;
 public class appleSTOMP {
 
 @Autowired
-campoJuego juego;
+appleServices juego;
 @Autowired
 SimpMessagingTemplate msgt;
 
 
     @MessageMapping("/crearJuego")
-    public void NuevoJuego(String nombreP, String TipPartida,String jugador, String nivel)throws Exception {
-        juego.CrearPartida(nombreP, TipPartida, jugador, nivel);
+    public void NuevoJuego(String nombreP, String tipoPartida,Jugador jugador, String nivel)throws Exception {
+        Partida p= juego.getPartida(nombreP, tipoPartida);
+        p.agregarJugador(jugador);
+        juego.crearNuevoPartida(nombreP, p);
+        //Subscribirse.
+        
 ////       msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),datos);
 //        msgt.convertAndSend("/topic/partidaNueva",datos);
     }

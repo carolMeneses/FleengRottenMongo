@@ -23,7 +23,6 @@ public class Partida {
      private int filas;
      private int columnas;
      private int numJugadores;
-     private String tipoPartida;
 
 
     // private String modalidad;
@@ -45,9 +44,8 @@ public class Partida {
 //
 //  
 //    }
-       public Partida(String nombrePartida,String nivel,String tipoPartida, String usuario) {
+       public Partida(String nombrePartida,String nivel) {
         this.nivel = nivel;
-        this.tipoPartida = tipoPartida;
          if(nivel.equals("Facil")) {
            this.filas=8;
             this.columnas=8;
@@ -65,9 +63,7 @@ public class Partida {
         manzanasBuenas=(filas * columnas)-manzanasPodridas ;
        this.nombrePartida=nombrePartida;
        this.numJugadores= manzanasPodridas-1;
-           Jugador jugador=new Jugador(3,usuario,"blue",nombrePartida);
-           System.out.println(jugador);
-       jugadores.add(jugador);
+ 
         
     }
 
@@ -90,6 +86,10 @@ public class Partida {
     color.add("ligth green");  
    
     }
+
+    public void setJugadores(ArrayList<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
    
    
     public void JuegoNuevo() {
@@ -100,15 +100,15 @@ public class Partida {
         //tablero.asignarNumeros();
 
     }
-    public boolean agregarJugador(String nombre,String partida){
-        boolean adiciono=false;
+    public void agregarJugador(Jugador jugador){
         
         if(jugadores.size()<numJugadores){
-            Jugador jugador=new Jugador(3,nombre,color.get(jugadores.size()),partida);
+            jugador.setColor(color.get(jugadores.size()));
+            jugador.setNumVidas(3);
             jugadores.add(jugador);
-            adiciono=true;
+            
         }
-        return true;
+        
     }
     public Casilla seleccionar(int x, int y, String nombre) {
         Casilla c = null;
@@ -193,13 +193,7 @@ public class Partida {
         return puntaje;
     }
 
-    public String getTipoPartda() {
-        return tipoPartida;
-    }
-
-    public void setTipoPartda(String tipoPartda) {
-        this.tipoPartida = tipoPartda;
-    }
+   
     
 
 }

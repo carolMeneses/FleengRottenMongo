@@ -73,7 +73,7 @@ public class Tablero {
         Casilla c=null;
         
         if(!casillajuego[x][y].isEstado()){
-        casillajuego[x][y].getColor();
+//        casillajuego[x][y].getColor();
         casillajuego[x][y].setEstado(true);
     }
        c= casillajuego[x][y];
@@ -150,7 +150,7 @@ public class Tablero {
     }
 
     public boolean comprueba(Integer i, Integer j) {
-        return (i >= 0 && j >= 0 && j < filas && j < columnas);
+        return (i >= 0 && j >= 0 && i < filas && j < columnas);
     }
 
     public Casilla[][] getCasillajuego() {
@@ -165,5 +165,9 @@ public class Tablero {
         return columnas;
     }
     
+    public Casilla consultarCasilla(int x, int y) {
+        Casilla c = casillajuego[x][y];
+        return c;
+    }
 
 }

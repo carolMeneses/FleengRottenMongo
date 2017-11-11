@@ -18,5 +18,4 @@ public class ApplesApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApplesApplication.class, args);
 	}
-       
 }
