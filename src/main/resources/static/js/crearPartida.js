@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/* global Stomp, apimock */
+/* global Location, apimock, apiClient, Stomp*/
 this.usuario=null;
 stompClient = null;
+// var api=apiClient;
 function connectarJuego(nombreP) {
 
     console.info('Connecting to WS... aaaaaaaaaa');
@@ -32,15 +33,15 @@ function desconnectar() {
 
 }
 function crearJuego() {
-
+    
+    var api = apiClient;
+    api.getPartidaTotal(callback_Partidas);
     // partida=document.getElementsByName.elegir.nombre.value;
     nombreP = document.getElementsByName("nombreP");
     estado = true;
-    validacion = validarNombreJuego();
-    if (!validacion) {
-        estado = false;
+ 
 
-    }
+  
     var tipPartida = document.getElementsByName("tipodepartida");
     for (var i = 0; i < tipPartida.length; i++) {
         if (tipPartida[i].checked)
@@ -69,27 +70,38 @@ function crearJuego() {
         window.location.replace("/tableroJuego.html"+"?"+nombreP+"&" + usuario);
         //disconnect();
     }
+      
 }
 function validarNombreJuego(){
-    var api = apimock;
-       
-    var validar=false;
-    nombreP=document.getElementById("nombreP").value;
+   // var api = apimock;
+    
+   //es necesario implemenmtar esto en filas y colomnas
+   
            
 
-    var jugadores=api.getJuego();
-     for(i=0;i<jugadores.length -1;i++){
-   
-               if(jugadores[i]===nombreP){
-                   validar=true;
-                   i=jugadores.length;
-               }
+}
+    
+
+
+function callback_Partidas(partida){
+    
+    var validar = false;
+    nombreP=document.getElementById("nombreP").value;
+
+    for (i = 0; i < partida.length; i++) {
+  
+        if (partida[i]===(nombreP)) {
+            
+            validar = true;
+            i = partida.length;
+        }
     }
-        if(validar===true || nombreP===null){
-            alert("ingresa un nuevo nombre de juego");
-         }
-        return validar;
-    }
+    if(!validar){
+        window.location.replace("/tableroJuego.html"+"?"+nombreP);
+    }else
+        alert("ingresa Usuario");
+    
+}
 
 
 $(document).ready(

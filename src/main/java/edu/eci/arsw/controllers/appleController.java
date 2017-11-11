@@ -30,7 +30,7 @@ public class appleController {
     SimpMessagingTemplate msmt;
     
    
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value="/Partidas", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetAlltodasPartidas() {
         
             //obtener datos que se enviarán a través del API

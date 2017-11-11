@@ -27,23 +27,48 @@ public class InMemoryApple implements applePersistence {
 
     public InMemoryApple() {
         Partida p=new Partida("Juego1","Dificil","Publica","Johana");
-        partidas.put("juego1", p);
+        partidas.put("Juego1", p);
         Partida pn=new Partida("Juego2","Facil","Privada","Jessica");
-        partidas.put("juego2", pn);
+        partidas.put("Juego2", pn);
     }
     
     @Override
-    public Set<Partida> getTodaslasPartidas() {
+    public List<String> getTodaslasPartidas() {
+        List<String> partida = new ArrayList<String>();
         Collection<Partida> part = partidas.values();
-        Set<Partida> p = new HashSet<>();
+       // Set<Partida> p = new HashSet<>();
         for (Partida pn : part) {
-
-            p.add(pn);
+            
+            partida.add(pn.getNombrePartida());
+                 
+           
+        }for(int i=0;i<partida.size();i++){
+            System.out.println(partida.get(i));
         }
-        return p;
+         return partida;
     }
     
     
+    @Override
+    public List<String> getUsuarios() {
+        
+       List<String> users = new ArrayList<String>();
+        Collection<Partida> part = partidas.values();
+        Set<Partida> p = new HashSet<>();
+        for (Partida pn : part) {
+            
+            List<Jugador> jugadores = pn.getJugadores();
+           
+            for (int j = 0; j < jugadores.size(); j++) {
+                users.add(jugadores.get(j).getNombre());
+              
+                //    System.out.println("jugadores.get(j).getNombre()");
+
+            }
+           
+        }
+         return users;
+    }
     @Override
     public Set<Partida> getPartidasByTipo(String tipoPartida) {
         Collection<Partida> part = partidas.values();
@@ -141,26 +166,6 @@ public class InMemoryApple implements applePersistence {
       
     }
 
-    @Override
-    public List<String> getUsuarios() {
-        
-       List<String> users = new ArrayList<String>();
-        Collection<Partida> part = partidas.values();
-        Set<Partida> p = new HashSet<>();
-        for (Partida pn : part) {
-            
-            List<Jugador> jugadores = pn.getJugadores();
-           
-            for (int j = 0; j < jugadores.size(); j++) {
-                users.add(jugadores.get(j).getNombre());
-              
-                //    System.out.println("jugadores.get(j).getNombre()");
-
-            }
-           
-        }
-         return users;
-    }
         
     
 

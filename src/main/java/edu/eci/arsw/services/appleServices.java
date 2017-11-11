@@ -41,7 +41,7 @@ public class appleServices {
     public Set<Partida> getPartidasByTipo(String tipoPartida) {
         return apple.getPartidasByTipo(tipoPartida);
     }
-      public Set<Partida> getTodasLasPartidas() {
+      public List<String>  getTodasLasPartidas() {
         return apple.getTodaslasPartidas();
     }
     public void eliminar(Partida p) {
