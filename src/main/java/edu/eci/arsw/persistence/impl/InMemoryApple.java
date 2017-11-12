@@ -29,20 +29,21 @@ public class InMemoryApple  implements applePersistence{
 
     public InMemoryApple() {
         campoJuego= new ConcurrentHashMap();
+        iniciar();
         
     }
     
     public void iniciar(){
         CampoJuego publica= new CampoJuego();
-        CampoJuego privada= new CampoJuego();
-        Partida p=new Partida("Juego1","Dificil");
-        Jugador jugador = new Jugador(3, "joha", "blue");
-        jugador.setNuevaPartida(p);
-        p.agregarJugador(jugador);
-        Partida pn=new Partida("Juego2","Dificil");
+      CampoJuego privada= new CampoJuego();
+       Partida p=new Partida("Juego1","Dificil");
+      Jugador jugador = new Jugador(3, "joha", "blue");
+      jugador.setNuevaPartida(p);
+       p.agregarJugador(jugador);
+       Partida pn=new Partida("Juego2","Dificil");
         Jugador jugador1 = new Jugador(3, "jessica", "red");
-        jugador1.setNuevaPartida(p);
-        p.agregarJugador(jugador1);
+        jugador1.setNuevaPartida(pn);
+        pn.agregarJugador(jugador1);
         publica.agregarPartida(p);
         privada.agregarPartida(pn);
         campoJuego.put("publica", publica);
@@ -50,6 +51,7 @@ public class InMemoryApple  implements applePersistence{
     }
     
    
+    @Override
     public Set<Partida> getPartidasByTipo(String tipoPartida) {
         Set<Partida> p=new HashSet<>();
         p.addAll(campoJuego.get(tipoPartida).getPartidas());
@@ -57,16 +59,21 @@ public class InMemoryApple  implements applePersistence{
     }
     
     
+    @Override
     public List<Jugador> getJugadores() {
         
-       List<Jugador> users = new ArrayList<Jugador>();
+      
+       List<Jugador> users = new ArrayList<>();
+         System.out.println("ENTRO A JUGADORES");
        Set<Partida> pu=getPartidasByTipo("publica");
        for(Partida p: pu){
            users.addAll(p.getJugadores());
+             System.out.println("ENTRO A JUGADORES PUBLICA");
        }
        pu=getPartidasByTipo("privada");
        for(Partida p: pu){
            users.addAll(p.getJugadores());
+            System.out.println("ENTRO A JUGADORES PRIVADA");
        }
          return users;
     }
@@ -76,6 +83,7 @@ public class InMemoryApple  implements applePersistence{
   
     
   
+    @Override
     public void agregarJugador(Partida pn,Jugador jugador, String campoJuego) {
       pn.agregarJugador(jugador);
       this.campoJuego.get(campoJuego).agregarPartida(pn);
@@ -85,11 +93,13 @@ public class InMemoryApple  implements applePersistence{
 
 
     
+    @Override
     public void crearNuevoPartida(String campoJuego, Partida p) {
       this.campoJuego.get(campoJuego).agregarPartida(p);
     }
 
    
+    @Override
     public Partida getPartida(String nombreP, String campoJuego) {
        return this.campoJuego.get(campoJuego).getPartida(nombreP);
     }

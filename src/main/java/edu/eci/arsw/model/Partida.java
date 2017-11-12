@@ -26,7 +26,7 @@ public class Partida {
 
 
     // private String modalidad;
-     private int maximoJugadores=15;
+     private int maximoJugadores=5;
      private String nombrePartida;
      private static int manzRestantes;
      private static int manzanasBuenas;
@@ -63,29 +63,16 @@ public class Partida {
         manzanasBuenas=(filas * columnas)-manzanasPodridas ;
        this.nombrePartida=nombrePartida;
        this.numJugadores= manzanasPodridas-1;
+            color.add("blue");
+            color.add("gray");
+            color.add("green");
+            color.add("purple");
+            color.add("pink");
+    
  
-        
     }
 
-   
-    public void crearColores(){
-    color.add("blue");
-    color.add("gray");
-    color.add("green");
-    color.add("purple");
-    color.add("pink");
-    color.add("white");
-    color.add("black");
-    color.add("red");
-    color.add("yellow");
-    color.add("brown");
-    color.add("violet");
-    color.add("orange");
-    color.add("fuchsia");
-    color.add("navy blue");
-    color.add("ligth green");  
-   
-    }
+ 
 
     public void setJugadores(ArrayList<Jugador> jugadores) {
         this.jugadores = jugadores;
@@ -96,16 +83,19 @@ public class Partida {
         tablero = new Tablero(filas, columnas, manzanasPodridas);
         tablero.tableroLleno();
         tablero.AgregarManzanasPodridas();
-        crearColores();
+   
+        
         //tablero.asignarNumeros();
 
     }
     public void agregarJugador(Jugador jugador){
+        System.out.println("ENTRO A JUGADORES");
         
-        if(jugadores.size()<numJugadores){
-            jugador.setColor(color.get(jugadores.size()));
-            jugador.setNumVidas(3);
-            jugadores.add(jugador);
+        if(jugadores.size()<maximoJugadores){
+           jugador.setColor(color.get(jugadores.size()));
+            System.out.println(color.get(0));
+             jugador.setNumVidas(3);
+          jugadores.add(jugador);
             
         }
         

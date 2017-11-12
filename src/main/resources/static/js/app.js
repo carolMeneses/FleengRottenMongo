@@ -44,7 +44,7 @@ function connectarJuego() {
         usuario = parametros1[1];
          alert("Usted a ingresado al campo de Juego APPLE BAD, Bienvenido" +" "+usuario);
        // console.log("hola paso");
-        console.log('/topic/crearCampoJuego/' );
+        console.log('/topic//crearJuego' );
         canvas = document.getElementById("canvas");
         ctx = canvas.getContext('2d');
         var img = new Image();

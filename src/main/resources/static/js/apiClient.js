@@ -144,7 +144,7 @@ apiClient = (function () {
         },
         getUsuarios:function(callback){
             
-             $.get("/apple/usuarios", callback);
+             $.get("/apple/jugadores", callback);
             
         },
         getPartidaTotal:function (callback){

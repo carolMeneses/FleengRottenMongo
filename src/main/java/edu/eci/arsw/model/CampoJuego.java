@@ -8,7 +8,6 @@ package edu.eci.arsw.model;
 //import edu.eci.arsw.persistencia.DatosJuegoNuevo;
 //import edu.eci.arsw.persistencia.DatosSeleccionCasilla;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -31,6 +30,7 @@ public class CampoJuego {
 
     // Se agregan los datos que el usuario a ingresado por medio del HTML-controllador, clase JUego Nuevo
     public void agregarPartida(Partida partida) {
+      
         partidas.put(partida.getNombrePartida(),partida);
     
     }
@@ -42,9 +42,9 @@ public class CampoJuego {
 
     public Set<Partida> getPartidas() {
         Set<Partida> set= new HashSet();
-        for(Partida p: partidas.values()){
+        partidas.values().stream().forEach((p) -> {
             set.add(p);
-        }
+        });
         return set;
     }
     
