@@ -197,7 +197,7 @@ function establecerPartida() {
 }
 
 function mirarCasilla(X, Y) {
-    stompClient.send("/app/poblarCasilla", {}, JSON.stringify({nombreP: nombreP, jugador: usuario ,posicionX: X, posicionY: Y}));
+    stompClient.send("/app/destaparCasilla", {}, JSON.stringify({nombreP: nombreP, jugador: usuario ,posicionX: X, posicionY: Y}));
 
 }
 function mirarTodasCasillas() {

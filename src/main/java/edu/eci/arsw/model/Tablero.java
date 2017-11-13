@@ -32,7 +32,7 @@ public class Tablero {
   
      
     /*
-      
+     LLENA EL TABLERO 
      */
     public void tableroLleno() {
         for (int i = 0; i < columnas; i++) {
@@ -168,6 +168,12 @@ public class Tablero {
     public Casilla consultarCasilla(int x, int y) {
         Casilla c = casillajuego[x][y];
         return c;
+    }
+    public boolean ConsultarManzanaPodrida(int x, int y){
+       return casillajuego[x][y].isManzanaPodrida();
+    }
+    public void exploto(int x,int y){
+    casillajuego[x][y].setManzanaPodrida(false);
     }
 
 }

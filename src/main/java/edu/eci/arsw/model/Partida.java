@@ -47,13 +47,13 @@ public class Partida {
        public Partida(String nombrePartida,String nivel) {
         this.nivel = nivel;
          if(nivel.equals("Facil")) {
-           this.manzanasPodridas = filas * columnas / 4;
+           this.manzanasPodridas = filas * columnas / 10;
         }
         if(nivel.equals("Medio")) {
             this.manzanasPodridas = filas * columnas / 4;
         }
         if(nivel.equals("Dificil")) {
-           this.manzanasPodridas = filas * columnas / 4;
+           this.manzanasPodridas = filas * columnas / 2;
         }
       
     // this.manzanasPodridas = filas * columnas / 4;
