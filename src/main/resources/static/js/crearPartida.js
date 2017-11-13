@@ -35,9 +35,11 @@ function desconnectar() {
 function crearJuego() {
     
     var api = apiClient;
+    validarNombreJuego();
     api.getPartidaTotal(callback_Partidas);
     // partida=document.getElementsByName.elegir.nombre.value;
     nombreP = document.getElementsByName("nombreP");
+    
     estado = true;
  
 
@@ -76,7 +78,10 @@ function validarNombreJuego(){
    // var api = apimock;
     
    //es necesario implemenmtar esto en filas y colomnas
-   
+    var tipPartida = document.getElementsByName("tipodepartida");
+    alert(tipPartida);
+    var api=apiClient;
+    api.getPartidaTotal(tipPartida,callback_Partidas);
            
 
 }

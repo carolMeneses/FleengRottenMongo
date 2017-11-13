@@ -149,7 +149,7 @@ apiClient = (function () {
             
         
         getPartidaTotal:function (campoJuego,callback){
-             $.get("/campoJuego/"+campoJuego+"/partidas", callback);
+             $.get("/apple/campoJuego/"+campoJuego+"/partidas", callback);
         },
         
         getPartidaNombre: function (nombre, callback) {

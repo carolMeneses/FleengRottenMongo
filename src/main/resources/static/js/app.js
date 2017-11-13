@@ -239,7 +239,8 @@ function EventosMouse() {
 
 function dibujarPantalla() {
    
-     //nombreP = document.getElementById("Partida").value;
+    // nombreP = document.getElementById("").value;
+     api.getPartidaByjugador()
         api.getRetornarFilas("Juego1", function (p) {
 
         filas = p;

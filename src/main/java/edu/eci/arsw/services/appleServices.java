@@ -49,6 +49,9 @@ public class appleServices{
     public Partida getPartida(String nombreP, String campoJuego) {
         return apple.getPartida(nombreP, campoJuego);
     }
+     public Partida getPartidaByJugador(String nombreP) {
+        return apple.getPartidaByJugador(nombreP);
+    }
     
 
   

@@ -106,7 +106,39 @@ public class InMemoryApple  implements applePersistence{
        return this.campoJuego.get(campoJuego).getPartida(nombreP);
     }
 
+    @Override
+    public Partida getPartidaByJugador(String jugador) {
+        Partida retornar=null;
+          CampoJuego publica = campoJuego.get("publica");
+           CampoJuego privada= campoJuego.get("privada");
+           Set<Partida> pPublica = publica.getPartidas();
+           Set<Partida> pPrivada = privada.getPartidas();
+            for(Partida p:pPublica){
+                ArrayList<Jugador> jugadores = p.getJugadores();
+                for(int i=0;i<jugadores.size();i++){
+                if(jugadores.get(i).getNombre().equals(jugador)){
+                       retornar=p;
+                }
+             }
+                
+            }
+            for(Partida pn:pPrivada){
+                ArrayList<Jugador> jugadores = pn.getJugadores();
+                for(int i=0;i<jugadores.size();i++){
+                if(jugadores.get(i).getNombre().equals(jugador)){
+                       retornar=pn;
+                }
+                
+             }
+            }
+                return retornar;
+    }
+            
+           
+           
+    }
+
   
 
  
-}
+

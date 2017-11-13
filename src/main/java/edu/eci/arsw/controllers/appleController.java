@@ -48,6 +48,13 @@ public class appleController {
         return new ResponseEntity<>(ap.getPartidasByTipo(campoJuego), HttpStatus.ACCEPTED);
 
     }
+     @RequestMapping(value = "/{jugador}/partida", method = RequestMethod.GET)
+    public ResponseEntity<?> getPartidaByjugador(@PathVariable("jugador") String jugador) {
+
+        //obtener datos que se enviarán a través del API
+        return new ResponseEntity<>(ap.getPartidaByJugador(jugador), HttpStatus.ACCEPTED);
+
+    }
 
     //Metodos POST
     @RequestMapping(method = RequestMethod.POST, value = "/campoJuego/{campoJuego}/partida/{nombre}/nivel/{nivel}")

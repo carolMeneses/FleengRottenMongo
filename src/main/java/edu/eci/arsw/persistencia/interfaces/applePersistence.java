@@ -40,4 +40,5 @@ public interface applePersistence {
     
      public List<Jugador> getJugadores();
      public Partida getPartida(String nombreP, String campoJuego);
+     public Partida getPartidaByJugador(String jugador);
 }
