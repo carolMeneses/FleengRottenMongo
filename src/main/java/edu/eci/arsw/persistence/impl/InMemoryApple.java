@@ -33,7 +33,7 @@ public class InMemoryApple  implements applePersistence{
      
        Partida p=new Partida("Juego1","Dificil");
       Jugador jugador = new Jugador(3, "joha", "blue");
-      jugador.setNuevaPartida(p);
+      jugador.setNuevaPartida(p.getNombrePartida());
       p.agregarJugador(jugador);
         publica.agregarPartida(p);
         campoJuego.put("publica", publica);
@@ -41,8 +41,8 @@ public class InMemoryApple  implements applePersistence{
        CampoJuego privada= new CampoJuego();
        Partida pn=new Partida("Juego2","Dificil");
         Jugador jugador1 = new Jugador(3, "jessica", "red");
-        jugador1.setNuevaPartida(pn);
-       //   pn.agregarJugador(jugador1);
+        jugador1.setNuevaPartida(pn.getNombrePartida());
+       pn.agregarJugador(jugador1);
         privada.agregarPartida(pn);
         campoJuego.put("privada", privada);
     }
@@ -88,7 +88,7 @@ public class InMemoryApple  implements applePersistence{
     @Override
     public void agregarJugador(Partida pn,Jugador jugador, String campoJuego) {
       pn.agregarJugador(jugador);
-      this.campoJuego.get(campoJuego).agregarPartida(pn);
+   //   this.campoJuego.get(campoJuego).agregarPartida(pn);
        
     }
       

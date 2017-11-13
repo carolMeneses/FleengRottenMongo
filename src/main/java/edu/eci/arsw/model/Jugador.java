@@ -5,6 +5,8 @@
  */
 package edu.eci.arsw.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author
@@ -17,9 +19,10 @@ public class Jugador {
     private String color;
     private boolean  estadoVivo=true;
    // cambiar x tipo partida
-    private Partida nuevaPartida;
+    @JsonIgnore
+    private String nuevaPartida;
 
-    public void setNuevaPartida(Partida nuevaPartida) {
+    public void setNuevaPartida(String nuevaPartida) {
         this.nuevaPartida = nuevaPartida;
     }
 
@@ -77,7 +80,7 @@ public class Jugador {
         this.puntaje = puntaje+punt;
     }
     
-    public Partida getPartida() {
+    public String getPartida() {
         return nuevaPartida;
     }
     
