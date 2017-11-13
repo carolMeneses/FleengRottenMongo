@@ -4,33 +4,42 @@
  * and open the template in the editor.
  */
 
-/* global Location, apimock, apiClient*/
+/* global Location, apiClient*/
 
 //var nombreP=document.getElementById("nombreP").value;
  
 function ingresar(){
+   
+   
  nombre=document.getElementById("Usuario").value;
+  
    var api = apiClient;
+   alert("APPI");
    //es necesario implemenmtar esto en filas y colomnas
-    api.getUsuarios(callback_ingresar);
+    api.getJugadores(callback_ingresar);
+   
 }
 
 function callback_ingresar(jugadores){
-    var validar = false;
-    nombre = document.getElementById("Usuario").value;
-    console.log(jugadores +"entro "); 
-console.log(jugadores.length +"entro ");
-    for (i = 0; i < jugadores.length; i++) {
-        if (jugadores[i] === nombre) {
-            validar = true;
-            i = jugadores.length;
-        }
-    }
-    if(!validar){
-        window.location.replace("/crearPartida.html"+"?"+nombre);
-    }else
-        alert("ingresa Usuario");
-    
+     alert("iCOOLBACK");
+//    
+//    var validar = false;
+//   nombre = document.getElementById("Usuario").value;
+//  console.log("entro1"+nombre);
+//    for (i = 0; i < jugadores.length; i++) {
+//        if (jugadores[i] === nombre) {
+//            validar = true;
+//            i = jugadores.length;
+//             console.log("entro2");
+//        }
+//    }
+//    if(!validar){
+//        window.location.replace("/crearPartida.html"+"?"+nombre);
+//         console.log("entro3");
+//    }else
+//        alert("ingresa Usuario");
+//     console.log("entro4");
+//    
 }
 
 function regresar(){

@@ -25,28 +25,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class InMemoryApple  implements applePersistence{
     
-    private Map<String,CampoJuego> campoJuego;
+    private Map<String,CampoJuego> campoJuego =new ConcurrentHashMap();
 
     public InMemoryApple() {
-        campoJuego= new ConcurrentHashMap();
-        iniciar();
         
-    }
-    
-    public void iniciar(){
-        CampoJuego publica= new CampoJuego();
-      CampoJuego privada= new CampoJuego();
+      CampoJuego publica= new CampoJuego();
+     
        Partida p=new Partida("Juego1","Dificil");
       Jugador jugador = new Jugador(3, "joha", "blue");
       jugador.setNuevaPartida(p);
-       p.agregarJugador(jugador);
+     //  p.agregarJugador(jugador);
+        publica.agregarPartida(p);
+        campoJuego.put("publica", publica);
+        
+       CampoJuego privada= new CampoJuego();
        Partida pn=new Partida("Juego2","Dificil");
         Jugador jugador1 = new Jugador(3, "jessica", "red");
         jugador1.setNuevaPartida(pn);
-        pn.agregarJugador(jugador1);
-        publica.agregarPartida(p);
+       //   pn.agregarJugador(jugador1);
         privada.agregarPartida(pn);
-        campoJuego.put("publica", publica);
         campoJuego.put("privada", privada);
     }
     
@@ -61,18 +58,23 @@ public class InMemoryApple  implements applePersistence{
     
     @Override
     public List<Jugador> getJugadores() {
+        CampoJuego publica = campoJuego.get("publica");
+        CampoJuego privada= campoJuego.get("privada");
+        Set<Partida> pPublica = publica.getPartidas();
+        Set<Partida> pPrivada = privada.getPartidas();
         
       
        List<Jugador> users = new ArrayList<>();
-         System.out.println("ENTRO A JUGADORES");
-       Set<Partida> pu=getPartidasByTipo("publica");
-       for(Partida p: pu){
+  
+       for(Partida p:pPublica){
+         
+      
            users.addAll(p.getJugadores());
              System.out.println("ENTRO A JUGADORES PUBLICA");
        }
-       pu=getPartidasByTipo("privada");
-       for(Partida p: pu){
-           users.addAll(p.getJugadores());
+   
+       for(Partida pn: pPrivada){
+           users.addAll(pn.getJugadores());
             System.out.println("ENTRO A JUGADORES PRIVADA");
        }
          return users;
