@@ -48,19 +48,22 @@ SimpMessagingTemplate msgt;
 //         msgt.convertAndSend("/topic/estadoPartida"+datos.getNombreP()+datos.getJugador(),djn);
     }
     @MessageMapping("/destaparCasilla")
-    public void poblarCasillas(String nombreP,String jugador , int X,int Y){
+    public void destaparCasillas(String nombreP,String jugador , int X,int Y){
         Partida p= juego.getPartidaByJugador(jugador);
         Jugador jugador1 = p.getJugador(jugador);
         Casilla c= p.getTablero().consultarCasilla(X, Y);
         if(c.isManzanaPodrida()){
         jugador1.setNumVidas(jugador1.getNumVidas()-1);
-        if(jugador1.getNumVidas()==0)jugador1.setEstadoVivo(false);
+        if(jugador1.getNumVidas()==0){
+            jugador1.setEstadoVivo(false);
+            msgt.convertAndSend("/topic/retirarJugador"+nombreP+jugador);
+        }
         //Falta eliminar jugador y paartida en caso de que sea el unico jugdor
         }
       //  p.getTablero().
      
        // Casilla c= new Casilla(j.getColor(),datos.getpX(),datos.getpY());
-        msgt.convertAndSend("topic/casillaVisitada",c);
+        msgt.convertAndSend("topic/casillaVisitada"+nombreP+jugador+c);
     }
 //    Casilla[][] casillasJuego =juego.consultarCasilla(datos);
 //    Casilla c=null;

@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/* global Location, apimock, apiClient, Stomp*/
+/* global Location, apiClient, Stomp*/
 this.usuario=null;
 stompClient = null;
-// var api=apiClient;
+ var api=apiClient;
+var tipPartida;
 function connectarJuego(nombreP) {
 
     console.info('Connecting to WS... aaaaaaaaaa');
@@ -34,17 +35,18 @@ function desconnectar() {
 }
 function crearJuego() {
     
-    var api = apiClient;
-    validarNombreJuego();
-    api.getPartidaTotal(callback_Partidas);
+  tipPartida = document.getElementById("tipodepartida1").value;
+    alert("lo esta tomando "+tipPartida);
+   
+    api.getPartidaTotal(tipPartida,callback_Partidas);
     // partida=document.getElementsByName.elegir.nombre.value;
-    nombreP = document.getElementsByName("nombreP");
+   // nombreP = document.getElementsByName("nombreP");
     
     estado = true;
  
 
   
-    var tipPartida = document.getElementsByName("tipodepartida");
+   // var tipPartida = document.getElementsByName("tipodepartida");
     for (var i = 0; i < tipPartida.length; i++) {
         if (tipPartida[i].checked)
             tipodePartida = tipPartida[i].value;
@@ -74,19 +76,6 @@ function crearJuego() {
     }
       
 }
-function validarNombreJuego(){
-   // var api = apimock;
-    
-   //es necesario implemenmtar esto en filas y colomnas
-    var tipPartida = document.getElementsByName("tipodepartida");
-    alert(tipPartida);
-    var api=apiClient;
-    api.getPartidaTotal(tipPartida,callback_Partidas);
-           
-
-}
-    
-
 
 function callback_Partidas(partida){
     

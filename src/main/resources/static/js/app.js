@@ -58,7 +58,7 @@ function connectarJuego() {
         cheight = ~~(canvas.height / tamano);
         EventosMouse();
        dibujarPantalla();
-      mirarTodasCasillas();
+    //  mirarTodasCasillas();
 
         stompClient.subscribe('/topic/partidaNueva' , function (datos) {
            
@@ -91,16 +91,18 @@ function connectarJuego() {
             document.getElementById("manzanasPodridas").innerHTML = nuevoJuego.manzanasPodridas;
         }),
 
-        stompClient.subscribe('/topic/casillaVisitada' , function (datos) {
+        stompClient.subscribe('/topic/casillaVisitada'+nombreP+usuario , function (datos) {
             var casilla = JSON.parse(datos.body);
-            var posicionX = casilla.x;
-            var posicionY = casilla.y;
+            var posicionX = casilla.X;
+            var posicionY = casilla.Y;
             var color= casilla.color;
-            llenar(color, posicionX, posicionY);
+            llenar(posicionX, posicionY, 'red');
+            console.log("Entro 12345");
+         // nuevasCasillas(posicionX, posicionY, color, estado);
             //var color = casilla.color;
             //var estado = casilla.estado;
 
-          //  nuevasCasillas(posicionX, posicionY, color, estado);
+          
         });
 
         stompClient.subscribe('/topic/finJuegoRetirar' , function (datos) {
@@ -121,48 +123,49 @@ function connectarJuego() {
 
 
 function nuevasCasillas(posicionX, posicionY, color, estado) {
-    switch (estado) {
-        case 'true':
-            llenar(posicionX, posicionY, 'red');
-            break;
-        case 'false':
-            llenar(posicionX, posicionY, color);
-            break;
-        case '1':
-            llenar(posicionX, posicionY, color);
-            colocarText(estado, 'blue', posicionX, posicionY);
-            break;
-        case '2':
-            llenar(posicionX, posicionY, color);
-            colocarText(estado, 'yellow', posicionX, posicionY);
-            break;
-
-        case '3':
-            llenar(posicionX, posicionY, color);
-            colocarText(estado, 'green', posicionX, posicionY);
-            break;
-        case '4':
-            llenar(posicionX, posicionY, color);
-            colocarText(estado, 'red', posicionX, posicionY);
-            break;
-
-        case '5':
-            llenar(posicionX, posicionY, color);
-            colocarText(estado, 'gray', posicionX, posicionY);
-            break;
-        case '6':
-            llenar(posicionX, posicionY, color);
-            colocarText(estado, 'blue', posicionX, posicionY);
-            break;
-        case '7':
-            llenar(posicionX, posicionY, color);
-            colocarText(estado, 'fuchia', posicionX, posicionY);
-            break;
-        case '8':
-            llenar(posicionX, posicionY, color);
-            colocarText(estado, 'pink', posicionX, posicionY);
-            break;
-    }
+   llenar(posicionX, posicionY, 'red');
+//    switch (true) {
+//        case true:
+//            llenar(posicionX, posicionY, 'red');
+//            break;
+//        case 'false':
+//            llenar(posicionX, posicionY, 'verde');
+//            break;
+//        case '1':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'blue', posicionX, posicionY);
+//            break;
+//        case '2':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'yellow', posicionX, posicionY);
+//            break;
+//
+//        case '3':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'green', posicionX, posicionY);
+//            break;
+//        case '4':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'red', posicionX, posicionY);
+//            break;
+//
+//        case '5':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'gray', posicionX, posicionY);
+//            break;
+//        case '6':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'blue', posicionX, posicionY);
+//            break;
+//        case '7':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'fuchia', posicionX, posicionY);
+//            break;
+//        case '8':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'pink', posicionX, posicionY);
+//            break;
+//    }
 
 }
 function salirDelJuego() {
@@ -223,7 +226,7 @@ function EventosMouse() {
             case 1:
                 mirarCasilla(X, Y);
                 
-                llenar("green", X, Y);
+              //  llenar("green", X, Y);
                 break;
             case 2:
                 break;
