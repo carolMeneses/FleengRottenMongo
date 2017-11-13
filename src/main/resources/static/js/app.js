@@ -52,7 +52,7 @@ function connectarJuego() {
 //        img.onload = function () {
 //            ctx.drawImage(img, 0, 0);
 //        };
-        tamano = canvas.width / 2;
+        tamano = canvas.width / 10;
         console.log(tamano);
         cwidth = ~~(canvas.width / tamano);
         cheight = ~~(canvas.height / tamano);
@@ -239,16 +239,8 @@ function EventosMouse() {
 
 function dibujarPantalla() {
    
-    // nombreP = document.getElementById("").value;
-     api.getPartidaByjugador()
-        api.getRetornarFilas("Juego1", function (p) {
-
-        filas = p;
-                alert(filas);
-                // return filas;
-
-                tamano = canvas.width / filas;
-                console.log("ENTRO");
+    
+              
     
     for (var x = 0; x <= canvasWidth; x += tamano) {
         ctx.moveTo(x, 0);
@@ -261,7 +253,7 @@ function dibujarPantalla() {
     }
     ctx.strokeStyle = "white";
     ctx.stroke();
-});}
+}
 
 $(document).ready(
         function () {

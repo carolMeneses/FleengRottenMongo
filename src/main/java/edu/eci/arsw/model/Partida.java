@@ -20,8 +20,8 @@ public class Partida {
      private ArrayList<String> color=new ArrayList<String>();
      private String nivel;
      private int manzanasPodridas;
-     private int filas;
-     private int columnas;
+     private int filas=10;
+     private int columnas=10;
      private int numJugadores;
 
 
@@ -47,27 +47,25 @@ public class Partida {
        public Partida(String nombrePartida,String nivel) {
         this.nivel = nivel;
          if(nivel.equals("Facil")) {
-           this.filas=8;
-            this.columnas=8;
+           this.manzanasPodridas = filas * columnas / 4;
         }
         if(nivel.equals("Medio")) {
-            this.filas=16;
-           this. columnas=16;
+            this.manzanasPodridas = filas * columnas / 4;
         }
         if(nivel.equals("Dificil")) {
-            this.filas=32;
-           this. columnas=32;
+           this.manzanasPodridas = filas * columnas / 4;
         }
       
-     this.manzanasPodridas = filas * columnas / 4;
+    // this.manzanasPodridas = filas * columnas / 4;
         manzanasBuenas=(filas * columnas)-manzanasPodridas ;
        this.nombrePartida=nombrePartida;
        this.numJugadores= manzanasPodridas-1;
-            color.add("blue");
-            color.add("gray");
-            color.add("green");
-            color.add("purple");
-            color.add("pink");
+        adicionarColor();
+//            color.add("blue");
+//            color.add("gray");
+//            color.add("green");
+//            color.add("purple");
+//            color.add("pink");
     
  
     }
@@ -181,6 +179,15 @@ public class Partida {
 
     public int getPuntaje() {
         return puntaje;
+    }
+
+    private void adicionarColor() {
+         color.add("blue");
+            color.add("gray");
+            color.add("green");
+            color.add("purple");
+            color.add("pink");
+           
     }
 
    
