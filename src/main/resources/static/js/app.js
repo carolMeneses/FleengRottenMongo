@@ -193,10 +193,12 @@ function desconectar() {
 
 
 function establecerPartida() {
+    
     stompClient.send("/app/establecePartida", {}, JSON.stringify({partida: nombreP, jugador: usuario}));
 }
 
 function mirarCasilla(X, Y) {
+     alert(usuario);
     stompClient.send("/app/destaparCasilla", {}, JSON.stringify({nombreP: nombreP, jugador: usuario ,posicionX: X, posicionY: Y}));
 
 }
@@ -220,7 +222,8 @@ function EventosMouse() {
         switch (evento.which) {
             case 1:
                 mirarCasilla(X, Y);
-                 llenar("green", X, Y);
+                
+                llenar("green", X, Y);
                 break;
             case 2:
                 break;
