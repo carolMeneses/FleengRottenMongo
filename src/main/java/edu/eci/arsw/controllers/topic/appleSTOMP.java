@@ -6,11 +6,14 @@
 package edu.eci.arsw.persistencia;
 
 import edu.eci.arsw.model.Casilla;
+import edu.eci.arsw.model.ClientMessage;
 import edu.eci.arsw.model.Jugador;
 import edu.eci.arsw.model.Partida;
-import edu.eci.arsw.model.CampoJuego;
+import edu.eci.arsw.model.ServerMessage;
 import edu.eci.arsw.services.appleServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -29,12 +32,14 @@ SimpMessagingTemplate msgt;
 
 
     @MessageMapping("/crearJuego")
-    public void NuevoJuego(String nombreP, String tipoPartida,Jugador jugador, String nivel)throws Exception {
-        Partida p= juego.getPartida(nombreP, tipoPartida);
-        p.agregarJugador(jugador);
-        juego.crearNuevoPartida(nombreP, p);
-        //Subscribirse.
+    public ResponseEntity<?> NuevoJuego(String nombreP, String tipoPartida,Jugador jugador, String nivel, ClientMessage p)throws Exception {
+        Partida partida= juego.getPartida(nombreP, tipoPartida);
+        partida.agregarJugador(jugador);
+        juego.crearNuevoPartida(nombreP, partida);
         
+        //Subscribirse.
+        //msgt.convertAndSend("/topic/messages",new ServerMessage(p.);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
 ////       msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),datos);
 //        msgt.convertAndSend("/topic/partidaNueva",datos);
     }
