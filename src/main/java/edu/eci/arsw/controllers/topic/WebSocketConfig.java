@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.arsw.persistencia;
+package edu.eci.arsw.controllers.topic;
 
 /**
  *
@@ -22,9 +22,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
        config.enableSimpleBroker("/topic");
-        //config.enableStompBrokerRelay("/topic/").setRelayHost("35.162.214.234").setRelayPort(61613);
-                       
-        config.setApplicationDestinationPrefixes("/app");
+       config.setApplicationDestinationPrefixes("/app");
     }
 
     @Override

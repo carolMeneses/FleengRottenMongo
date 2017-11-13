@@ -31,15 +31,11 @@ function connectarJuego() {
     var socket = new SockJS('/stompApple');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-
         console.log('Connected' + frame);
-       
         nombreP = window.location.search.substr(1);
         var parametros = window.location.search.substr(1);
         var parametros1 = parametros.split("&");
-
         alert(parametros);
-        
         nombreP = parametros1[0];
         usuario = parametros1[1];
          alert("Usted a ingresado al campo de Juego APPLE BAD, Bienvenido" +" "+usuario);

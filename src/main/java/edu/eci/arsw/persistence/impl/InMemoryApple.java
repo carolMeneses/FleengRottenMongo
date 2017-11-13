@@ -8,6 +8,7 @@ package edu.eci.arsw.persistence.impl;
 import edu.eci.arsw.model.CampoJuego;
 import edu.eci.arsw.model.Jugador;
 import edu.eci.arsw.model.Partida;
+import edu.eci.arsw.model.Tablero;
 import edu.eci.arsw.persistencia.interfaces.applePersistence;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,7 +24,7 @@ import org.springframework.stereotype.Service;
  * @author
  */
 @Service
-public class InMemoryApple  implements applePersistence{
+public class InMemoryApple  {
     
     private Map<String,CampoJuego> campoJuego =new ConcurrentHashMap();
 
@@ -48,7 +49,7 @@ public class InMemoryApple  implements applePersistence{
     }
     
    
-    @Override
+    
     public Set<Partida> getPartidasByTipo(String tipoPartida) {
         Set<Partida> p=new HashSet<>();
         p.addAll(campoJuego.get(tipoPartida).getPartidas());
@@ -56,7 +57,7 @@ public class InMemoryApple  implements applePersistence{
     }
     
     
-    @Override
+    
     public List<Jugador> getJugadores() {
         CampoJuego publica = campoJuego.get("publica");
         CampoJuego privada= campoJuego.get("privada");
@@ -85,7 +86,7 @@ public class InMemoryApple  implements applePersistence{
   
     
   
-    @Override
+    
     public void agregarJugador(Partida pn,Jugador jugador, String campoJuego) {
       pn.agregarJugador(jugador);
    //   this.campoJuego.get(campoJuego).agregarPartida(pn);
@@ -95,18 +96,18 @@ public class InMemoryApple  implements applePersistence{
 
 
     
-    @Override
+    
     public void crearNuevoPartida(String campoJuego, Partida p) {
       this.campoJuego.get(campoJuego).agregarPartida(p);
     }
 
    
-    @Override
+    
     public Partida getPartida(String nombreP, String campoJuego) {
        return this.campoJuego.get(campoJuego).getPartida(nombreP);
     }
 
-    @Override
+    
     public Partida getPartidaByJugador(String jugador) {
         Partida retornar=null;
           CampoJuego publica = campoJuego.get("publica");
@@ -132,6 +133,10 @@ public class InMemoryApple  implements applePersistence{
              }
             }
                 return retornar;
+    }
+
+    public Tablero movimiento(int x, int y, String campoJuego, String nombreP) {
+        return this.campoJuego.get(campoJuego).getPartida(nombreP).getTablero();
     }
             
            

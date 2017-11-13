@@ -7,6 +7,7 @@ package edu.eci.arsw.persistencia.interfaces;
 
 import edu.eci.arsw.model.Jugador;
 import edu.eci.arsw.model.Partida;
+import edu.eci.arsw.model.Tablero;
 import java.util.List;
 import java.util.Set;
 import org.springframework.stereotype.Service;
@@ -41,4 +42,5 @@ public interface applePersistence {
      public List<Jugador> getJugadores();
      public Partida getPartida(String nombreP, String campoJuego);
      public Partida getPartidaByJugador(String jugador);
+     public Tablero movimiento(int x, int y, String campoJuego, String nombreP);
 }
