@@ -34,7 +34,7 @@ public class InMemoryApple  implements applePersistence{
        Partida p=new Partida("Juego1","Dificil");
       Jugador jugador = new Jugador(3, "joha", "blue");
       jugador.setNuevaPartida(p);
-     //  p.agregarJugador(jugador);
+      p.agregarJugador(jugador);
         publica.agregarPartida(p);
         campoJuego.put("publica", publica);
         
