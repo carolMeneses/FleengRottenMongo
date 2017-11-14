@@ -71,6 +71,7 @@ public class InMemoryApple  {
     
     public void agregarJugador(Partida pn, Jugador jugador, String campoJuego) {
         pn.agregarJugador(jugador);
+
    //   this.campoJuego.get(campoJuego).agregarPartida(pn);
     }
 
