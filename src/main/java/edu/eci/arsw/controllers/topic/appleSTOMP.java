@@ -65,24 +65,48 @@ SimpMessagingTemplate msgt;
 //         msgt.convertAndSend("/topic/estadoPartida"+datos.getNombreP()+datos.getJugador(),djn);
     }
 
+    /**
+     * A partir de una interacción en el canvas, se evalúa el estado de la casilla
+     * y se actúa como corresponda, ya sea alterando la casilla y al jugador o ignorando
+     * dicho suceso.
+     * @param evtC
+     */
     @MessageMapping("/destaparCasilla")
     public void destaparCasillas(EventoCasilla evtC){
+
         Partida p = juego.getPartidaByJugador(evtC.getJugador());
-        Jugador jugador = p.getJugador(evtC.getJugador());
-        Casilla c = p.getTablero().consultarCasilla(evtC.getPosicionX(), evtC.getPosicionY());
-        c.setJugador(jugador);
-        c.setEstado(true);
-        c.setColor(jugador.getColor());
-        if(c.isManzanaPodrida()){
-            c.setColor("red");
-            jugador.setNumVidas(jugador.getNumVidas() - 1);
-            if(jugador.getNumVidas() == 0){
-                jugador.setEstadoVivo(false);
-                msgt.convertAndSend("/topic/retirarJugador" + evtC.getNombreP() + evtC.getJugador());
+
+        if(p != null){
+            Jugador jugador = p.getJugador(evtC.getJugador());
+            Casilla c = p.getTablero().consultarCasilla(evtC.getPosicionX(), evtC.getPosicionY());
+
+            if(!c.isEstado() && jugador.isEstadoVivo()){
+                c.setEstado(true);
+                c.setJugador(jugador);
+                c.setColor(jugador.getColor());
+                if(c.isManzanaPodrida()){
+                    c.setColor("red");
+                    jugador.setNumVidas(jugador.getNumVidas() - 1);
+                    if(jugador.getNumVidas() == 0){
+                        jugador.setEstadoVivo(false);
+                        msgt.convertAndSend("/topic/retirarJugador." + evtC.getNombreP() + "." + evtC.getJugador(), 0);
+                        if(p.gameOver()){
+                            msgt.convertAndSend("/topic/finJuego." + evtC.getNombreP() , 0);
+                            // ¿Se elimina la partida?
+                        }
+                    }
+                //Falta eliminar jugador y partida en caso de que sea el único jugador
+                }
+                msgt.convertAndSend("/topic/casillaVisitada." + evtC.getNombreP(), c);
             }
-        //Falta eliminar jugador y partida en caso de que sea el único jugador
         }
-        msgt.convertAndSend("/topic/casillaVisitada." + evtC.getNombreP(), c);
+    }
+    @MessageMapping("/abandona")
+    public void abandonaPartida(String usuario){
+        System.out.println("==========================");
+        System.out.println("USer: " + usuario);
+        Partida p = juego.getPartidaByJugador(usuario);
+        p.getJugador(usuario).setEstadoVivo(false);
     }
 
 //    @MessageMapping("/destaparCasilla")

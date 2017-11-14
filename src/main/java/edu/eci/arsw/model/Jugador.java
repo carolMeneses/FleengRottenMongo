@@ -17,25 +17,26 @@ public class Jugador {
     private int numVidas;
     private String nombre;
     private String color;
-    private boolean  estadoVivo=true;
+    private boolean estadoVivo = true;
    // cambiar x tipo partida
     @JsonIgnore
     private String nuevaPartida;
 
-    public void setNuevaPartida(String nuevaPartida) {
-        this.nuevaPartida = nuevaPartida;
-    }
-
 
     private int puntaje=0;
+
     public Jugador(){
-    
+
     }
+
     public Jugador(int numVidas, String nombre, String color) {
         this.numVidas = numVidas;
         this.nombre = nombre;
         this.color = color;
-      
+    }
+
+    public void setNuevaPartida(String nuevaPartida) {
+        this.nuevaPartida = nuevaPartida;
     }
 
     public int getNumVidas() {

@@ -2,17 +2,6 @@
 
 var module = (function(){
 
-//    Clases
-
-    class Casilla{
-        constructor(manzanaPodrida, x, y, estado){
-            this.manzanaPodrida = manzanaPodrida;
-            this.estado = estado;
-            this.x = x;
-            this.y = y;
-        }
-    }
-
     var api= apiClient;
     var stompClient = null;
 
@@ -85,7 +74,7 @@ var module = (function(){
             } ),
 
             stompClient.subscribe('/topic/vidasJugador' , (function (datos) {
-                alert("era con punto y coma")
+                alert("era con punto y coma");
                 var nuevoJuego = JSON.parse(datos.body);
                 document.getElementById("vidajugador").innerHTML = nuevoJuego.vidasJugador;
             }));
@@ -102,19 +91,20 @@ var module = (function(){
                 var posicionY = casilla.y;
                 var color = casilla.color;
                 llenar(posicionX, posicionY, color);
+
+
              // nuevasCasillas(posicionX, posicionY, color, estado);
                 //var color = casilla.color;
                 //var estado = casilla.estado;
             });
 
-            stompClient.subscribe('/topic/finJuegoRetirar' , function (datos) {
-                var fin = JSON.parse(datos.body);
-                if (!fin.estadoJugador) {
-                    alert("Has perdido");
-                    // window.location.replace("/index.html");
-                }
+            stompClient.subscribe('/topic/retirarJugador.' + nombreP + "." + usuario , function(data){
+                alert("Lo siento, te has quedado sin vidas.");
+                desconectar();
+            });
 
-
+            stompClient.subscribe('/topic/finJuego.' + nombreP , function (datos) {
+                alert("Ha muerto el último jugador en pie. \n Fin de la partida");
             });
 
             establecerPartida();
@@ -170,7 +160,10 @@ var module = (function(){
     //    }
 
     }
+
     function salirDelJuego() {
+        stompClient.send("/app/abandona", {}, JSON.stringify({usuario: usuario}));
+        alert("Saliendo de la partida...");
         desconectar();
         //  window.location.replace("/index.html");
     }
@@ -193,10 +186,9 @@ var module = (function(){
 
     function desconectar() {
         if (stompClient !== null) {
-            stompClient.desconectar();
-
+            stompClient.disconnect();
         }
-        console.log("Desconectar");
+        console.log("Desconectando");
     }
 
 
@@ -247,9 +239,6 @@ var module = (function(){
      */
 
     function dibujarPantalla() {
-
-
-
 
         for (var x = 0; x <= canvasWidth; x += tamano) {
             ctx.moveTo(x, 0);

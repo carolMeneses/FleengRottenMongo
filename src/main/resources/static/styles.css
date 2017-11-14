@@ -114,8 +114,12 @@
     border-radius: 15px;
     background:black;
     position: relative;
-    top: -15em;
-    left: 0em;
+    top: -16em;
+}
+
+#salirPartida{
+    position: relative;
+    top: -52em;
 }
 
 /*Background transparente pantalla creación de campo*/

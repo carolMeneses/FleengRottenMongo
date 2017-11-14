@@ -118,12 +118,11 @@ public class Partida {
 
     // falta mover
     public Jugador getJugador(String jugador){
-        Jugador j=null;
-        for(int i=0;i<jugadores.size();i++){
-        if(jugadores.get(i).getNombre().equals(jugador))
-            j=jugadores.get(i);
+        Jugador j = null;
+        for(int i = 0; i < jugadores.size(); i++){
+            if(jugadores.get(i).getNombre().equals(jugador))j = jugadores.get(i);
         }
-    return j;
+        return j;
     }
 
     public Tablero getTablero() {
@@ -180,6 +179,22 @@ public class Partida {
         color.add("green");
         color.add("purple");
         color.add("pink");
+    }
+
+    /**
+     * Verifica si aún quedan sobrevivientes en el tablero.
+     *
+     * @return Indica si el juego se ha o no terminado.
+     */
+    public boolean gameOver(){
+        boolean gameOver = true;
+        for(Jugador j : jugadores){
+            if(j.isEstadoVivo()){
+                gameOver = false;
+                break;
+            }
+        }
+        return gameOver;
     }
 
 }
