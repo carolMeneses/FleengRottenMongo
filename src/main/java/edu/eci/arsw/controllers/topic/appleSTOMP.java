@@ -90,10 +90,7 @@ SimpMessagingTemplate msgt;
                     if(jugador.getNumVidas() == 0){
                         jugador.setEstadoVivo(false);
                         msgt.convertAndSend("/topic/retirarJugador." + evtC.getNombreP() + "." + evtC.getJugador(), 0);
-                        if(p.gameOver()){
-                            msgt.convertAndSend("/topic/finJuego." + evtC.getNombreP() , 0);
-                            // ¿Se elimina la partida?
-                        }
+                        gameOver(p);
                     }
                 //Falta eliminar jugador y partida en caso de que sea el único jugador
                 }
@@ -102,11 +99,12 @@ SimpMessagingTemplate msgt;
         }
     }
     @MessageMapping("/abandona")
-    public void abandonaPartida(String usuario){
-        System.out.println("==========================");
-        System.out.println("USer: " + usuario);
-        Partida p = juego.getPartidaByJugador(usuario);
-        p.getJugador(usuario).setEstadoVivo(false);
+    public void abandonaPartida(PartidaBase partidaBase){
+        Partida p = juego.getPartidaByJugador(partidaBase.getUsuario());
+        p.getJugador(partidaBase.getUsuario()).setEstadoVivo(false);
+        // Se cambia el nombre para que se pueda usar el mismo en otra partida.
+        p.getJugador(partidaBase.getUsuario()).setNombre("");
+        gameOver(p);
     }
 
 //    @MessageMapping("/destaparCasilla")
@@ -142,4 +140,11 @@ SimpMessagingTemplate msgt;
 //        }
 //    }
 
+    private void gameOver(Partida partida){
+        if(partida.gameOver()){
+            msgt.convertAndSend("/topic/finJuego." + partida.getNombrePartida() , 0);
+            // ¿Se elimina la partida? Por el momento sólo se cambia el nombre.
+            partida.setNombrePartida("");
+        }
+    }
 }

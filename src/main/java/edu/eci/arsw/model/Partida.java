@@ -74,7 +74,7 @@ public class Partida {
         tablero = new Tablero(filas, columnas, manzanasPodridas);
         tablero.tableroLleno();
         tablero.AgregarManzanasPodridas();
-        //tablero.asignarNumeros();
+//        tablero.asignarNumeros();
     }
 
     public void setJugadores(ArrayList<Jugador> jugadores) {
@@ -135,6 +135,10 @@ public class Partida {
 
     public int getMaximoJugadores() {
         return maximoJugadores;
+    }
+
+    public void setNombrePartida(String nombrePartida){
+        this.nombrePartida = nombrePartida;
     }
 
     public String getNombrePartida() {

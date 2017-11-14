@@ -3,7 +3,7 @@ function exitAAA(){
     alert("SALEEE");
 
 }
-var module = (function(){
+var app = (function(){
 
     var api= apiClient;
     var stompClient = null;
@@ -103,17 +103,16 @@ var module = (function(){
 
             stompClient.subscribe('/topic/retirarJugador.' + nombreP + "." + usuario , function(data){
                 alert("Lo siento, te has quedado sin vidas.");
-                desconectar();
             });
 
             stompClient.subscribe('/topic/finJuego.' + nombreP , function (datos) {
-                alert("Ha muerto el último jugador en pie. \n Fin de la partida");
+                alert("Ha muerto el último jugador en pie.\nFin de la partida");
             });
 
             establecerPartida();
         });
 
-    }
+    };
 
 
 
@@ -162,14 +161,10 @@ var module = (function(){
     //            break;
     //    }
 
-    }
+    };
 
-    function salirDelJuego() {
-        stompClient.send("/app/abandona", {}, JSON.stringify({usuario: usuario}));
-        alert("Saliendo de la partida...");
-        desconectar();
-        //  window.location.replace("/index.html");
-    }
+
+
 
 //    x: Coordenada X
 //    y: Coordenada Y
@@ -177,39 +172,39 @@ var module = (function(){
     function llenar(x, y, s) {
         ctx.fillStyle = s;
         ctx.fillRect(x * tamano, y * tamano, tamano, tamano);
-    }
+    };
 
     function colocarText(numero, color, gx, gy) {
         ctx.fillStyle = color;
         ctx.font = 0.5 * tamano + "px Georgia";
 
         ctx.colocarText(numero, gx * tamano + tamano / 3, gy * tamano + 2 * tamano / 3);
-    }
+    };
 
 
     function desconectar() {
         if (stompClient !== null) {
             stompClient.disconnect();
         }
-        console.log("Desconectando");
-    }
+        console.log("Desconectando...");
+    };
 
 
     function establecerPartida() {
 
         stompClient.send("/app/establecePartida", {}, JSON.stringify({partida: nombreP, jugador: usuario}));
-    }
+    };
 
 //    Evalúa el contenido de la casilla seleccionada.
     function mirarCasilla(X, Y) {
         stompClient.send("/app/destaparCasilla", {}, JSON.stringify({nombreP: nombreP, jugador: usuario, posicionX: X, posicionY: Y}));
-    }
+    };
 
     function mirarTodasCasillas() {
         console.log("ENTRO A LAS CASILLAS");
         stompClient.send("/app/cubrirCasilla", {}, JSON.stringify({partida: nombreP, posicionX: 10, posicionY: 10}));
 
-    }
+    };
 
 //    Manejo de eventos en el Mouse;
     function EventosMouse() {
@@ -234,7 +229,7 @@ var module = (function(){
                     alert('No corresponde');
             }
         });
-    }
+    };
 
 
     /*
@@ -254,13 +249,22 @@ var module = (function(){
         }
         ctx.strokeStyle = "white";
         ctx.stroke();
-    }
+    };
 
     $(document).ready(
-            function () {
-                connectarJuego();
-            }
+        function () {
+            connectarJuego();
+        }
     );
+
+    return {
+        salirDelJuego: function () {
+            stompClient.send("/app/abandona", {}, JSON.stringify({nombreP: nombreP, tipoPartida: null, nivel: null, usuario: usuario}))
+            window.location.replace("/index.html");
+            //desconectar();
+            //Intentar desconectar y redireccionar mediante promesas ;)
+        }
+    };
 
 })();
 

@@ -13,10 +13,8 @@ and open the template in the editor.
         <script src="/webjars/jquery/jquery.min.js"></script>
         <script src="/webjars/sockjs-client/sockjs.min.js"></script>
         <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-        <script src="js/index.js"></script>
-        <!--<script src="js/apimock.js"></script>-->
-        <script src="js/apiClient.js"></script>
-        <script src="js/app.js"></script>
+        <script src="/js/apiClient.js"></script>
+        <script src="/js/app.js"></script>
     </head>
     <body id="juego">
         <header >
@@ -25,7 +23,7 @@ and open the template in the editor.
 
         <img id="juegoBG"  alt="" src="/images/fondo4.jpg" style="max-width: 100%; width: auto; opacity: .4"/>
         <div>
-            <input type="button" id="salirPartida" value="Salir de Partida" onclick="module.salirDelJuego()"/><br/><br/>
+            <button id="salirPartida" onclick="app.salirDelJuego()">Salir de Partida</button><br/><br/>
             <canvas id="canvas" width="600" height="600" style="border:15px solid #298A08;"></canvas>
 
         </div>
