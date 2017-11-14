@@ -3,13 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.arsw.persistencia;
+package edu.eci.arsw.controllers.topic;
 
-import edu.eci.arsw.model.Casilla;
-import edu.eci.arsw.model.ClientMessage;
-import edu.eci.arsw.model.Jugador;
-import edu.eci.arsw.model.Partida;
-import edu.eci.arsw.model.ServerMessage;
+import edu.eci.arsw.model.*;
 import edu.eci.arsw.services.appleServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,12 +26,26 @@ appleServices juego;
 @Autowired
 SimpMessagingTemplate msgt;
 
+    /**
+     * Crea nueva partida a partir de la información enviada en
+     * crearPartida.js
+     * @return
+     */
+    @MessageMapping("/crearPartida")
+    public ResponseEntity<?> nuevaPartida(PartidaBase partidaBase){
+        Partida partida = new Partida(partidaBase.getNombreP(), partidaBase.getNivel());
+        Jugador jugador = new Jugador(0, partidaBase.getUsuario(), null);
+        juego.crearNuevoPartida(partidaBase.getTipoPartida(), partida);
+        juego.agregarJugador(partida, jugador, partidaBase.getTipoPartida());
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
 
     @MessageMapping("/crearJuego")
-    public ResponseEntity<?> NuevoJuego(String nombreP, String tipoPartida,Jugador jugador, String nivel, ClientMessage p)throws Exception {
-        Partida partida= juego.getPartida(nombreP, tipoPartida);
-        partida.agregarJugador(jugador);
-        juego.crearNuevoPartida(nombreP, partida);
+    public ResponseEntity<?> NuevoJuego(String nombreP, String tipoPartida, Jugador jugador, String nivel, ClientMessage p)throws Exception {
+        System.out.println("LLegó a crear juego");
+//        Partida partida= juego.getPartida(nombreP, tipoPartida);
+//        partida.agregarJugador(jugador);
+//        juego.crearNuevoPartida(nombreP, partida);
         
         //Subscribirse.
         //msgt.convertAndSend("/topic/messages",new ServerMessage(p.);
@@ -43,7 +53,8 @@ SimpMessagingTemplate msgt;
 ////       msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),datos);
 //        msgt.convertAndSend("/topic/partidaNueva",datos);
     }
-     @MessageMapping("/establecePartida")
+
+    @MessageMapping("/establecePartida")
     public void entrarPartida(String nombreP)throws Exception {
 //        DatosJuegoNuevo djn=juego.entrarPartida(datos);
 //        djn.setJugador(datos.getJugador());

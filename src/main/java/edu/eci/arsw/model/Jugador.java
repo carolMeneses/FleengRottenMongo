@@ -38,9 +38,6 @@ public class Jugador {
       
     }
 
-     
-    
-
     public int getNumVidas() {
         return numVidas;
     }
@@ -72,6 +69,7 @@ public class Jugador {
     public void setEstadoVivo(boolean estadoVivo) {
         this.estadoVivo = estadoVivo;
     }
+
     public int getPuntaje() {
         return puntaje;
     }
@@ -83,6 +81,4 @@ public class Jugador {
     public String getPartida() {
         return nuevaPartida;
     }
-    
-    
 }

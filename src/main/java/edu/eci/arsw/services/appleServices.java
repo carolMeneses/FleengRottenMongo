@@ -25,14 +25,11 @@ public class appleServices implements applePersistence{
     @Autowired
     InMemoryApple apple;
 
-    
-    
     @Override
     public void agregarJugador(Partida pn, Jugador nombre, String campoJuego) {
          apple.agregarJugador(pn, nombre, campoJuego);
     }
 
-    
     @Override
     public List<Jugador> getJugadores() {
         return apple.getJugadores();
@@ -44,13 +41,10 @@ public class appleServices implements applePersistence{
         return apple.getPartidasByTipo(tipoPartida);
     }
 
-
-    
     @Override
     public void crearNuevoPartida(String campoJuego, Partida p) {
-        apple.crearNuevoPartida(campoJuego,p);
+        apple.crearNuevoPartida(campoJuego, p);
     }
-
 
     @Override
     public Partida getPartida(String nombreP, String campoJuego) {
@@ -67,9 +61,5 @@ public class appleServices implements applePersistence{
         
         return apple.movimiento(x, y, campoJuego, nombreP);
     }
-    
 
-  
-
-   
 }

@@ -29,8 +29,12 @@ public class appleController {
     SimpMessagingTemplate msmt;
 
     //Metodos GET
-    @RequestMapping(value = "/jugadores", method = RequestMethod.GET)
 
+    /**
+     *
+     * @return Lista de todos los jugadores que están actualmente
+     */
+    @RequestMapping(value = "/jugadores", method = RequestMethod.GET)
     public ResponseEntity<?> getJugadores() {
         try {
             //obtener datos que se enviarán a través del API
@@ -48,7 +52,13 @@ public class appleController {
         return new ResponseEntity<>(ap.getPartidasByTipo(campoJuego), HttpStatus.ACCEPTED);
 
     }
-     @RequestMapping(value = "/{jugador}/partida", method = RequestMethod.GET)
+
+    /**
+     *
+     * @param jugador
+     * @return La información de la partida del jugador dado
+     */
+    @RequestMapping(value = "/{jugador}/partida", method = RequestMethod.GET)
     public ResponseEntity<?> getPartidaByjugador(@PathVariable("jugador") String jugador) {
 
         //obtener datos que se enviarán a través del API

@@ -17,87 +17,73 @@ public class Partida {
    
     private Tablero tablero;
     private ArrayList<Jugador> jugadores=new ArrayList<Jugador>();
-     private ArrayList<String> color=new ArrayList<String>();
-     private String nivel;
-     private int manzanasPodridas;
-     private int filas=10;
-     private int columnas=10;
-     private int numJugadores;
-
-
+    private ArrayList<String> color = new ArrayList<String>();
+    private String nivel;
+    private int manzanasPodridas;
+    private int filas=10;
+    private int columnas=10;
+    private int numJugadores;
     // private String modalidad;
-     private int maximoJugadores=5;
-     private String nombrePartida;
-     private static int manzRestantes;
-     private static int manzanasBuenas;
-     public final int puntaje=5;
+    private int maximoJugadores=5;
+    private String nombrePartida;
+    private static int manzRestantes;
+    private static int manzanasBuenas;
+    public final int puntaje=5;
+
+    public Partida(){
      
-     public Partida(){
-     
-     }
+    }
+
 //     public Partida(String nivel, int filas, int columnas,String nombrePartida,String tipoPartida,String usuario) {
 //        this.nivel = nivel;
 //        this.filas = filas;
 //        this.columnas = columnas;
 //          this.tipoPartida = tipoPartida;
 //        this.nombrePartida=nombrePartida;
-//
-//  
 //    }
-       public Partida(String nombrePartida,String nivel) {
+
+    public Partida(String nombrePartida, String nivel) {
         this.nivel = nivel;
-         if(nivel.equals("Facil")) {
-           this.manzanasPodridas = filas * columnas / 10;
+        switch (this.nivel){
+            case "Facil":
+                this.manzanasPodridas = filas * columnas / 10;
+                break;
+            case "Medio":
+                this.manzanasPodridas = filas * columnas / 4;
+                break;
+            case "Dificil":
+                this.manzanasPodridas = filas * columnas / 2;
+                break;
+            default:
+                break;
         }
-        if(nivel.equals("Medio")) {
-            this.manzanasPodridas = filas * columnas / 4;
-        }
-        if(nivel.equals("Dificil")) {
-           this.manzanasPodridas = filas * columnas / 2;
-        }
-      
+
     // this.manzanasPodridas = filas * columnas / 4;
         manzanasBuenas=(filas * columnas)-manzanasPodridas ;
-       this.nombrePartida=nombrePartida;
-       this.numJugadores= manzanasPodridas-1;
+        this.nombrePartida=nombrePartida;
+        this.numJugadores= manzanasPodridas-1;
         adicionarColor();
-//            color.add("blue");
-//            color.add("gray");
-//            color.add("green");
-//            color.add("purple");
-//            color.add("pink");
-    
- 
     }
-
- 
 
     public void setJugadores(ArrayList<Jugador> jugadores) {
         this.jugadores = jugadores;
     }
-   
-   
+
     public void JuegoNuevo() {
         tablero = new Tablero(filas, columnas, manzanasPodridas);
         tablero.tableroLleno();
         tablero.AgregarManzanasPodridas();
-   
-        
         //tablero.asignarNumeros();
+    }
 
-    }
     public void agregarJugador(Jugador jugador){
-        System.out.println("ENTRO A JUGADORES");
-        
         if(jugadores.size()<maximoJugadores){
-           jugador.setColor(color.get(jugadores.size()));
-            System.out.println(color.get(0));
-             jugador.setNumVidas(3);
-          jugadores.add(jugador);
-            
+            jugador.setColor(color.get(jugadores.size()));
+            jugador.setNumVidas(3);
+            jugadores.add(jugador);
         }
-        
     }
+
     public Casilla seleccionar(int x, int y, String nombre) {
         Casilla c = null;
         String color = "";
@@ -119,12 +105,12 @@ public class Partida {
             }
         }
         return c;
-
     }
 
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
     }
+
     // falta mover
     public Jugador getJugador(String jugador){
         Jugador j=null;
@@ -134,6 +120,7 @@ public class Partida {
         }
     return j;
     }
+
     public Tablero getTablero() {
         return tablero;
     }
@@ -149,7 +136,8 @@ public class Partida {
     public String getNombrePartida() {
         return nombrePartida;
     }
-        public ArrayList<String> getColor() {
+
+    public ArrayList<String> getColor() {
         return color;
     }
 
@@ -182,16 +170,11 @@ public class Partida {
     }
 
     private void adicionarColor() {
-         color.add("blue");
-            color.add("gray");
-            color.add("green");
-            color.add("purple");
-            color.add("pink");
-           
+        color.add("blue");
+        color.add("gray");
+        color.add("green");
+        color.add("purple");
+        color.add("pink");
     }
 
-   
-    
-
 }
-//

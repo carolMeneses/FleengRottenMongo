@@ -4,104 +4,88 @@
  * and open the template in the editor.
  */
 /* global Location, apiClient, Stomp*/
-this.usuario=null;
-stompClient = null;
- var api=apiClient;
-var tipPartida;
-function connectarJuego(nombreP) {
+var stompClient = null;
+var api = apiClient;
+var usuario = null;
+var tipoPartida = null;
+var nombreP = null;
+var nivel = null;
 
-    console.info('Connecting to WS... aaaaaaaaaa');
+function connectarJuego() {
+
+    console.info('Connecting to WS... crearPartida');
     socket = new SockJS('/stompApple');
     stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-       
-        console.log('Connected: ' + frame);
-        usuario = window.location.search.substr(1);
-        console.log(usuario);
-        stompClient.subscribe('/topic/crearCampoJuego/' + nombreP + usuario, function (datos) {
-            
-            window.location.replace("/tableroJuego.html" + "?" + nombreP + "&" + usuario);
-            
-        });
-
-    });
+//    stompClient.connect({}, function (frame) {
+//
+//        console.log('Connected: ' + frame);
+//        usuario = window.location.search.substr(1);
+//        console.log(usuario);
+//        stompClient.subscribe('/topic/crearCampoJuego/' + nombreP + usuario, function (datos) {
+//
+//            window.location.replace("/tableroJuego.html" + "?" + nombreP + "&" + usuario);
+//
+//        });
+//
+//    });
 }
-function desconnectar() {
+function disconnect() {
     if (stompClient !== null) {
-        stompClient.desconnectar();
+        stompClient.disconnect();
     }
     console.log("Disconnected");
 
 }
-function crearJuego() {
-    
-  tipPartida = document.getElementById("tipodepartida1").value;
-    alert("lo esta tomando "+tipPartida);
-   
-    api.getPartidaTotal(tipPartida,callback_Partidas);
-    // partida=document.getElementsByName.elegir.nombre.value;
-   // nombreP = document.getElementsByName("nombreP");
-    
-    estado = true;
- 
 
-  
-   // var tipPartida = document.getElementsByName("tipodepartida");
-    for (var i = 0; i < tipPartida.length; i++) {
-        if (tipPartida[i].checked)
-            tipodePartida = tipPartida[i].value;
-    }
-//        filas=document.elegir.filas.value;
-//        columnas=document.elegir.columnas.value;
+function crearJuego(validar) {
 
-    // En caso de ser campo privado toca declarar las filas
-    var nivelJuego = document.getElementsByName("nivel");
+//    partida=document.getElementsByName.elegir.nombre.value;
+//    filas=document.elegir.filas.value;
+//    columnas=document.elegir.columnas.value;
+//    En caso de ser campo privado toca declarar las filas
 
-    for (var i = 0; i < nivelJuego.length; i++) {
-        if (nivelJuego[i].checked)
-            nivelDificultad = nivelJuego[i].value;
-    }
+    nivel = document.querySelector('input[name = "nivel"]:checked').value;
+    usuario = window.location.search.substr(1);
 
-    //pendiente por crear un nuevo usuarui
-    jugadorNuevo = window.location.search.substr(1);
-
-    if (!estado) {
+    if (!validar) {
         console.log(nombreP);
-        console.log(nivelDificultad);
-        console.log(tipodePartida);
-        //  stompClient.send("/app/NuevaPartida",{},JSON.stringfy({partida:partida,tipodePartida:tipodePartida,nivelDificultad:nivelDificultad}));
-        stompClient.send("/app/crearJuego", {}, JSON.stringify({nombreP: nombreP, tipoPartida: tipodePartida, nivel: nivelDificultad}));
+        console.log(nivel);
+        console.log(tipoPartida);
+//        stompClient.send("/app/NuevaPartida",{},JSON.stringfy({partida:partida,tipodePartida:tipodePartida,nivelDificultad:nivelDificultad}));
+//        stompClient.send("/app/crearJuego", {}, JSON.stringify({nombreP: nombreP, tipoPartida: tipodePartida, nivel: nivelDificultad}));
+        stompClient.send("/app/crearPartida", {}, JSON.stringify({nombreP: nombreP, tipoPartida: tipoPartida, nivel: nivel, usuario: usuario}));
         window.location.replace("/tableroJuego.html"+"?"+nombreP+"&" + usuario);
-        //disconnect();
+//        disconnect();
     }
-      
+}
+
+function validarPartida(){
+    tipoPartida = document.querySelector('input[name = "tipodepartida"]:checked').value;
+    api.getPartidaTotal(tipoPartida, callback_Partidas);
 }
 
 function callback_Partidas(partida){
-    
+    nombreP = document.getElementById("nombreP").value;
     var validar = false;
-    nombreP=document.getElementById("nombreP").value;
-
     for (i = 0; i < partida.length; i++) {
   
-        if (partida[i]===(nombreP)) {
+        if (partida[i].nombrePartida === nombreP) {
             
             validar = true;
-            i = partida.length;
+            break;
         }
     }
-    if(!validar){
-        window.location.replace("/tableroJuego.html"+"?"+nombreP);
-    }else
-        alert("ingresa Usuario");
-    
+    if(!validar && !(nombreP === null || nombreP === "")){
+        crearJuego(validar);
+    }else {
+        alert("Nombre de partida no válido, por favor ingrese otro.");
+    }
 }
 
-
 $(document).ready(
-        function () {
-            connectarJuego(nombreP);
-        }
+    function () {
+        connectarJuego();
+    }
 );
 
 

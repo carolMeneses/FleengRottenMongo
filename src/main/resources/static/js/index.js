@@ -7,39 +7,32 @@
 /* global Location, apiClient*/
 
 //var nombreP=document.getElementById("nombreP").value;
+
+var nombre = null;
  
 function ingresar(){
-   
-   
- nombre=document.getElementById("Usuario").value;
-  
-   var api = apiClient;
-   alert("APPI");
-   //es necesario implemenmtar esto en filas y colomnas
+
+    nombre = document.getElementById("Usuario").value;
+    var api = apiClient;
+    //alert("APPI");
+    //es necesario implemenmtar esto en filas y colomnas
     api.getJugadores(callback_ingresar);
    
 }
 
 function callback_ingresar(jugadores){
-    
-    
+
     var validar = false;
-   nombre = document.getElementById("Usuario").value;
-  console.log("entro1"+nombre);
     for (i = 0; i < jugadores.length; i++) {
-        if (jugadores[i] === nombre) {
+        if (jugadores[i].nombre === nombre) {
             validar = true;
-            i = jugadores.length;
-             console.log("entro2");
+            break;
         }
     }
-    if(!validar){
+    if(!validar && !(nombre === null || nombre === "")){
         window.location.replace("/crearPartida.html"+"?"+nombre);
-         console.log("entro3");
     }else
-        alert("ingresa Usuario");
-     console.log("entro4");
-    
+        alert("Usuario no válido, por favor ingrese otro.");
 }
 
 function regresar(){

@@ -5,7 +5,6 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 
-
 <html>
     <head>
 
@@ -13,56 +12,45 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="styles.css">
-               <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/jquery/jquery.min.js"></script>
         <script src="/webjars/sockjs-client/sockjs.min.js"></script>
         <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-      <script src="js/apiClient.js"></script>
-         <script src="js/crearPartida.js"></script>
-    
+        <script src="js/apiClient.js"></script>
+        <script src="js/crearPartida.js"></script>
 
-
-
- 
     </head>
 
     <body id="vista">
-         <header >
-              <h1 id="titulo" >Fleeing-from-rotten-apples</h1>
-	</header>
+        <header >
+            <h1 id="titulo" >Fleeing-from-rotten-apples</h1>
+        </header>
        
-          <div >
-                
-        
-                       
-                            <br>
+        <div class="divPrincipal">
+            <div class="divSecundario"></div>
+            <br/>
+            <label for="nombreP">Nombre de partida</label>
+            <input type="text" id="nombreP" name="nombreP" required><br/><br/>
+            <label>Tipo de partida</label><br>
+            <input type="radio" id="publica" name="tipodepartida" value="publica" checked="checked">
+            <label for="publica">Partida Pública</label>
+            <input type="radio" id="privada" name="tipodepartida" value="privada">
+            <label for="privada">Partida Privada</label><br/><br/>
                             
-                          <label class="texto" for="nombre">
-                                Nombre de partida
-                          </label>
-                            
-                            <input class="textol" type="text" id="nombreP" name="nombreP" required><br><br>
-                            <label >Tipo de partida</label><br>
-                            <input  type="radio" id="tipodepartida1" name="tipodepartida" value="Publica" > Partida publica
-                            <input  type="radio" id="tipodepartida1" name="tipodepartida" value="Privada"> Partida privada<br>
-                            
-<!--                            <strong><label class="texto" for="tamano_del_tablero">Tamaño del tablero (lado x lado):</label></strong>
-                            <input class="filCol" type="number" id="filas" name="tamanotablero" min="7" max="15" value="7">-->
-                            <br>                   
-                  
-                            
-                           <label class="texto" for="tie" >
-                                    
-                                        Nivel de juego                                  
+<!--&lt;!&ndash;                            <strong><label class="texto" for="tamano_del_tablero">Tamaño del tablero (lado x lado):</label></strong>-->
+            <!--<input class="filCol" type="number" id="filas" name="tamanotablero" min="7" max="15" value="7">&ndash;&gt;-->
+            <label>Nivel de juego</label><br/>
+            <input type="radio" id="facil" name="nivel" value="Facil" checked="checked">
+            <label for="facil">Fácil</label>
+            <input type="radio" id="medio" name="nivel" value="Medio">
+            <label for="medio">Medio</label>
+            <input type="radio" id="dificil" name="nivel" value="Dificil">
+            <label for="dificil">Difícil</label><br/><br/>
 
-                                </label><br>
-                                <input class="textoN" type="radio" name="nivel" value="Facil" checked>Fácil
-                            <input class="textoN" type="radio" name="nivel" value="Medio"> Medio
-                            <input class="textoN" type="radio" name="nivel" value="Dificil"> Difícil<br>
-                            <div class="centrar">
-                                <input class="boton" name="iniciar" type="button" value="Crear" onclick="crearJuego()"> 
-                                <input class="boton" type="reset" value="Regresar" onclick="regresar()">
-                            </div>
-                         <img id="logo11"  alt="" src="/images/fondo9.jpg"/>
+            <div style="align-content: center;">
+                <input type="button" name="iniciar" value="Crear" onclick="validarPartida()">
+                <input type="button" value="Regresar" onclick="regresar()">
+            </div>
+            <!--<img id="logo11"  alt="" src="/images/fondo9.jpg"/>-->
                  
             </div>
     </body>
