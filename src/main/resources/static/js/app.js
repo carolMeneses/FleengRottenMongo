@@ -1,5 +1,8 @@
 /* global Stomp, apiClient */
+function exitAAA(){
+    alert("SALEEE");
 
+}
 var module = (function(){
 
     var api= apiClient;
