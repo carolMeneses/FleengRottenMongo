@@ -12,7 +12,7 @@ package edu.eci.arsw.model;
  */
 public class Casilla {
     private boolean manzanaPodrida;
-  //  private String Color;
+    private String Color;
     private int suma;
     private int x,y;
     private boolean estado; //T pisao y F no pisao
@@ -44,13 +44,13 @@ public class Casilla {
         this.manzanaPodrida = manzanaPodrida;
     }
 
-//    public String getColor() {
-//        return Color;
-//    }
-//
-//    public void setColor(String Color) {
-//        this.Color = Color;
-//    }
+    public String getColor() {
+        return Color;
+    }
+
+    public void setColor(String Color) {
+        this.Color = Color;
+    }
 
     public int getSuma() {
         return suma;

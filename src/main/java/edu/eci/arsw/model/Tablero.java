@@ -6,6 +6,7 @@
 package edu.eci.arsw.model;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -26,7 +27,6 @@ public class Tablero {
         this.columnas = columnas;
         casillajuego = new Casilla[filas][columnas];
         this.manzanasPodridas = manzanasPodridas;
-
     }
     
   
@@ -36,10 +36,9 @@ public class Tablero {
      */
     public void tableroLleno() {
         for (int i = 0; i < columnas; i++) {
-            for (int j = 0; i < filas; j++) {
+            for (int j = 0; j < filas; j++) {
                 casillajuego[i][j] = new Casilla(false);
                 casillajuego[i][j].setPosicion(i, j);
-
             }
         }
     }
@@ -58,26 +57,26 @@ public class Tablero {
             Random ran = new Random();
             int fil;
             int col;
-            fil = (int) (ran.nextInt() * filas + 1);
-            col = (int) (ran.nextInt() * columnas + 1);
+//            fil = (int) (ran.nextInt() * filas + 1);
+//            col = (int) (ran.nextInt() * columnas + 1);
+            fil = ThreadLocalRandom.current().nextInt(0, filas);
+            col = ThreadLocalRandom.current().nextInt(0, columnas);
             if (!casillajuego[fil][col].isManzanaPodrida()) {
                 casillajuego[fil][col].setManzanaPodrida(true);
                 i++;
             }
-            
-
         }
     }
 
-    public Casilla getCasillajuego(String color,int x,int y) {
-        Casilla c=null;
+    public Casilla getCasillajuego(String color, int x, int y) {
+        Casilla c = null;
         
         if(!casillajuego[x][y].isEstado()){
-//        casillajuego[x][y].getColor();
-        casillajuego[x][y].setEstado(true);
-    }
-       c= casillajuego[x][y];
-         return c;
+//            casillajuego[x][y].getColor();
+            casillajuego[x][y].setEstado(true);
+        }
+        c = casillajuego[x][y];
+        return c;
     }
 
     public int getManzanasPodridas() {

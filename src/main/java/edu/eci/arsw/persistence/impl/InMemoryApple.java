@@ -84,24 +84,26 @@ public class InMemoryApple  {
     }
 
     public Partida getPartidaByJugador(String jugador) {
-        Partida retornar=null;
+        Partida retornar = null;
         CampoJuego publica = campoJuego.get("publica");
         CampoJuego privada= campoJuego.get("privada");
         Set<Partida> pPublica = publica.getPartidas();
         Set<Partida> pPrivada = privada.getPartidas();
-        for(Partida p:pPublica){
+        for(Partida p : pPublica){
             ArrayList<Jugador> jugadores = p.getJugadores();
-            for(int i=0;i<jugadores.size();i++){
+            for(int i = 0; i < jugadores.size(); i++){
                 if(jugadores.get(i).getNombre().equals(jugador)){
-                retornar=p;
+                    retornar = p;
+                    break;
                 }
             }
         }
-        for(Partida pn:pPrivada){
+        for(Partida pn : pPrivada){
             ArrayList<Jugador> jugadores = pn.getJugadores();
-            for(int i=0;i<jugadores.size();i++){
+            for(int i = 0; i < jugadores.size(); i++){
                 if(jugadores.get(i).getNombre().equals(jugador)){
-                   retornar=pn;
+                   retornar = pn;
+                   break;
                 }
             }
         }

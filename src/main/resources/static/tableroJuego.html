@@ -6,33 +6,27 @@ and open the template in the editor.
 -->
 <html>
     <head>
-          <title>Fleeing-from-rotten-apples</title>
+        <title>Fleeing-from-rotten-apples</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="styles.css">
-       <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/jquery/jquery.min.js"></script>
         <script src="/webjars/sockjs-client/sockjs.min.js"></script>
         <script src="/webjars/stomp-websocket/stomp.min.js"></script>
         <script src="js/index.js"></script>
-<!--        <script src="js/apimock.js"></script>-->
+        <!--<script src="js/apimock.js"></script>-->
         <script src="js/apiClient.js"></script>
-         <script src="js/app.js"></script>
-
+        <script src="js/app.js"></script>
     </head>
-       <body id="juego"  >
+    <body id="juego">
         <header >
             <h1 id="titulo3" >FLEEING FROM ROTTEN APPLES</h1>
-
-
         </header>
-        <img id="juego"  alt="" src="/images/fondo4.jpg"/>
-        <div  oncontextmenu="return false">
 
+        <img id="juegoBG"  alt="" src="/images/fondo4.jpg" style="max-width: 100%; width: auto; opacity: .4"/>
+        <div>
             <canvas id="canvas" width="600" height="600" style="border:15px solid #298A08;"></canvas>
-
-            
         </div>
-      
-        
+    </body>
 
 </html>

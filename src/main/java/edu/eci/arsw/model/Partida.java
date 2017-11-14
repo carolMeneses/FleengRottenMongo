@@ -16,19 +16,19 @@ public class Partida {
 
    
     private Tablero tablero;
-    private ArrayList<Jugador> jugadores=new ArrayList<Jugador>();
+    private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
     private ArrayList<String> color = new ArrayList<String>();
     private String nivel;
     private int manzanasPodridas;
-    private int filas=10;
-    private int columnas=10;
+    private int filas = 10;
+    private int columnas = 10;
     private int numJugadores;
     // private String modalidad;
-    private int maximoJugadores=5;
+    private int maximoJugadores = 5;
     private String nombrePartida;
     private static int manzRestantes;
     private static int manzanasBuenas;
-    public final int puntaje=5;
+    public final int puntaje = 5;
 
     public Partida(){
      
@@ -43,7 +43,10 @@ public class Partida {
 //    }
 
     public Partida(String nombrePartida, String nivel) {
+
+        this.nombrePartida = nombrePartida;
         this.nivel = nivel;
+
         switch (this.nivel){
             case "Facil":
                 this.manzanasPodridas = filas * columnas / 10;
@@ -59,14 +62,12 @@ public class Partida {
         }
 
     // this.manzanasPodridas = filas * columnas / 4;
-        manzanasBuenas=(filas * columnas)-manzanasPodridas ;
-        this.nombrePartida=nombrePartida;
-        this.numJugadores= manzanasPodridas-1;
-        adicionarColor();
-    }
+        manzanasBuenas = (filas * columnas) - manzanasPodridas ;
 
-    public void setJugadores(ArrayList<Jugador> jugadores) {
-        this.jugadores = jugadores;
+        this.numJugadores = manzanasPodridas-1;
+
+        adicionarColor();
+        JuegoNuevo();
     }
 
     public void JuegoNuevo() {
@@ -74,6 +75,10 @@ public class Partida {
         tablero.tableroLleno();
         tablero.AgregarManzanasPodridas();
         //tablero.asignarNumeros();
+    }
+
+    public void setJugadores(ArrayList<Jugador> jugadores) {
+        this.jugadores = jugadores;
     }
 
     public void agregarJugador(Jugador jugador){
