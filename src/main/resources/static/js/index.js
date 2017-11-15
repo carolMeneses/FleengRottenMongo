@@ -9,18 +9,15 @@
 //var nombreP=document.getElementById("nombreP").value;
 
 var nombre = null;
+var recurso = null;
  
-function ingresar(){
-
+function validar(){
     nombre = document.getElementById("Usuario").value;
     var api = apiClient;
-    //alert("APPI");
-    //es necesario implemenmtar esto en filas y colomnas
-    api.getJugadores(callback_ingresar);
-   
+    api.getJugadores(callback_validar);
 }
 
-function callback_ingresar(jugadores){
+function callback_validar(jugadores){
 
     var validar = false;
     for (i = 0; i < jugadores.length; i++) {
@@ -30,7 +27,8 @@ function callback_ingresar(jugadores){
         }
     }
     if(!validar && !(nombre === null || nombre === "")){
-        window.location.replace("/crearPartida.html"+"?"+nombre);
+        //window.location.replace("/crearPartida.html"+"?"+nombre);
+        window.location.replace(recurso + "?" + nombre);
     }else
         alert("Usuario no válido, por favor ingrese otro.");
 }
@@ -39,6 +37,21 @@ function regresar(){
     window.location.replace("/index.html");
 }
 
+function crearPartida(){
+    recurso = "/crearPartida.html/";
+    validar();
+}
+
+function campoPrivado(){
+    recurso = "/partidaPrivada.html/";
+    validar();
+}
+
+function campoPublico(){
+//    recurso = "/partidaPublica.html/";
+//    validar();
+    alert("En construcción...");
+}
 
 //$(document).ready(
 //        function () {

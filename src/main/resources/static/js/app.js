@@ -1,8 +1,4 @@
 /* global Stomp, apiClient */
-function exitAAA(){
-    alert("SALEEE");
-
-}
 var app = (function(){
 
     var api= apiClient;

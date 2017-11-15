@@ -14,6 +14,9 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import java.lang.reflect.Array;
+import java.util.Set;
+
 /**
  *
  * @author
@@ -41,30 +44,6 @@ SimpMessagingTemplate msgt;
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @MessageMapping("/crearJuego")
-    public ResponseEntity<?> NuevoJuego(String nombreP, String tipoPartida, Jugador jugador, String nivel, ClientMessage p)throws Exception {
-        System.out.println("LLegó a crear juego");
-//        Partida partida= juego.getPartida(nombreP, tipoPartida);
-//        partida.agregarJugador(jugador);
-//        juego.crearNuevoPartida(nombreP, partida);
-        
-        //Subscribirse.
-        //msgt.convertAndSend("/topic/messages",new ServerMessage(p.);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
-////       msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),datos);
-//        msgt.convertAndSend("/topic/partidaNueva",datos);
-    }
-
-    @MessageMapping("/establecePartida")
-    public void entrarPartida(String nombreP)throws Exception {
-//        DatosJuegoNuevo djn=juego.entrarPartida(datos);
-//        djn.setJugador(datos.getJugador());
-//        msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),djn);
-//        Partida p= juego.getPartida(datos.getNombreP());
-//        DatosPartida dp=new DatosPartida(p.getManzanasPodridas(),p.getJugador(datos.getJugador()).getNumVidas(), true);
-//         msgt.convertAndSend("/topic/estadoPartida"+datos.getNombreP()+datos.getJugador(),djn);
-    }
-
     /**
      * A partir de una interacción en el canvas, se evalúa el estado de la casilla
      * y se actúa como corresponda, ya sea alterando la casilla y al jugador o ignorando
@@ -90,6 +69,8 @@ SimpMessagingTemplate msgt;
                     if(jugador.getNumVidas() == 0){
                         jugador.setEstadoVivo(false);
                         msgt.convertAndSend("/topic/retirarJugador." + evtC.getNombreP() + "." + evtC.getJugador(), 0);
+                        // Se cambia el nombre para que se pueda usar el mismo en otra partida.
+                        jugador.setNombre("");
                         gameOver(p);
                     }
                 //Falta eliminar jugador y partida en caso de que sea el único jugador
@@ -98,13 +79,79 @@ SimpMessagingTemplate msgt;
             }
         }
     }
+
+    /**
+     * Valida si la partida privada existe y si el
+     * usuario puede o no unirse.
+     */
+    @MessageMapping("/unirsePartidaPrivada")
+    public void unirsePartidaPrivada(PartidaBase pBase){
+        boolean accesoConcedido = false;
+        Set<Partida> partidas = juego.getPartidasByTipo(pBase.getTipoPartida());
+        for (Partida p : partidas){
+            if(p.getNombrePartida().equals(pBase.getNombreP())){
+                if(p.getJugadores().size() < p.getNumJugadores()){
+                    accesoConcedido = true;
+                    Jugador j = new Jugador(0, pBase.getUsuario(), null);
+                    j.setNuevaPartida(pBase.getNombreP());
+                    p.agregarJugador(j);
+                }
+                break;
+            }
+        }
+        msgt.convertAndSend("/topic/accesoPrivada." + pBase.getUsuario(), accesoConcedido);
+    }
+
+    /**
+     * Responde al evento de usuario de salir de la
+     * partida actual.
+     * @param partidaBase
+     */
     @MessageMapping("/abandona")
     public void abandonaPartida(PartidaBase partidaBase){
         Partida p = juego.getPartidaByJugador(partidaBase.getUsuario());
-        p.getJugador(partidaBase.getUsuario()).setEstadoVivo(false);
-        // Se cambia el nombre para que se pueda usar el mismo en otra partida.
-        p.getJugador(partidaBase.getUsuario()).setNombre("");
-        gameOver(p);
+        if(p != null){
+            p.getJugador(partidaBase.getUsuario()).setEstadoVivo(false);
+            // Se cambia el nombre para que se pueda usar el mismo en otra partida.
+            p.getJugador(partidaBase.getUsuario()).setNombre("");
+            gameOver(p);
+        }
+    }
+
+    /**
+     * Evalúa si los jugadores perdieron la partida
+     * @param partida
+     */
+    private void gameOver(Partida partida){
+        if(partida.gameOver()){
+            msgt.convertAndSend("/topic/finJuego." + partida.getNombrePartida() , 0);
+            // ¿Se elimina la partida? Por el momento sólo se cambia el nombre.
+            partida.setNombrePartida("");
+        }
+    }
+
+    @MessageMapping("/crearJuego")
+    public ResponseEntity<?> NuevoJuego(String nombreP, String tipoPartida, Jugador jugador, String nivel, ClientMessage p)throws Exception {
+        System.out.println("LLegó a crear juego");
+//        Partida partida= juego.getPartida(nombreP, tipoPartida);
+//        partida.agregarJugador(jugador);
+//        juego.crearNuevoPartida(nombreP, partida);
+
+        //Subscribirse.
+        //msgt.convertAndSend("/topic/messages",new ServerMessage(p.);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+////       msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),datos);
+//        msgt.convertAndSend("/topic/partidaNueva",datos);
+    }
+
+    @MessageMapping("/establecePartida")
+    public void entrarPartida(String nombreP)throws Exception {
+//        DatosJuegoNuevo djn=juego.entrarPartida(datos);
+//        djn.setJugador(datos.getJugador());
+//        msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),djn);
+//        Partida p= juego.getPartida(datos.getNombreP());
+//        DatosPartida dp=new DatosPartida(p.getManzanasPodridas(),p.getJugador(datos.getJugador()).getNumVidas(), true);
+//         msgt.convertAndSend("/topic/estadoPartida"+datos.getNombreP()+datos.getJugador(),djn);
     }
 
 //    @MessageMapping("/destaparCasilla")
@@ -140,11 +187,5 @@ SimpMessagingTemplate msgt;
 //        }
 //    }
 
-    private void gameOver(Partida partida){
-        if(partida.gameOver()){
-            msgt.convertAndSend("/topic/finJuego." + partida.getNombrePartida() , 0);
-            // ¿Se elimina la partida? Por el momento sólo se cambia el nombre.
-            partida.setNombrePartida("");
-        }
-    }
+
 }

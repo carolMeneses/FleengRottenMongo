@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fleeing-from-rotten-apples</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/js/apiClient.js"></script>
+    <script src="/js/privada.js"></script>
+</head>
+<body id="vista">
+    <header >
+        <h1 id="titulo4" >Fleeing-from-rotten-apples</h1>
+    </header>
+    <div class="divPrincipal">
+        <div class="divSecundario"></div>
+        <form action="#">
+            <br/>
+            <label for="nombreP">Ingrese el identificador de la partida</label><br/><br/>
+            <input type="text" id="nombreP" name="nombreP" placeholder="Nombre de la partida" required="required"><br/><br/>
+            <div style="align-content: center;">
+                <input type="button" name="iniciar" value="Unirse" onclick="privada.validar()">
+                <input type="button" value="Regresar" onclick="privada.volver()">
+            </div>
+            <br/><br/>
+        </form>
+    </div>
+
+</body>
+</html>
