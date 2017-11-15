@@ -5,27 +5,34 @@
  */
 package edu.eci.arsw.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author Carol Meneses
  * @author Jessica Fresneda
  */
 public class Casilla {
+    @JsonIgnore
     private boolean manzanaPodrida;
-    private String Color;
+    @JsonIgnore
     private int suma;
-    private int x,y;
+    @JsonIgnore
     private boolean estado; //T pisao y F no pisao
+    @JsonIgnore
+    private Jugador jugador ;
+    private String Color;
+    private int x,y;
 
-    Jugador jugador ;
+
     
     public Casilla(){
     }
     
     public Casilla(int x, int y){
-     //   this.Color=Color;
-        this.x=x;
-        this.y=y;
+//        this.Color = "black";
+        this.x = x;
+        this.y = y;
     }
     
     public Casilla(boolean manzanaPodrida) {
@@ -84,7 +91,6 @@ public class Casilla {
         this.estado = estado;
     }
 
-    
     public Jugador getJugador() {
         return jugador;
     }
@@ -92,7 +98,4 @@ public class Casilla {
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
-  
-     
-    
 }

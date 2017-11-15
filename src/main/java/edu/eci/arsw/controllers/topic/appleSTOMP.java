@@ -102,6 +102,20 @@ SimpMessagingTemplate msgt;
         msgt.convertAndSend("/topic/accesoPrivada." + pBase.getUsuario(), accesoConcedido);
     }
 
+    @MessageMapping("/llenarTablero")
+    public void llenarTablero(PartidaBase pBase){
+        Partida p = juego.getPartidaByJugador(pBase.getUsuario());
+        Tablero t = p.getTablero();
+        for(int i = 0; i < t.getFilas(); i++){
+            for(int j = 0; j < t.getColumnas(); j++){
+                Casilla c = t.consultarCasilla(i, j);
+                if(c.isEstado()){
+                    msgt.convertAndSend("/topic/llenarTablero." + pBase.getNombreP() + "." + pBase.getUsuario(), c);
+                }
+            }
+        }
+    }
+
     /**
      * Responde al evento de usuario de salir de la
      * partida actual.
@@ -130,29 +144,29 @@ SimpMessagingTemplate msgt;
         }
     }
 
-    @MessageMapping("/crearJuego")
-    public ResponseEntity<?> NuevoJuego(String nombreP, String tipoPartida, Jugador jugador, String nivel, ClientMessage p)throws Exception {
-        System.out.println("LLegó a crear juego");
+//    @MessageMapping("/crearJuego")
+//    public ResponseEntity<?> NuevoJuego(String nombreP, String tipoPartida, Jugador jugador, String nivel, ClientMessage p)throws Exception {
+//        System.out.println("LLegó a crear juego");
 //        Partida partida= juego.getPartida(nombreP, tipoPartida);
 //        partida.agregarJugador(jugador);
 //        juego.crearNuevoPartida(nombreP, partida);
-
-        //Subscribirse.
-        //msgt.convertAndSend("/topic/messages",new ServerMessage(p.);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
-////       msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),datos);
+//
+//        //Subscribirse.
+//        //msgt.convertAndSend("/topic/messages",new ServerMessage(p.);
+//        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+//       msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),datos);
 //        msgt.convertAndSend("/topic/partidaNueva",datos);
-    }
+//    }
 
-    @MessageMapping("/establecePartida")
-    public void entrarPartida(String nombreP)throws Exception {
+//    @MessageMapping("/establecePartida")
+//    public void entrarPartida(String nombreP)throws Exception {
 //        DatosJuegoNuevo djn=juego.entrarPartida(datos);
 //        djn.setJugador(datos.getJugador());
 //        msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),djn);
 //        Partida p= juego.getPartida(datos.getNombreP());
 //        DatosPartida dp=new DatosPartida(p.getManzanasPodridas(),p.getJugador(datos.getJugador()).getNumVidas(), true);
 //         msgt.convertAndSend("/topic/estadoPartida"+datos.getNombreP()+datos.getJugador(),djn);
-    }
+//    }
 
 //    @MessageMapping("/destaparCasilla")
 //    public void destaparCasillas(String nombreP, String jugador , int X, int Y){

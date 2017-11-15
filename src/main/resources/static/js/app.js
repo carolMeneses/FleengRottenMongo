@@ -27,6 +27,7 @@ var app = (function(){
 //    Variables datos del usuario actual
     var usuario = null;
     var nombreP = null;
+    var tipoPartida = null;
 
     function connectarJuego() {
 
@@ -40,7 +41,7 @@ var app = (function(){
             var parametros1 = parametros.split("&");
             nombreP = parametros1[0];
             usuario = parametros1[1];
-            alert("Bienvenido " + usuario + " ha ingresado al campo de juego: " + nombreP);
+            alert("Bienvenid@ " + usuario + ", ha ingresado al campo de juego: " + nombreP);
 
             canvas = document.getElementById("canvas");
             ctx = canvas.getContext('2d');
@@ -49,52 +50,42 @@ var app = (function(){
 //            img.onload = function () {
 //                ctx.drawImage(img, 0, 0);
 //            };
+
             tamano = canvas.width / 10;
-//            console.log(tamano);
             cwidth = ~~(canvas.width / tamano);
             cheight = ~~(canvas.height / tamano);
             EventosMouse();
             dibujarPantalla();
-        //  mirarTodasCasillas();
 
-            stompClient.subscribe('/topic/partidaNueva' , function (datos) {
+            stompClient.subscribe('/topic/partidaNueva.' + nombreP , function (datos) {
 
-                var nuevoJuego = JSON.parse(datos.body);
-                tipPartida = nuevoJuego.tipoPartida;
-                document.getElementById("Usuario").innerHTML = tipPartida.jugador;
+                tipoPartida = JSON.parse(datos.body);
+                document.getElementById("Usuario").innerHTML = usuario;
 
-                if (tipPartida === "Publica") {
+                if (tipoPartida === "Publica") {
                     document.getElementById("Partida").innerHTML = "Publica";
 
+                } else{
+                    document.getElementById("Partida").innerHTML = nombreP;
                 }
-    //            else{
-    //                document.getElementById("Partido").innerHTML=id;
-    //            }
             } ),
 
-            stompClient.subscribe('/topic/vidasJugador' , (function (datos) {
-                alert("era con punto y coma");
+            stompClient.subscribe('/topic/vidasJugador.' + nombreP + "." + usuario , (function (datos) {
                 var nuevoJuego = JSON.parse(datos.body);
                 document.getElementById("vidajugador").innerHTML = nuevoJuego.vidasJugador;
             }));
 
-            stompClient.subscribe('/topic/manzanasPodridas' , function (datos) {
+            stompClient.subscribe('/topic/manzanasPodridas.' + nombreP , function (datos) {
                 var nuevoJuego = JSON.parse(datos.body);
                 document.getElementById("manzanasPodridas").innerHTML = nuevoJuego.manzanasPodridas;
             }),
 
-//            stompClient.subscribe('/topic/casillaVisitada'+nombreP+usuario , function (datos) {
             stompClient.subscribe('/topic/casillaVisitada.' + nombreP , function (datos) {
-                var casilla = JSON.parse(datos.body);
-                var posicionX = casilla.x;
-                var posicionY = casilla.y;
-                var color = casilla.color;
-                llenar(posicionX, posicionY, color);
+                cambiaCasilla(JSON.parse(datos.body));
+            });
 
-
-             // nuevasCasillas(posicionX, posicionY, color, estado);
-                //var color = casilla.color;
-                //var estado = casilla.estado;
+            stompClient.subscribe('/topic/llenarTablero.' + nombreP + "." + usuario, function (data) {
+                cambiaCasilla(JSON.parse(data.body));
             });
 
             stompClient.subscribe('/topic/retirarJugador.' + nombreP + "." + usuario , function(data){
@@ -105,90 +96,38 @@ var app = (function(){
                 alert("Ha muerto el último jugador en pie.\nFin de la partida");
             });
 
-            establecerPartida();
+            cargarTablero();
+//            establecerPartida();
         });
 
     };
 
-
-
-    function nuevasCasillas(posicionX, posicionY, color, estado) {
-       llenar(posicionX, posicionY, 'red');
-    //    switch (true) {
-    //        case true:
-    //            llenar(posicionX, posicionY, 'red');
-    //            break;
-    //        case 'false':
-    //            llenar(posicionX, posicionY, 'verde');
-    //            break;
-    //        case '1':
-    //            llenar(posicionX, posicionY, color);
-    //            colocarText(estado, 'blue', posicionX, posicionY);
-    //            break;
-    //        case '2':
-    //            llenar(posicionX, posicionY, color);
-    //            colocarText(estado, 'yellow', posicionX, posicionY);
-    //            break;
-    //
-    //        case '3':
-    //            llenar(posicionX, posicionY, color);
-    //            colocarText(estado, 'green', posicionX, posicionY);
-    //            break;
-    //        case '4':
-    //            llenar(posicionX, posicionY, color);
-    //            colocarText(estado, 'red', posicionX, posicionY);
-    //            break;
-    //
-    //        case '5':
-    //            llenar(posicionX, posicionY, color);
-    //            colocarText(estado, 'gray', posicionX, posicionY);
-    //            break;
-    //        case '6':
-    //            llenar(posicionX, posicionY, color);
-    //            colocarText(estado, 'blue', posicionX, posicionY);
-    //            break;
-    //        case '7':
-    //            llenar(posicionX, posicionY, color);
-    //            colocarText(estado, 'fuchia', posicionX, posicionY);
-    //            break;
-    //        case '8':
-    //            llenar(posicionX, posicionY, color);
-    //            colocarText(estado, 'pink', posicionX, posicionY);
-    //            break;
-    //    }
-
-    };
-
-
-
-
-//    x: Coordenada X
-//    y: Coordenada Y
-//    s: Color
-    function llenar(x, y, s) {
-        ctx.fillStyle = s;
-        ctx.fillRect(x * tamano, y * tamano, tamano, tamano);
-    };
-
-    function colocarText(numero, color, gx, gy) {
-        ctx.fillStyle = color;
-        ctx.font = 0.5 * tamano + "px Georgia";
-
-        ctx.colocarText(numero, gx * tamano + tamano / 3, gy * tamano + 2 * tamano / 3);
-    };
-
-
-    function desconectar() {
+    function disconnect() {
         if (stompClient !== null) {
             stompClient.disconnect();
         }
         console.log("Desconectando...");
     };
 
+    function cambiaCasilla(casilla){
+        var posicionX = casilla.x;
+        var posicionY = casilla.y;
+        var color = casilla.color;
+        llenar(posicionX, posicionY, color);
+    };
 
-    function establecerPartida() {
+//    x: Coordenada X
+//    y: Coordenada Y
+//    c: Color
+    function llenar(x, y, c) {
+        ctx.fillStyle = c;
+        ctx.fillRect(x * tamano, y * tamano, tamano, tamano);
+    };
 
-        stompClient.send("/app/establecePartida", {}, JSON.stringify({partida: nombreP, jugador: usuario}));
+    function colocarText(numero, color, gx, gy) {
+        ctx.fillStyle = color;
+        ctx.font = 0.5 * tamano + "px Georgia";
+        ctx.colocarText(numero, gx * tamano + tamano / 3, gy * tamano + 2 * tamano / 3);
     };
 
 //    Evalúa el contenido de la casilla seleccionada.
@@ -196,10 +135,9 @@ var app = (function(){
         stompClient.send("/app/destaparCasilla", {}, JSON.stringify({nombreP: nombreP, jugador: usuario, posicionX: X, posicionY: Y}));
     };
 
-    function mirarTodasCasillas() {
-        console.log("ENTRO A LAS CASILLAS");
-        stompClient.send("/app/cubrirCasilla", {}, JSON.stringify({partida: nombreP, posicionX: 10, posicionY: 10}));
-
+//    Tan pronto se conecte a una nueva partida, se requiere obtener el estado actual del tablero
+    function cargarTablero() {
+        stompClient.send("/app/llenarTablero", {}, JSON.stringify({nombreP: nombreP, tipoPartida: null, nivel: null, usuario: usuario}))
     };
 
 //    Manejo de eventos en el Mouse;
@@ -214,8 +152,6 @@ var app = (function(){
             switch (evento.which) {
                 case 1:
                     mirarCasilla(X, Y);
-
-                  //  llenar("green", X, Y);
                     break;
                 case 2:
                     break;
@@ -227,11 +163,7 @@ var app = (function(){
         });
     };
 
-
-    /*
-     * Dibujar filas y columnas en el CANVAS
-     */
-
+//    Dibujar filas y columnas en el CANVAS
     function dibujarPantalla() {
 
         for (var x = 0; x <= canvasWidth; x += tamano) {
@@ -246,6 +178,61 @@ var app = (function(){
         ctx.strokeStyle = "white";
         ctx.stroke();
     };
+
+//////////////////////////////////////////////////////////////////
+
+    function nuevasCasillas(posicionX, posicionY, color, estado) {
+        llenar(posicionX, posicionY, 'red');
+//    switch (true) {
+//        case true:
+//            llenar(posicionX, posicionY, 'red');
+//            break;
+//        case 'false':
+//            llenar(posicionX, posicionY, 'verde');
+//            break;
+//        case '1':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'blue', posicionX, posicionY);
+//            break;
+//        case '2':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'yellow', posicionX, posicionY);
+//            break;
+//
+//        case '3':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'green', posicionX, posicionY);
+//            break;
+//        case '4':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'red', posicionX, posicionY);
+//            break;
+//
+//        case '5':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'gray', posicionX, posicionY);
+//            break;
+//        case '6':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'blue', posicionX, posicionY);
+//            break;
+//        case '7':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'fuchia', posicionX, posicionY);
+//            break;
+//        case '8':
+//            llenar(posicionX, posicionY, color);
+//            colocarText(estado, 'pink', posicionX, posicionY);
+//            break;
+//    }
+
+    };
+
+    function establecerPartida() {
+        stompClient.send("/app/establecePartida", {}, JSON.stringify({partida: nombreP, jugador: usuario}));
+    };
+
+//////////////////////////////////////////////////////////////////
 
     $(document).ready(
         function () {

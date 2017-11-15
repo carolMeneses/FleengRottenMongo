@@ -6,8 +6,6 @@
 
 /* global Location, apiClient*/
 
-//var nombreP=document.getElementById("nombreP").value;
-
 var nombre = null;
 var recurso = null;
  
@@ -27,7 +25,6 @@ function callback_validar(jugadores){
         }
     }
     if(!validar && !(nombre === null || nombre === "")){
-        //window.location.replace("/crearPartida.html"+"?"+nombre);
         window.location.replace(recurso + "?" + nombre);
     }else
         alert("Usuario no válido, por favor ingrese otro.");
@@ -53,12 +50,10 @@ function campoPublico(){
     alert("En construcción...");
 }
 
-//$(document).ready(
-//        function () {
-//            nombreP = Math.floor((Math.random() * 9534) + 1000);
-//            connectarJuego(nombreP);
-//        }
-//);
+$(document).ready(
+    function () {
+    }
+);
 
 
             
