@@ -74,7 +74,7 @@ public class Partida {
         tablero = new Tablero(filas, columnas, manzanasPodridas);
         tablero.tableroLleno();
         tablero.AgregarManzanasPodridas();
-//        tablero.asignarNumeros();
+        tablero.logicaJuego();
     }
 
     public void setJugadores(ArrayList<Jugador> jugadores) {
@@ -123,6 +123,15 @@ public class Partida {
             if(jugadores.get(i).getNombre().equals(jugador))j = jugadores.get(i);
         }
         return j;
+    }
+
+    /**
+     * Asigna algoritmo de numeros al tablero
+     */
+    public void asignarNumeros() {
+        int cont;
+
+
     }
 
     public Tablero getTablero() {

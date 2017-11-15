@@ -18,13 +18,12 @@ public class Casilla {
     @JsonIgnore
     private int suma;
     @JsonIgnore
-    private boolean estado; //T pisao y F no pisao
+    private boolean estado; // T pisa'o y F no pisa'o
     @JsonIgnore
     private Jugador jugador ;
     private String Color;
     private int x,y;
-
-
+    private int indicador = 0; // Si no es una manzana podrida, muestra la cantidad adyacente de estas
     
     public Casilla(){
     }
@@ -97,5 +96,13 @@ public class Casilla {
 
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
+    }
+
+    public int getIndicador() {
+        return indicador;
+    }
+
+    public void setIndicador(int indicador) {
+        this.indicador = indicador;
     }
 }

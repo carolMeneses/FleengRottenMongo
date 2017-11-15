@@ -113,7 +113,13 @@ var app = (function(){
         var posicionX = casilla.x;
         var posicionY = casilla.y;
         var color = casilla.color;
-        llenar(posicionX, posicionY, color);
+        var indicador = casilla.indicador;
+        if(indicador > 0){
+            colocarText(indicador, color, posicionX, posicionY);
+        } else{
+            llenar(posicionX, posicionY, color);
+        }
+
     };
 
 //    x: Coordenada X
@@ -127,7 +133,7 @@ var app = (function(){
     function colocarText(numero, color, gx, gy) {
         ctx.fillStyle = color;
         ctx.font = 0.5 * tamano + "px Georgia";
-        ctx.colocarText(numero, gx * tamano + tamano / 3, gy * tamano + 2 * tamano / 3);
+        ctx.fillText(numero, gx * tamano + tamano / 3, gy * tamano + 2 * tamano / 3);
     };
 
 //    Evalúa el contenido de la casilla seleccionada.
