@@ -101,6 +101,26 @@ SimpMessagingTemplate msgt;
         }
         msgt.convertAndSend("/topic/accesoPrivada." + pBase.getUsuario(), accesoConcedido);
     }
+    /*
+    Partida Publica 
+    */
+        @MessageMapping("/unirsePartidaPublica")
+    public void unirsePartidaPublica(PartidaBase pBase){
+        boolean accesoConcedido = false;
+        Set<Partida> partidas = juego.getPartidasByTipo(pBase.getTipoPartida());
+        for (Partida p : partidas){
+            if(p.getNombrePartida().equals(pBase.getNombreP())){
+                if(p.getJugadores().size() < p.getNumJugadores()){
+                    accesoConcedido = true;
+                    Jugador j = new Jugador(0, pBase.getUsuario(), null);
+                    j.setNuevaPartida(pBase.getNombreP());
+                    p.agregarJugador(j);
+                }
+                break;
+            }
+        }
+        msgt.convertAndSend("/topic/accesoPublica." + pBase.getUsuario(), accesoConcedido);
+    }
 
     @MessageMapping("/llenarTablero")
     public void llenarTablero(PartidaBase pBase){
