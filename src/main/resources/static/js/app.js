@@ -18,6 +18,8 @@ var app = (function(){
     var y = null;
     var X = null;
     var Y = null;
+    var vidas=3;
+    var puntaje=0;
 
 //    Variables para los eventos del mouse
 
@@ -76,6 +78,7 @@ var app = (function(){
             }));
 
             stompClient.subscribe('/topic/manzanasPodridas.' + nombreP , function (datos) {
+                
                 var nuevoJuego = JSON.parse(datos.body);
                 document.getElementById("manzanasPodridas").innerHTML = nuevoJuego.manzanasPodridas;
             }),
@@ -113,10 +116,23 @@ var app = (function(){
         var posicionX = casilla.x;
         var posicionY = casilla.y;
         var color = casilla.color;
+        prueba=casilla;
+        
+        if (color==="red" && sessionStorage.getItem("nombreuser")=== casilla.username){
+            //se quitó una vida
+            vidas=vidas-1;
+            $("#vidas").text("Vidas:"+vidas);
+        }
+        
         var indicador = casilla.indicador;
-        if(indicador > 0){
+        if(indicador > 0 ){
             colocarText(indicador, color, posicionX, posicionY);
         } else{
+            if (sessionStorage.getItem("nombreuser")=== casilla.username){
+            //se quitó una vida
+            puntaje=puntaje+5;
+            $("#puntaje").text("Puntaje: "+puntaje);
+        }
             llenar(posicionX, posicionY, color);
         }
 
@@ -243,6 +259,9 @@ var app = (function(){
     $(document).ready(
         function () {
             connectarJuego();
+            $("#nombrejugador").text("Nombre :"+sessionStorage.getItem("nombreuser"));
+            $("#vidas").text("Vidas: "+vidas);
+            $("#puntaje").text("Puntaje: "+puntaje);
         }
     );
 

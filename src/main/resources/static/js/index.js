@@ -11,6 +11,7 @@ var recurso = null;
  
 function validar(){
     nombre = document.getElementById("Usuario").value;
+    sessionStorage.setItem("nombreuser",nombre);
     var api = apiClient;
     api.getJugadores(callback_validar);
 }

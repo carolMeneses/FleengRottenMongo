@@ -62,9 +62,13 @@ SimpMessagingTemplate msgt;
             if(!c.isEstado() && jugador.isEstadoVivo()){
                 c.setEstado(true);
                 c.setJugador(jugador);
+                c.setUsername(jugador.getNombre());
                 c.setColor(jugador.getColor());
                 if(c.isManzanaPodrida()){
                     c.setColor("red");
+                    
+                
+                    
                     jugador.setNumVidas(jugador.getNumVidas() - 1);
                     if(jugador.getNumVidas() == 0){
                         jugador.setEstadoVivo(false);
@@ -184,7 +188,7 @@ SimpMessagingTemplate msgt;
 //        djn.setJugador(datos.getJugador());
 //        msgt.convertAndSend("/topic/partidaNueva"+datos.getNombreP()+datos.getJugador(),djn);
 //        Partida p= juego.getPartida(datos.getNombreP());
-//        DatosPartida dp=new DatosPartida(p.getManzanasPodridas(),p.getJugador(datos.getJugador()).getNumVidas(), true);
+//        DatosPartida dp=new DatosPartida(p.getsdridas(),p.getJugador(datos.getJugador()).getNumVidas(), true);
 //         msgt.convertAndSend("/topic/estadoPartida"+datos.getNombreP()+datos.getJugador(),djn);
 //    }
 

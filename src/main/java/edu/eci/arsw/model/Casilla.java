@@ -21,6 +21,7 @@ public class Casilla {
     private boolean estado; // T pisa'o y F no pisa'o
     @JsonIgnore
     private Jugador jugador ;
+    private String username;
     private String Color;
     private int x,y;
     private int indicador = 0; // Si no es una manzana podrida, muestra la cantidad adyacente de estas
@@ -104,5 +105,19 @@ public class Casilla {
 
     public void setIndicador(int indicador) {
         this.indicador = indicador;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
