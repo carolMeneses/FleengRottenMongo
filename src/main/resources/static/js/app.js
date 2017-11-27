@@ -254,7 +254,7 @@ var app = (function(){
         stompClient.send("/app/establecePartida", {}, JSON.stringify({partida: nombreP, jugador: usuario}));
     };
 
-//////////////////////////////////////////////////////////////////
+//
 
     $(document).ready(
         function () {
