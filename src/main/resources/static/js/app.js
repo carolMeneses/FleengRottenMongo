@@ -1,7 +1,7 @@
 /* global Stomp, apiClient */
-var app = (function(){
+var app = (function () {
 
-    var api= apiClient;
+    var api = apiClient;
     var stompClient = null;
 
 //    Variables del canvas
@@ -18,8 +18,8 @@ var app = (function(){
     var y = null;
     var X = null;
     var Y = null;
-    var vidas=3;
-    var puntaje=0;
+    var vidas = 3;
+    var puntaje = 0;
 
 //    Variables para los eventos del mouse
 
@@ -36,107 +36,110 @@ var app = (function(){
         console.info('Connecting to WS... /tableroJuego');
         var socket = new SockJS('/stompApple');
         stompClient = Stomp.over(socket);
-        stompClient.connect({}, function (frame) {
+        stompClient.connect("mihjhxnb", "GQIrTPdPtIRa7d7SohDdw0Caj-EW8LP3",
+                
+        function (frame) {
 
-            console.log('Connected' + frame);
-            var parametros = window.location.search.substr(1);
-            var parametros1 = parametros.split("&");
-            nombreP = parametros1[0];
-            usuario = parametros1[1];
-            alert("Bienvenid@ " + usuario + ", ha ingresado al campo de juego: " + nombreP);
+                    console.log('Connected' + frame);
+                    var parametros = window.location.search.substr(1);
+                    var parametros1 = parametros.split("&");
+                    nombreP = parametros1[0];
+                    usuario = parametros1[1];
+                    alert("Bienvenid@ " + usuario + ", ha ingresado al campo de juego: " + nombreP);
 
-            canvas = document.getElementById("canvas");
-            ctx = canvas.getContext('2d');
-            var img = new Image();
+                    canvas = document.getElementById("canvas");
+                    ctx = canvas.getContext('2d');
+                    var img = new Image();
 //            img.src = "/images/logo1.jpg";
 //            img.onload = function () {
 //                ctx.drawImage(img, 0, 0);
 //            };
 
-            tamano = canvas.width / 10;
-            cwidth = ~~(canvas.width / tamano);
-            cheight = ~~(canvas.height / tamano);
-            EventosMouse();
-            dibujarPantalla();
+                    tamano = canvas.width / 10;
+                    cwidth = ~~(canvas.width / tamano);
+                    cheight = ~~(canvas.height / tamano);
+                    EventosMouse();
+                    dibujarPantalla();
 
-            stompClient.subscribe('/topic/partidaNueva.' + nombreP , function (datos) {
+                    stompClient.subscribe('/topic/partidaNueva.' + nombreP, function (datos) {
 
-                tipoPartida = JSON.parse(datos.body);
-                document.getElementById("Usuario").innerHTML = usuario;
+                        tipoPartida = JSON.parse(datos.body);
+                        document.getElementById("Usuario").innerHTML = usuario;
 
-                if (tipoPartida === "Publica") {
-                    document.getElementById("Partida").innerHTML = "Publica";
+                        if (tipoPartida === "Publica") {
+                            document.getElementById("Partida").innerHTML = "Publica";
 
-                } else{
-                    document.getElementById("Partida").innerHTML = nombreP;
-                }
-            } ),
+                        } else {
+                            document.getElementById("Partida").innerHTML = nombreP;
+                        }
+                    }),
+                            stompClient.subscribe('/topic/vidasJugador.' + nombreP + "." + usuario, (function (datos) {
+                                var nuevoJuego = JSON.parse(datos.body);
+                                document.getElementById("vidajugador").innerHTML = nuevoJuego.vidasJugador;
+                            }));
 
-            stompClient.subscribe('/topic/vidasJugador.' + nombreP + "." + usuario , (function (datos) {
-                var nuevoJuego = JSON.parse(datos.body);
-                document.getElementById("vidajugador").innerHTML = nuevoJuego.vidasJugador;
-            }));
+                    stompClient.subscribe('/topic/manzanasPodridas.' + nombreP, function (datos) {
 
-            stompClient.subscribe('/topic/manzanasPodridas.' + nombreP , function (datos) {
-                
-                var nuevoJuego = JSON.parse(datos.body);
-                document.getElementById("manzanasPodridas").innerHTML = nuevoJuego.manzanasPodridas;
-            }),
+                        var nuevoJuego = JSON.parse(datos.body);
+                        document.getElementById("manzanasPodridas").innerHTML = nuevoJuego.manzanasPodridas;
+                    }),
+                            stompClient.subscribe('/topic/casillaVisitada.' + nombreP, function (datos) {
+                                cambiaCasilla(JSON.parse(datos.body));
+                            });
 
-            stompClient.subscribe('/topic/casillaVisitada.' + nombreP , function (datos) {
-                cambiaCasilla(JSON.parse(datos.body));
-            });
+                    stompClient.subscribe('/topic/llenarTablero.' + nombreP + "." + usuario, function (data) {
+                        cambiaCasilla(JSON.parse(data.body));
+                    });
 
-            stompClient.subscribe('/topic/llenarTablero.' + nombreP + "." + usuario, function (data) {
-                cambiaCasilla(JSON.parse(data.body));
-            });
+                    stompClient.subscribe('/topic/retirarJugador.' + nombreP + "." + usuario, function (data) {
+                        alert("Lo siento, te has quedado sin vidas.");
+                    });
 
-            stompClient.subscribe('/topic/retirarJugador.' + nombreP + "." + usuario , function(data){
-                alert("Lo siento, te has quedado sin vidas.");
-            });
+                    stompClient.subscribe('/topic/finJuego.' + nombreP, function (datos) {
+                        alert("Ha muerto el último jugador en pie.\nFin de la partida");
+                    });
 
-            stompClient.subscribe('/topic/finJuego.' + nombreP , function (datos) {
-                alert("Ha muerto el último jugador en pie.\nFin de la partida");
-            });
-
-            cargarTablero();
+                    cargarTablero();
 //            establecerPartida();
-        });
+                });
 
-    };
+    }
+    ;
 
     function disconnect() {
         if (stompClient !== null) {
             stompClient.disconnect();
         }
         console.log("Desconectando...");
-    };
+    }
+    ;
 
-    function cambiaCasilla(casilla){
+    function cambiaCasilla(casilla) {
         var posicionX = casilla.x;
         var posicionY = casilla.y;
         var color = casilla.color;
-        prueba=casilla;
-        
-        if (color==="red" && sessionStorage.getItem("nombreuser")=== casilla.username){
+        prueba = casilla;
+
+        if (color === "red" && sessionStorage.getItem("nombreuser") === casilla.username) {
             //se quitó una vida
-            vidas=vidas-1;
-            $("#vidas").text("Vidas:"+vidas);
+            vidas = vidas - 1;
+            $("#vidas").text("Vidas:" + vidas);
         }
-        
+
         var indicador = casilla.indicador;
-        if(indicador > 0 ){
+        if (indicador > 0) {
             colocarText(indicador, color, posicionX, posicionY);
-        } else{
-            if (sessionStorage.getItem("nombreuser")=== casilla.username){
-            //se quitó una vida
-            puntaje=puntaje+5;
-            $("#puntaje").text("Puntaje: "+puntaje);
-        }
+        } else {
+            if (sessionStorage.getItem("nombreuser") === casilla.username) {
+                //se quitó una vida
+                puntaje = puntaje + 5;
+                $("#puntaje").text("Puntaje: " + puntaje);
+            }
             llenar(posicionX, posicionY, color);
         }
 
-    };
+    }
+    ;
 
 //    x: Coordenada X
 //    y: Coordenada Y
@@ -144,23 +147,27 @@ var app = (function(){
     function llenar(x, y, c) {
         ctx.fillStyle = c;
         ctx.fillRect(x * tamano, y * tamano, tamano, tamano);
-    };
+    }
+    ;
 
     function colocarText(numero, color, gx, gy) {
         ctx.fillStyle = color;
         ctx.font = 0.5 * tamano + "px Georgia";
         ctx.fillText(numero, gx * tamano + tamano / 3, gy * tamano + 2 * tamano / 3);
-    };
+    }
+    ;
 
 //    Evalúa el contenido de la casilla seleccionada.
     function mirarCasilla(X, Y) {
         stompClient.send("/app/destaparCasilla", {}, JSON.stringify({nombreP: nombreP, jugador: usuario, posicionX: X, posicionY: Y}));
-    };
+    }
+    ;
 
 //    Tan pronto se conecte a una nueva partida, se requiere obtener el estado actual del tablero
     function cargarTablero() {
         stompClient.send("/app/llenarTablero", {}, JSON.stringify({nombreP: nombreP, tipoPartida: null, nivel: null, usuario: usuario}))
-    };
+    }
+    ;
 
 //    Manejo de eventos en el Mouse;
     function EventosMouse() {
@@ -183,23 +190,25 @@ var app = (function(){
                     alert('No corresponde');
             }
         });
-    };
+    }
+    ;
 
 //    Dibujar filas y columnas en el CANVAS
     function dibujarPantalla() {
 
         for (var x = 0; x <= canvasWidth; x += tamano) {
             ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvasWidth);
+            ctx.lineTo(x, canvasWidth);
         }
 
         for (var x = 0; x <= canvasHeight; x += tamano) {
             ctx.moveTo(0, x);
-        ctx.lineTo(canvasHeight, x);
+            ctx.lineTo(canvasHeight, x);
         }
         ctx.strokeStyle = "white";
         ctx.stroke();
-    };
+    }
+    ;
 
 //////////////////////////////////////////////////////////////////
 
@@ -248,21 +257,23 @@ var app = (function(){
 //            break;
 //    }
 
-    };
+    }
+    ;
 
     function establecerPartida() {
         stompClient.send("/app/establecePartida", {}, JSON.stringify({partida: nombreP, jugador: usuario}));
-    };
+    }
+    ;
 
 //
 
     $(document).ready(
-        function () {
-            connectarJuego();
-            $("#nombrejugador").text("Nombre :"+sessionStorage.getItem("nombreuser"));
-            $("#vidas").text("Vidas: "+vidas);
-            $("#puntaje").text("Puntaje: "+puntaje);
-        }
+            function () {
+                connectarJuego();
+                $("#nombrejugador").text("Nombre :" + sessionStorage.getItem("nombreuser"));
+                $("#vidas").text("Vidas: " + vidas);
+                $("#puntaje").text("Puntaje: " + puntaje);
+            }
     );
 
     return {
