@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
  *
  * @author
  */
-@Service
+
 public class InMemoryApple  {
     
     private Map<String,CampoJuego> campoJuego = new ConcurrentHashMap();

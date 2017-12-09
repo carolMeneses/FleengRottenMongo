@@ -6,15 +6,24 @@
 package edu.eci.arsw.model;
 
 import java.util.ArrayList;
-
-/**
+import java.lang.annotation.Documented;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+/*
  *
  * @author Jessica Fresneda
  * @author Carol Meneses
  */
+
+
+
+@Document(collection = "jugadores")
+
+
 public class Partida {
 
-   
+    @Id
+    private int id;
     private Tablero tablero;
     private ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
     private ArrayList<String> color = new ArrayList<String>();

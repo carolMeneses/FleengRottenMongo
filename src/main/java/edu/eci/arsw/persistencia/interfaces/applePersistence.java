@@ -10,6 +10,8 @@ import edu.eci.arsw.model.Partida;
 import edu.eci.arsw.model.Tablero;
 import java.util.List;
 import java.util.Set;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @author
  */
 @Service
-public interface applePersistence {
+public interface applePersistence extends MongoRepository<User, Integer>{
 
     /**
      *
